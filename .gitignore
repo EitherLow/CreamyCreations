@@ -364,3 +364,5 @@ FodyWeavers.xsd
 
 #db files
 CreamyCreations/wwwroot/sql.db
+
+CreamyCreations/Properties/ServiceDependencies/
