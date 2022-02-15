@@ -15,10 +15,16 @@ namespace CreamyCreations.ViewModels
         [Display(Name = "Order ID")]
         public int orderID { get; set; }
 
+        [Display(Name = "Wedding Cake ID")]
         public int weddingCakeID { get; set; }
 
+        [Display(Name = "Customer ID")]
         public int userID { get; set; }
 
-        public DateTime deliveryDate { get; set; }
+        [Display(Name = "Delivery Date")]
+        public string deliveryDate { get; set; }
+
+        [Display(Name = "Price")]
+        public string price { get; set; }
     }
 }

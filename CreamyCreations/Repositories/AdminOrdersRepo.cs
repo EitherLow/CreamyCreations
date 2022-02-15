@@ -19,14 +19,18 @@ namespace CreamyCreations.Repositories
         // Get all customer orders in the database (viewable to only the admin)
         public IEnumerable<AdminOrdersVM> All()
         {
-            var adminOrders = _context.Orders.Select(u => new AdminOrdersVM()
-            {
-                orderID = u.OrderId,
-                weddingCakeID = u.WeddingCakeId,
-                userID = u.UserId,
-                deliveryDate = u.DeliveryDate
+            var adminOrders = from wc in _context.WeddingCakes
+                        from o in _context.Orders
+                        where o.WeddingCakeId == wc.WeddingCakeId
+                        select(new AdminOrdersVM()
+                        {
+                            orderID = o.OrderId,
+                            weddingCakeID = o.WeddingCakeId,
+                            userID = o.UserId,
+                            deliveryDate = o.DeliveryDate.ToString("dd/MM/yyyy"),
+                            price = "$" + wc.TotalPrice
 
-            });
+                        });
             return adminOrders;
         }
     }
