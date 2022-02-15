@@ -24,6 +24,7 @@ namespace CreamyCreations.Repositories
                 orderID = u.OrderId,
                 weddingCakeID = u.WeddingCakeId,
                 userID = u.UserId,
+                addressID = u.AddressId,
                 deliveryDate = u.DeliveryDate
 
             });
