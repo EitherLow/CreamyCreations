@@ -1,8 +1,23 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    //ViewData["Title"] = "Home Page";
 }
-
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<link rel="stylesheet" href="css/Home/index.css"/>
+    <div class="row align-items-center">
+        <div class="col-12 col-lg-8">
+            <img src="assets/homepage/HomePageHeroImage.jpg" class="hero_image"/>
+        </div>
+        <div class="col-12 col-lg-4 d-flex">
+            <div class="align-items-center">
+                <h1>Design the perfect Wedding Cake</h1>
+                @*todo: Please add *@
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <a class="btn btn-primary" href="/">Authenticated button</a>
+                }
+                else
+                {
+                    <a class="btn btn-primary" href="/">Unauthenticated button</a>
+                }
+            </div>
+        </div>
+    </div>
