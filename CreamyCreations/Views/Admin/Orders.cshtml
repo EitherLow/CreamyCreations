@@ -1,10 +1,10 @@
 ﻿@model IEnumerable<CreamyCreations.ViewModels.AdminOrdersVM>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Orders";
 }
 
-<h1>Index</h1>
+<h1>Orders</h1>
 
 <p>
     <a asp-action="Create">Create New</a>
@@ -13,7 +13,7 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.addressID)
+                @Html.DisplayNameFor(model => model.orderID)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.weddingCakeID)
@@ -31,7 +31,7 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.addressID)
+                @Html.DisplayFor(modelItem => item.orderID)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.weddingCakeID)
@@ -43,9 +43,9 @@
                 @Html.DisplayFor(modelItem => item.deliveryDate)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.orderID">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.orderID">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.orderID">Delete</a>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
             </td>
         </tr>
 }
