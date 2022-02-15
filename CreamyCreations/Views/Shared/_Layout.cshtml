@@ -12,33 +12,35 @@
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container">
-                <a href="/"><img src="/assets/layout/logo.png" class="nav_logo"/></a>
+                <a href="/"><img src="/assets/layout/logo.png" class="nav_logo" /></a>
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">CreamyCreations</a>
+                
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                @if (User.IsInRole("Admin"))
-                {
-                    <ul class="navbar-nav flex-grow-1">
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-end">
 
-                        <li>
-                            <a asp-area="" class="nav-link text-dark" asp-controller="Role" asp-action="Index">
-                                Roles
-                            </a>
-                        </li>
-                        <li>
-                            <a asp-area="" class="nav-link text-dark" asp-controller="UserRole" asp-action="Index">
-                                User Roles
-                            </a>
-                        </li>
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <ul class="navbar-nav">
+
+                            <li>
+                                <a asp-area="" class="nav-link text-dark" asp-controller="Role" asp-action="Index">
+                                    Roles
+                                </a>
+                            </li>
+                            <li>
+                                <a asp-area="" class="nav-link text-dark" asp-controller="UserRole" asp-action="Index">
+                                    User Roles
+                                </a>
+                            </li>
 
 
 
-                    </ul>
-                }
-                    <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">CreamyCreations</a>
-                    <partial name="_LoginPartial"/>
+                        </ul>
+                    }
+                    <partial name="_LoginPartial" />
                 </div>
             </div>
         </nav>
