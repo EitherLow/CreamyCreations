@@ -6,9 +6,11 @@ using System.Threading.Tasks;
 using CreamyCreations.Data;
 using CreamyCreations.Repositories;
 using CreamyCreations.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CreamyCreations.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class RoleController : Controller
     {
         ApplicationDbContext _context;

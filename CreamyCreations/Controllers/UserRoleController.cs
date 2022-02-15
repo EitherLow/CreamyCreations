@@ -7,13 +7,14 @@ using System.Threading.Tasks;
 using CreamyCreations.Data;
 using CreamyCreations.Repositories;
 using CreamyCreations.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CreamyCreations.Controllers
 {
     // This annotation can be used at the class or method level.
     // The annotation could include a comma separated list or different
     // roles.
-    //[Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin")]
     public class UserRoleController : Controller
     {
         private ApplicationDbContext _context;
