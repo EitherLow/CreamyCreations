@@ -1,5 +1,6 @@
 ﻿using CreamyCreations.Data;
 using CreamyCreations.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -9,17 +10,20 @@ using System.Threading.Tasks;
 
 namespace CreamyCreations.Controllers
 {
-    public class AdminOrdersController : Controller
+    public class AdminController : Controller
     {
-        private readonly ILogger<AdminOrdersController> _logger;
+        private readonly ILogger<AdminController> _logger;
         private readonly ApplicationDbContext _context;
-        public AdminOrdersController(ILogger<AdminOrdersController> logger,
+        public AdminController(ILogger<AdminController> logger,
                               ApplicationDbContext context)
         {
             _logger = logger;
             _context = context;
+
         }
-        public IActionResult Index()
+
+        [Authorize]
+        public IActionResult Orders()
         {
             AdminOrdersRepo adminOrders = new AdminOrdersRepo(_context);
             var orders = adminOrders.All();
