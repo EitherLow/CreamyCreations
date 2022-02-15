@@ -15,6 +15,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
 using CreamyCreations.Models;
+using Microsoft.AspNetCore.Http.Extensions;
 
 namespace CreamyCreations.Areas.Identity.Pages.Account
 {
@@ -89,7 +90,12 @@ namespace CreamyCreations.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
+                var url = Request.GetEncodedUrl();
                 var user = new IdentityUser { UserName = Input.Email, Email = Input.Email };
+                if (url.Contains("localhost"))
+                {
+                    user.EmailConfirmed = true;
+                }
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {
