@@ -1,0 +1,58 @@
+﻿@model IEnumerable<CreamyCreations.ViewModels.AdminOrdersVM>
+
+@{
+    ViewData["Title"] = "Orders";
+}
+
+<h1>Orders</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.orderID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.weddingCakeID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.userID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.deliveryDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.price)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.orderID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.weddingCakeID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.userID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.deliveryDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.price)
+            </td>
+            <td>
+                <button class="btn btn-success" asp-action="Edit" asp-route-id="@item.Id">Edit</button>
+                <button class="btn btn-info" asp-action="Details" asp-route-id="@item.Id">Details</button>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
