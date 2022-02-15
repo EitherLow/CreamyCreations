@@ -7,9 +7,9 @@
 <h1>@ViewData["Title"]</h1>
 
 <div class="row justify-content-center">
-    <div class="col-md-4 align-items-center">
+    <div class="col-md-4">
         <form asp-route-returnUrl="@Model.ReturnUrl" method="post">
-            <h4>Create a new account.</h4>
+            <h1 class="h3 text-center">Create a new account</h1>
             <hr />
             <div asp-validation-summary="All" class="text-danger"></div>
             <div class="form-group">
@@ -38,7 +38,9 @@
                 <input asp-for="Input.ConfirmPassword" class="form-control" />
                 <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
             </div>
-            <button type="submit" class="btn btn-primary">Register</button>
+            <div class="text-center">
+                <button type="submit" class="btn btn-primary">Register</button>
+            </div>
         </form>
     </div>
     @*<div class="col-md-6 col-md-offset-2">
