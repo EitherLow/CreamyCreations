@@ -6,6 +6,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Text;
 using System.ComponentModel.DataAnnotations.Schema;
 using CreamyCreations.Models;
+using CreamyCreations.ViewModels;
 
 namespace CreamyCreations.Data
 {
@@ -345,6 +346,8 @@ namespace CreamyCreations.Data
         }
 
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
+
+        public DbSet<CreamyCreations.ViewModels.AdminOrdersVM> AdminOrdersVM { get; set; }
 
 
 
