@@ -8,6 +8,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using CreamyCreations.Data;
 using CreamyCreations.Models;
+using CreamyCreations.Repositories;
+using CreamyCreations.ViewModels;
 
 namespace CreamyCreations.Controllers
 {
@@ -26,6 +28,13 @@ namespace CreamyCreations.Controllers
         {
 
             return View();
+        }
+
+        public IActionResult CreateCake()
+        {
+            WeddingCakeRepo weddingCakeRepo = new WeddingCakeRepo(_context);
+            var cakeVM = weddingCakeRepo.BuildWeddingCake();
+            return View(cakeVM);
         }
 
 
