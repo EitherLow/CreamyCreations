@@ -4,12 +4,8 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
-
 <div>
-    <h4>User</h4>
     <p>@ViewBag.statusMessage</p>
-    <hr />
     <dl class="row">
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.FirstName)
@@ -33,5 +29,5 @@
 </div>
 <div>
     <a asp-action="Edit" asp-route-id="@Model.UserId">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index" asp-controller="Home">Back to Home Page</a>
 </div>
