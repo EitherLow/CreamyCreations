@@ -17,7 +17,7 @@ namespace CreamyCreations.Controllers
         }
         public IActionResult Index()
         {
-            if (User.Identity != null)
+            if (User.Identity != null && User.Identity.Name != null)
             {
                 string getUserName = User.Identity.Name;
                 Console.WriteLine("Console Write: Profile Controller line 23 -> {0}",getUserName);
@@ -26,8 +26,11 @@ namespace CreamyCreations.Controllers
                 var userData = _context.Users.FirstOrDefault(user => user.Email == getUserName);
                 return View(userData);
             }
+
             // TODO: Please fix this so the page does not crash???
-            return null;
+            Response.Redirect("/");
+
+            return new EmptyResult();
         }
     }
 }
