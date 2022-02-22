@@ -30,13 +30,6 @@ namespace CreamyCreations.Controllers
             return View();
         }
 
-        public IActionResult CreateCake()
-        {
-            WeddingCakeRepo weddingCakeRepo = new WeddingCakeRepo(_context);
-            var cakeVM = weddingCakeRepo.BuildWeddingCake();
-            return View(cakeVM);
-        }
-
 
         [Authorize]
         public IActionResult SecureArea()

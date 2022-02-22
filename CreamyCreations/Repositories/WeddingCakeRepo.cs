@@ -16,9 +16,9 @@ namespace CreamyCreations.Repositories
             this._context = context;
         }
 
-        public WeddingCakeVM BuildWeddingCake()
+        public CreateWeddingCakeVM BuildWeddingCake()
         {
-            WeddingCakeVM weddingCakeVM = new WeddingCakeVM();
+            CreateWeddingCakeVM weddingCakeVM = new CreateWeddingCakeVM();
             
             weddingCakeVM.Covers = GetAllCovers();
             weddingCakeVM.Fillings = GetAllFillings();
@@ -28,6 +28,11 @@ namespace CreamyCreations.Repositories
 
             return weddingCakeVM;
         }
+
+
+        /*************************************************
+        * INITIALIZE A WEDDING CAKE VM
+        ************************************************/
 
         // Get all attributes from the Cover table and save it to List<>
         public List<Cover> GetAllCovers()
@@ -91,6 +96,24 @@ namespace CreamyCreations.Repositories
                                 Price = d.Price
                             });
             return decorationList.ToList();
+        }
+
+        /*************************************************
+        * CREATE
+        ************************************************/
+        public void CreateWeddingCake(WeddingCake userWeddingCake)
+        {
+            WeddingCake newWeddingCake = new WeddingCake()
+            {
+                WeddingCakeId = userWeddingCake.WeddingCakeId,
+                CoverId = userWeddingCake.CoverId,
+                FillingId = userWeddingCake.FillingId,
+                LabelId = userWeddingCake.LabelId,
+                LevelNumber = userWeddingCake.LevelNumber,
+                TotalPrice = userWeddingCake.TotalPrice
+            };
+            _context.WeddingCakes.Add(newWeddingCake);
+            //_context.SaveChanges();
         }
     }
 }
