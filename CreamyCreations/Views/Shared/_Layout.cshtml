@@ -1,4 +1,8 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -6,44 +10,69 @@
     <title>@ViewData["Title"] - CreamyCreations</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
-    <link rel="stylesheet" href="/css/Shared/_layout.css"/>
+    <link rel="stylesheet" href="/css/Shared/_layout.css" />
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container">
-                <a href="/"><img src="/assets/layout/logo.png" class="nav_logo" /></a>
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">CreamyCreations</a>
-                
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-end">
+        @if (SignInManager.IsSignedIn(User))
+        {
+            <nav class="navbar navbar-light bg-white border-bottom box-shadow mb-3">
+                <div class="container">
+                    <a href="/"><img src="/assets/layout/logo.png" class="nav_logo" /></a>
+                    <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">CreamyCreations</a>
 
-                    @if (User.IsInRole("Admin"))
-                    {
-                        <ul class="navbar-nav">
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                            aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="navbar-collapse collapse justify-content-end">
 
-                            <li>
-                                <a asp-area="" class="nav-link text-dark" asp-controller="Role" asp-action="Index">
-                                    Roles
-                                </a>
-                            </li>
-                            <li>
-                                <a asp-area="" class="nav-link text-dark" asp-controller="UserRole" asp-action="Index">
-                                    User Roles
-                                </a>
-                            </li>
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <ul class="navbar-nav ms-right">
+                                <li>
+                                    <a asp-area="" class="nav-link text-dark" asp-controller="UserRole" asp-action="Index">
+                                        User Roles
+                                    </a>
+                                </li>
 
-
-
-                        </ul>
-                    }
-                    <partial name="_LoginPartial" />
+                            </ul>
+                        }
+                        <partial name="_LoginPartial" />
+                    </div>
                 </div>
+            </nav>
+        }
+        else
+        {
+    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <div class="container">
+            <a href="/"><img src="/assets/layout/logo.png" class="nav_logo" /></a>
+            <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">CreamyCreations</a>
+
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="navbar-collapse collapse justify-content-end">
+
+                @if (User.IsInRole("Admin"))
+                {
+                    <ul class="navbar-nav ms-right">
+                        <li>
+                            <a asp-area="" class="nav-link text-dark" asp-controller="UserRole" asp-action="Index">
+                                User Roles
+                            </a>
+                        </li>
+
+                    </ul>
+                }
+                <partial name="_LoginPartial" />
             </div>
-        </nav>
+        </div>
+    </nav>
+        }
+
     </header>
     <div class="container">
         <main role="main" class="pb-3">
