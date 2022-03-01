@@ -29,7 +29,6 @@ namespace CreamyCreations.Repositories
                             userID = o.UserId,
                             deliveryDate = o.DeliveryDate.ToString("dd/MM/yyyy"),
                             price = "$" + wc.TotalPrice
-
                         });
             return adminOrders;
         }
