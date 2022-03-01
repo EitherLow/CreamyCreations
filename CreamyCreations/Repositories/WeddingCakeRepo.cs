@@ -101,12 +101,27 @@ namespace CreamyCreations.Repositories
         }
 
         /*************************************************
+        * CALCULATE TOTAL PRICE
+        ************************************************/
+        public decimal GetTotalPrice()
+        {
+            return 19;
+        }
+
+        /*************************************************
         * CREATE NEW WEDDING CAKE
         ************************************************/
         public void CreateWeddingCake(CreateWeddingCakeVM cakeVM, WeddingCake newWeddingCake)
         {
-            // Create a list of the many-to-many bridge table
+            // Create a list of the many-to-many bridge wedding cake decoration table
             List<WeddingCakeDecoration> newWeddingCakeDecorationList = new List<WeddingCakeDecoration>();
+
+
+            // Calculate Total Price
+            // Create huge select to the DB and get prices of all
+            var getCover = _context.Covers.Where(c => c.CoverId == cakeVM.CoverId).Select(p => p.Price).FirstOrDefault();
+            //decimal totalPrice = coverPrice + 2;
+
 
             // Create a new wedding cake
             newWeddingCake.CoverId = cakeVM.CoverId;
