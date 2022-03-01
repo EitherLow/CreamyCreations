@@ -48,19 +48,22 @@
                         <input type="hidden" asp-for="@Model.DecorationCheckBoxes[i].DecorationId" />
                         <input type="hidden" asp-for="@Model.DecorationCheckBoxes[i].Price" />
                     </div>
-                 }
-                    
+                }
+
             </div>
 
-                <div class="form-group">
-                    <label asp-for="TotalPrice" class="control-label">Select total price</label>
-                    <input asp-for="TotalPrice" class="form-control" />
-                    <span asp-validation-for="TotalPrice" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <input type="submit" value="Create" class="btn btn-primary" />
-                </div>
-</form>
+            <div class="form-group">
+
+                <label asp-for="TotalPrice" class="control-label">Select total price</label>
+                <input asp-for="TotalPrice" class="form-control" />
+                <span asp-validation-for="TotalPrice" class="text-danger"></span>
+
+                <p id="cakePrice"></p>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
     </div>
 </div>
 
@@ -71,6 +74,5 @@
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
-
 
 
