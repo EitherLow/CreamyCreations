@@ -39,7 +39,7 @@
                 @Html.DisplayFor(modelItem => item.price)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { orderID = item.orderID, userID = item.userID, weddingCakeID = item.weddingCakeID }, new { @class = "btn btn-success"})
+                @Html.ActionLink("Edit", "Edit", new { weddingCakeId = item.weddingCakeID }, new { @class = "btn btn-success"})
 
                 @Html.ActionLink("Details", "Details", new { orderID = item.orderID, userID = item.userID, weddingCakeID = item.weddingCakeID }, new { @class = "btn btn-info"})
             </td>
