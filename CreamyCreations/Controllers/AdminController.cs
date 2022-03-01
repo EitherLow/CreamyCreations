@@ -44,13 +44,16 @@ namespace CreamyCreations.Controllers
             var details = adminRepo.getEditDetails(weddingCakeID);
             ViewBag.Fillings = _context.Fillings;
             ViewBag.Levels = _context.Levels;
+            ViewBag.Labels = _context.Labels;
+            ViewBag.Covers = _context.Covers;
             return View(details);
         }
 
         [HttpPost]
         public IActionResult Edit(WeddingCakeVM weddingCakeVM)
         {
-
+            AdminOrdersRepo adminRepo = new AdminOrdersRepo(_context);
+            adminRepo.Edit(weddingCakeVM);
             return RedirectToAction("Orders", "Admin");
         }
     }
