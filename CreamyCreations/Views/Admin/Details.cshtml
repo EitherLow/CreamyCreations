@@ -1,0 +1,83 @@
+﻿@model CreamyCreations.ViewModels.CustomerWeddingCakeVM
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Order # @Html.DisplayFor(model => model.orderID)</h1>
+
+<div>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.userID)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.userID)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.firstName)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.firstName)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.lastName)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.lastName)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.weddingCakeID)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.weddingCakeID)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.cover)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.cover)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.level)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.level)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.label)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.label)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.filling)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.filling)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.decoration)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.decoration)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.deliveryDate)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.deliveryDate)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.price)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.price)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+    <a asp-action="Orders">Back to List</a>
+</div>

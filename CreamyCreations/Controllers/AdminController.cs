@@ -1,5 +1,6 @@
 ﻿using CreamyCreations.Data;
 using CreamyCreations.Repositories;
+using CreamyCreations.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -28,6 +29,29 @@ namespace CreamyCreations.Controllers
             AdminOrdersRepo adminOrders = new AdminOrdersRepo(_context);
             var orders = adminOrders.All();
             return View(orders);
+        }
+
+        public IActionResult Details(int orderID, int userID, int weddingCakeID)
+        {
+            AdminOrdersRepo adminOrders = new AdminOrdersRepo(_context);
+            var details = adminOrders.getDetails(orderID, userID, weddingCakeID);
+            return View(details);
+        }
+
+        [HttpGet]
+        public IActionResult Edit(int orderID, int userID, int weddingCakeID)
+        {
+            AdminOrdersRepo adminOrders = new AdminOrdersRepo(_context);
+            var details = adminOrders.getDetails(orderID, userID, weddingCakeID);
+            return View(details);
+        }
+
+        [HttpPost]
+        public IActionResult Edit(CustomerWeddingCakeVM cwc)
+        {
+            AdminOrdersRepo adminOrders = new AdminOrdersRepo(_context);
+            adminOrders.Edit(cwc);
+            return RedirectToAction("Orders", "Admin");
         }
     }
 }
