@@ -12,11 +12,11 @@
                 @*todo: Please add *@
                 @if (User.Identity.IsAuthenticated)
                 {
-                    <a class="btn btn-primary" href="/">Authenticated button</a>
+                    <a class="btn btn-primary" asp-controller="WeddingCake" asp-action="Create">Create Cake</a>
                 }
                 else
                 {
-                    <a class="btn btn-primary" href="/">Unauthenticated button</a>
+                    <a class="btn btn-primary" href="/Identity/Account/Register">Signup</a>
                 }
             </div>
         </div>
