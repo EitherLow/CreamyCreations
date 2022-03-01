@@ -1,6 +1,7 @@
 ﻿using CreamyCreations.Data;
 using CreamyCreations.Models;
 using CreamyCreations.ViewModels;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -101,12 +102,16 @@ namespace CreamyCreations.Repositories
         {
             var query = (from wc in _context.WeddingCakes
                          where wc.WeddingCakeId == weddingCake.WeddingCakeId
-                         select wc).Single();
+                         select wc).FirstOrDefault();
 
             query.CoverId = weddingCake.CoverId;
+            _context.SaveChanges();
             query.FillingId = weddingCake.FillingId;
+            _context.SaveChanges();
             query.LabelId = weddingCake.LabelId;
+            _context.SaveChanges();
             query.LevelNumber = weddingCake.LevelNumber;
+            _context.Entry(query).State = EntityState.Modified;
             _context.SaveChanges();
             return true;
         }
