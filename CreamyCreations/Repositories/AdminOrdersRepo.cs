@@ -97,25 +97,17 @@ namespace CreamyCreations.Repositories
             return query;
         }
 
-        public bool Edit(WeddingCake dropdownCake, WeddingCakeVM userWeddingCake, int weddingCakeId)
+        public bool Edit(WeddingCakeVM weddingCake)
         {
+            var query = (from wc in _context.WeddingCakes
+                         where wc.WeddingCakeId == weddingCake.WeddingCakeId
+                         select wc).Single();
 
-            var cake = (from wc in _context.WeddingCakes
-                        where wc.WeddingCakeId == weddingCakeId
-                        select wc);
-            var levelNumber = (from c in cake
-                        select c.LevelNumber).FirstOrDefault();
-            levelNumber = dropdownCake.LevelNumber;
+            query.CoverId = weddingCake.CoverId;
+            query.FillingId = weddingCake.FillingId;
+            query.LabelId = weddingCake.LabelId;
+            query.LevelNumber = weddingCake.LevelNumber;
             _context.SaveChanges();
-            //cake.CoverId = dropdownCake.CoverId;
-            //_context.SaveChanges();
-            //cake.LabelId = dropdownCake.LabelId;
-            //_context.SaveChanges();
-            //cake.FillingId = dropdownCake.FillingId;
-            //_context.SaveChanges();
-            //cake.TotalPrice = dropdownCake.TotalPrice;
-            //add decoration later
-
             return true;
         }
 

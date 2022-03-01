@@ -15,10 +15,17 @@
             <input type="hidden" asp-for="WeddingCakeId" />
             <div class="form-group">
                 <label asp-for="CoverId" class="control-label"></label>
-                <input asp-for="CoverId" class="form-control" />
+                <select asp-for="CoverId" name="CoverId" value=-9>
+                    @foreach (var cover in ViewBag.Covers)
+                    {
+                        <option value=@cover.CoverId>@cover.Flavor</option>
+
+                    }
+                </select>
                 <span asp-validation-for="CoverId" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="FillingId" class="control-label"></label>
                 <select asp-for="FillingId" name="FillingId" value=-9>
                     @foreach (var filling in ViewBag.Fillings)
                     {
@@ -26,19 +33,24 @@
 
                     }
                 </select>
+                <span asp-validation-for="FillingId" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="LabelId" class="control-label"></label>
-                <input asp-for="LabelId" class="form-control" />
+                <select asp-for"LabelId" name="LabelId" value=-9>
+                    @foreach (var label in ViewBag.Labels)
+                    {
+                        <option value=@label.LabelId>@label.LabelName</option>
+                    }
+                </select>
                 <span asp-validation-for="LabelId" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="LevelNumber" class="control-label"></label>
-                <select name="LevelNumber" value=-9>
+                <select asp-for"LevelNumber" name="LevelNumber" value=-9>
                     @foreach (var level in ViewBag.Levels)
                     {
                         <option value=@level.LevelNumber>@level.LevelNumber</option>
-
                     }
                 </select>
             </div>
@@ -47,7 +59,9 @@
                 <input asp-for="TotalPrice" class="form-control" />
                 <span asp-validation-for="TotalPrice" class="text-danger"></span>
             </div>
-            <input type="submit" value="Assign" class="btn btn-primary" />
+            <div class"form-group">
+                <input type="submit" value="Assign" class="btn btn-primary" />
+            </div>
         </form>
     </div>
 </div>
