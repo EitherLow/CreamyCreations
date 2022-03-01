@@ -353,6 +353,8 @@ namespace CreamyCreations.Data
 
         public DbSet<CreamyCreations.ViewModels.CreateWeddingCakeVM> WeddingCakeVM { get; set; }
 
+        public DbSet<CreamyCreations.ViewModels.OrdersVm> OrdersVm { get; set; }
+
 
 
 
