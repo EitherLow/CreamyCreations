@@ -37,21 +37,21 @@
 </table>*@
 
 
-<div class="container">
-    @foreach (var item in Model)
-    {
-        <div class='row'>
-            <div class="card col-4">
-                    <div class="card-body text-center">
-                        <h5 class="card-title">Order #@item.OrderId</h5>
-                        <p class="card-text">Price: @item.price</p>
-                        <p class="card-text">Date: @item.Date</p>
-                    </div>
+<div class="container text-center justify-content-center">
+    <div class="row">
+        @foreach (var item in Model)
+        {
+            <div class="card col-lg-4 col-md-6 col-sm-12">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Order #@item.OrderId</h5>
+                    <p class="card-text">Price: @item.price</p>
+                    <p class="card-text">Date: @item.Date</p>
                 </div>
+            </div>
 
 
-        </div>
+        }
+    </div>
 
-    }
 
 </div>
