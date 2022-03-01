@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using CreamyCreations.Data;
 using CreamyCreations.Models;
 using CreamyCreations.Repositories;
+using CreamyCreations.ViewModels;
 
 namespace CreamyCreations.Controllers
 {
@@ -26,7 +27,9 @@ namespace CreamyCreations.Controllers
                 // longer way
                 /*var userData = _context.Users.Where(user => user.Email == getUserName).FirstOrDefault();*/
                 var userData = _context.Users.FirstOrDefault(user => user.Email == getUserName);
-                return View(userData);
+                var vm = new UserProfileVM()
+                    {Email = userData.Email, FirstName = userData.FirstName, LastName = userData.LastName, UserId = userData.UserId};
+                return View(vm);
             }
 
             // TODO: Please fix this so the page does not crash???
