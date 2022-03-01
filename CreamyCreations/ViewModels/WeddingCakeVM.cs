@@ -17,7 +17,7 @@ namespace CreamyCreations.ViewModels
         public int FillingId { get; set; }
         public int LabelId { get; set; }
         public int LevelNumber { get; set; }
-        public List<int> DecorationId { get; set; }
+        //public List<int> DecorationId { get; set; }
         public decimal TotalPrice { get; set; }
     }
 }

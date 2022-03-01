@@ -1,4 +1,5 @@
 ﻿using CreamyCreations.Data;
+using CreamyCreations.Models;
 using CreamyCreations.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -82,50 +83,38 @@ namespace CreamyCreations.Repositories
             return query;
         }
 
-        public bool Edit(CustomerWeddingCakeVM cwc)
+        public WeddingCakeVM getEditDetails(int weddingCakeId)
         {
-            var cakeId = (from o in _context.Orders
-                       where o.OrderId == cwc.orderID
-                       select o.WeddingCakeId).FirstOrDefault();
+            var query = (from w in _context.WeddingCakes
+                        where w.WeddingCakeId == weddingCakeId
+                        select (new WeddingCakeVM(){
+                            LevelNumber = w.LevelNumber,
+                            FillingId = w.FillingId,
+                            CoverId = w.CoverId,
+                            LabelId = w.LabelId,
+                            TotalPrice = w.TotalPrice
+                        })).FirstOrDefault();
+            return query;
+        }
+
+        public bool Edit(WeddingCake dropdownCake, WeddingCakeVM userWeddingCake, int weddingCakeId)
+        {
 
             var cake = (from wc in _context.WeddingCakes
-                        where wc.WeddingCakeId == cakeId
-                        select wc).FirstOrDefault();
-
-            var level = (from le in _context.Levels
-                        where le.LevelNumber == cake.LevelNumber
-                        select le).FirstOrDefault();
-
-            var cover = (from c in _context.Covers
-                         where c.CoverId == cake.CoverId
-                         select c).FirstOrDefault();
-
-            var label = (from l in _context.Labels
-                         where l.LabelId == cake.LabelId
-                         select l).FirstOrDefault();
-
-            var filling = (from f in _context.Fillings
-                         where f.FillingId == cake.FillingId
-                         select f).FirstOrDefault();
-
-            var decorationID = (from wd in _context.WeddingCakeDecorations
-                                where wd.WeddingCakeId == cakeId
-                                select wd.DecorationId).FirstOrDefault();
-
-            var decoration = (from d in _context.Decorations
-                         where d.DecorationId == decorationID
-                         select d).FirstOrDefault();
-
-            level.LevelNumber = cwc.level;
+                        where wc.WeddingCakeId == weddingCakeId
+                        select wc);
+            var levelNumber = (from c in cake
+                        select c.LevelNumber).FirstOrDefault();
+            levelNumber = dropdownCake.LevelNumber;
             _context.SaveChanges();
-            cover.Flavor = cwc.cover;
-            _context.SaveChanges();
-            label.LabelName = cwc.label;
-            _context.SaveChanges();
-            filling.Flavor = cwc.filling;
-            _context.SaveChanges();
-            decoration.Decoration1 = cwc.decoration;
-            _context.SaveChanges();
+            //cake.CoverId = dropdownCake.CoverId;
+            //_context.SaveChanges();
+            //cake.LabelId = dropdownCake.LabelId;
+            //_context.SaveChanges();
+            //cake.FillingId = dropdownCake.FillingId;
+            //_context.SaveChanges();
+            //cake.TotalPrice = dropdownCake.TotalPrice;
+            //add decoration later
 
             return true;
         }

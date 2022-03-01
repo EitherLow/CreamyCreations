@@ -1,4 +1,5 @@
 ﻿using CreamyCreations.Data;
+using CreamyCreations.Models;
 using CreamyCreations.Repositories;
 using CreamyCreations.ViewModels;
 using Microsoft.AspNetCore.Authorization;
@@ -37,20 +38,19 @@ namespace CreamyCreations.Controllers
             var details = adminOrders.getDetails(orderID, userID, weddingCakeID);
             return View(details);
         }
-
-        [HttpGet]
-        public IActionResult Edit(int orderID, int userID, int weddingCakeID)
+        public IActionResult Edit(int weddingCakeID)
         {
-            AdminOrdersRepo adminOrders = new AdminOrdersRepo(_context);
-            var details = adminOrders.getDetails(orderID, userID, weddingCakeID);
+            AdminOrdersRepo adminRepo = new AdminOrdersRepo(_context);
+            var details = adminRepo.getEditDetails(weddingCakeID);
+            ViewBag.Fillings = _context.Fillings;
+            ViewBag.Levels = _context.Levels;
             return View(details);
         }
 
         [HttpPost]
-        public IActionResult Edit(CustomerWeddingCakeVM cwc)
+        public IActionResult Edit(WeddingCakeVM weddingCakeVM)
         {
-            AdminOrdersRepo adminOrders = new AdminOrdersRepo(_context);
-            adminOrders.Edit(cwc);
+
             return RedirectToAction("Orders", "Admin");
         }
     }

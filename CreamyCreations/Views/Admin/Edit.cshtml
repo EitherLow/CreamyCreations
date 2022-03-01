@@ -1,85 +1,59 @@
-﻿@model CreamyCreations.ViewModels.CustomerWeddingCakeVM
+﻿@model CreamyCreations.ViewModels.WeddingCakeVM
 
 @{
     ViewData["Title"] = "Edit";
 }
 
 <h1>Edit</h1>
+
+<h4>WeddingCakeVM</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Id" />
+            <input type="hidden" asp-for="WeddingCakeId" />
             <div class="form-group">
-                <label asp-for="orderID" class="control-label"></label>
-                <input asp-for="orderID" class="form-control" readonly="readonly"/>
-                <span asp-validation-for="orderID" class="text-danger"></span>
+                <label asp-for="CoverId" class="control-label"></label>
+                <input asp-for="CoverId" class="form-control" />
+                <span asp-validation-for="CoverId" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="userID" class="control-label"></label>
-                <input asp-for="userID" class="form-control" readonly="readonly"/>
-                <span asp-validation-for="userID" class="text-danger"></span>
+                <select asp-for="FillingId" name="FillingId" value=-9>
+                    @foreach (var filling in ViewBag.Fillings)
+                    {
+                        <option value=@filling.FillingId>@filling.Flavor</option>
+
+                    }
+                </select>
             </div>
             <div class="form-group">
-                <label asp-for="firstName" class="control-label"></label>
-                <input asp-for="firstName" class="form-control" readonly="readonly"/>
-                <span asp-validation-for="firstName" class="text-danger"></span>
+                <label asp-for="LabelId" class="control-label"></label>
+                <input asp-for="LabelId" class="form-control" />
+                <span asp-validation-for="LabelId" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="lastName" class="control-label"></label>
-                <input asp-for="lastName" class="form-control" readonly="readonly"/>
-                <span asp-validation-for="lastName" class="text-danger"></span>
+                <label asp-for="LevelNumber" class="control-label"></label>
+                <select name="LevelNumber" value=-9>
+                    @foreach (var level in ViewBag.Levels)
+                    {
+                        <option value=@level.LevelNumber>@level.LevelNumber</option>
+
+                    }
+                </select>
             </div>
             <div class="form-group">
-                <label asp-for="weddingCakeID" class="control-label"></label>
-                <input asp-for="weddingCakeID" class="form-control" readonly="readonly"/>
-                <span asp-validation-for="weddingCakeID" class="text-danger"></span>
+                <label asp-for="TotalPrice" class="control-label"></label>
+                <input asp-for="TotalPrice" class="form-control" />
+                <span asp-validation-for="TotalPrice" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="cover" class="control-label"></label>
-                <input asp-for="cover" class="form-control" />
-                <span asp-validation-for="cover" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="level" class="control-label"></label>
-                <input asp-for="level" class="form-control" />
-                <span asp-validation-for="level" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="label" class="control-label"></label>
-                <input asp-for="label" class="form-control" />
-                <span asp-validation-for="label" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="filling" class="control-label"></label>
-                <input asp-for="filling" class="form-control" />
-                <span asp-validation-for="filling" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="decoration" class="control-label"></label>
-                <input asp-for="decoration" class="form-control" />
-                <span asp-validation-for="decoration" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="deliveryDate" class="control-label"></label>
-                <input asp-for="deliveryDate" class="form-control" readonly="readonly"/>
-                <span asp-validation-for="deliveryDate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="price" class="control-label"></label>
-                <input asp-for="price" class="form-control" readonly="readonly"/>
-                <span asp-validation-for="price" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
+            <input type="submit" value="Assign" class="btn btn-primary" />
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Orders">Back to List</a>
+    <a asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {
