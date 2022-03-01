@@ -8,8 +8,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using CreamyCreations.Data;
 using CreamyCreations.Models;
-using CreamyCreations.Repositories;
-using CreamyCreations.ViewModels;
 
 namespace CreamyCreations.Controllers
 {
