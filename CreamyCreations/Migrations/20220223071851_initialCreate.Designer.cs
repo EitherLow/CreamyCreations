@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CreamyCreations.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220208221828_initialCreate")]
+    [Migration("20220223071851_initialCreate")]
     partial class initialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -98,7 +98,12 @@ namespace CreamyCreations.Migrations
                         .HasColumnType("money")
                         .HasColumnName("price");
 
+                    b.Property<int?>("WeddingCakeVMWeddingCakeID")
+                        .HasColumnType("INTEGER");
+
                     b.HasKey("CoverId");
+
+                    b.HasIndex("WeddingCakeVMWeddingCakeID");
 
                     b.HasIndex(new[] { "Flavor" }, "UQ__Cover__1DA1A8C1AAB7B0D6")
                         .IsUnique();
@@ -143,7 +148,12 @@ namespace CreamyCreations.Migrations
                         .HasColumnType("money")
                         .HasColumnName("price");
 
+                    b.Property<int?>("WeddingCakeVMWeddingCakeID")
+                        .HasColumnType("INTEGER");
+
                     b.HasKey("DecorationId");
+
+                    b.HasIndex("WeddingCakeVMWeddingCakeID");
 
                     b.HasIndex(new[] { "Decoration1" }, "UQ__Decorati__129665722C1950E6")
                         .IsUnique();
@@ -188,7 +198,12 @@ namespace CreamyCreations.Migrations
                         .HasColumnType("money")
                         .HasColumnName("price");
 
+                    b.Property<int?>("WeddingCakeVMWeddingCakeID")
+                        .HasColumnType("INTEGER");
+
                     b.HasKey("FillingId");
+
+                    b.HasIndex("WeddingCakeVMWeddingCakeID");
 
                     b.HasIndex(new[] { "Flavor" }, "UQ__Filling__1DA1A8C1F474B9D9")
                         .IsUnique();
@@ -233,7 +248,12 @@ namespace CreamyCreations.Migrations
                         .HasColumnType("money")
                         .HasColumnName("price");
 
+                    b.Property<int?>("WeddingCakeVMWeddingCakeID")
+                        .HasColumnType("INTEGER");
+
                     b.HasKey("LabelId");
+
+                    b.HasIndex("WeddingCakeVMWeddingCakeID");
 
                     b.HasIndex(new[] { "LabelName" }, "UQ__Label__FB497B2DA698282A")
                         .IsUnique();
@@ -271,8 +291,13 @@ namespace CreamyCreations.Migrations
                         .HasColumnType("money")
                         .HasColumnName("price");
 
+                    b.Property<int?>("WeddingCakeVMWeddingCakeID")
+                        .HasColumnType("INTEGER");
+
                     b.HasKey("LevelNumber")
                         .HasName("PK__Level__8AB0A30A55D0C97C");
+
+                    b.HasIndex("WeddingCakeVMWeddingCakeID");
 
                     b.ToTable("Level");
 
@@ -507,6 +532,96 @@ namespace CreamyCreations.Migrations
                         });
                 });
 
+            modelBuilder.Entity("CreamyCreations.ViewModels.AdminOrdersVM", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("deliveryDate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("email")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("orderID")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("price")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("userID")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("weddingCakeID")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("AdminOrdersVM");
+                });
+
+            modelBuilder.Entity("CreamyCreations.ViewModels.CustomerWeddingCakeVM", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("cover")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("decoration")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("deliveryDate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("filling")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("firstName")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("label")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("lastName")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("level")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("orderID")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("price")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("userID")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("weddingCakeID")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("CustomerWeddingCakeVM");
+                });
+
+            modelBuilder.Entity("CreamyCreations.ViewModels.WeddingCakeVM", b =>
+                {
+                    b.Property<int>("WeddingCakeID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<decimal>("TotalPrice")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("WeddingCakeID");
+
+                    b.ToTable("WeddingCakeVM");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
                     b.Property<string>("Id")
@@ -703,6 +818,41 @@ namespace CreamyCreations.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("CreamyCreations.Models.Cover", b =>
+                {
+                    b.HasOne("CreamyCreations.ViewModels.WeddingCakeVM", null)
+                        .WithMany("Covers")
+                        .HasForeignKey("WeddingCakeVMWeddingCakeID");
+                });
+
+            modelBuilder.Entity("CreamyCreations.Models.Decoration", b =>
+                {
+                    b.HasOne("CreamyCreations.ViewModels.WeddingCakeVM", null)
+                        .WithMany("Decorations")
+                        .HasForeignKey("WeddingCakeVMWeddingCakeID");
+                });
+
+            modelBuilder.Entity("CreamyCreations.Models.Filling", b =>
+                {
+                    b.HasOne("CreamyCreations.ViewModels.WeddingCakeVM", null)
+                        .WithMany("Fillings")
+                        .HasForeignKey("WeddingCakeVMWeddingCakeID");
+                });
+
+            modelBuilder.Entity("CreamyCreations.Models.Label", b =>
+                {
+                    b.HasOne("CreamyCreations.ViewModels.WeddingCakeVM", null)
+                        .WithMany("Labels")
+                        .HasForeignKey("WeddingCakeVMWeddingCakeID");
+                });
+
+            modelBuilder.Entity("CreamyCreations.Models.Level", b =>
+                {
+                    b.HasOne("CreamyCreations.ViewModels.WeddingCakeVM", null)
+                        .WithMany("Levels")
+                        .HasForeignKey("WeddingCakeVMWeddingCakeID");
+                });
+
             modelBuilder.Entity("CreamyCreations.Models.Order", b =>
                 {
                     b.HasOne("CreamyCreations.Models.Address", "Address")
@@ -875,6 +1025,19 @@ namespace CreamyCreations.Migrations
                     b.Navigation("Orders");
 
                     b.Navigation("WeddingCakeDecorations");
+                });
+
+            modelBuilder.Entity("CreamyCreations.ViewModels.WeddingCakeVM", b =>
+                {
+                    b.Navigation("Covers");
+
+                    b.Navigation("Decorations");
+
+                    b.Navigation("Fillings");
+
+                    b.Navigation("Labels");
+
+                    b.Navigation("Levels");
                 });
 #pragma warning restore 612, 618
         }

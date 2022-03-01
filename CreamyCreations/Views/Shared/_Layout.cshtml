@@ -23,22 +23,23 @@
 
                     @if (User.IsInRole("Admin"))
                     {
-                        <ul class="navbar-nav">
-
-                            <li>
-                                <a asp-area="" class="nav-link text-dark" asp-controller="Role" asp-action="Index">
-                                    Roles
-                                </a>
-                            </li>
-                            <li>
-                                <a asp-area="" class="nav-link text-dark" asp-controller="UserRole" asp-action="Index">
-                                    User Roles
-                                </a>
-                            </li>
-
-
-
-                        </ul>
+                    <ul class="navbar-nav">
+                        <li>
+                            <a asp-area="" class="nav-link text-dark" asp-controller="Admin" asp-action="Orders">
+                                Orders
+                            </a>
+                        </li>
+                        <li>
+                            <a asp-area="" class="nav-link text-dark" asp-controller="Role" asp-action="Index">
+                                Roles
+                            </a>
+                        </li>
+                        <li>
+                            <a asp-area="" class="nav-link text-dark" asp-controller="UserRole" asp-action="Index">
+                                User Roles
+                            </a>
+                        </li>
+                    </ul>
                     }
                     <partial name="_LoginPartial" />
                 </div>
