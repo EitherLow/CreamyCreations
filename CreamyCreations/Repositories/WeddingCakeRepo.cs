@@ -24,7 +24,7 @@ namespace CreamyCreations.Repositories
             weddingCakeVM.Fillings = GetAllFillings();
             weddingCakeVM.Labels = GetAllLabels();
             weddingCakeVM.Levels = GetAllLevels();
-            weddingCakeVM.Decorations = GetAllDecorations();
+            weddingCakeVM.DecorationCheckBoxes = GetDecorationCheckBoxes();
 
             return weddingCakeVM;
         }
@@ -85,35 +85,58 @@ namespace CreamyCreations.Repositories
             return levelList.ToList();
         }
 
-        // Get all attributes from the Decorations table and save it to List<>
-        public List<Decoration> GetAllDecorations()
+        // Get all attributes from the DecorationCheckBoxesVM and save it to List<>
+        public List<DecorationCheckBoxVM> GetDecorationCheckBoxes()
         {
             var decorationList = from d in _context.Decorations
-                            select (new Decoration()
-                            {
-                                DecorationId = d.DecorationId,
-                                Decoration1 = d.Decoration1,
-                                Price = d.Price
-                            });
+                                 select (new DecorationCheckBoxVM()
+                                 {
+                                     DecorationId = d.DecorationId,
+                                     Price = d.Price,
+                                     DecorationTitle = d.Decoration1,
+                                     IsChecked = false
+                                 });
+
             return decorationList.ToList();
         }
 
         /*************************************************
-        * CREATE
+        * CREATE NEW WEDDING CAKE
         ************************************************/
-        public void CreateWeddingCake(WeddingCake userWeddingCake)
+        public void CreateWeddingCake(CreateWeddingCakeVM cakeVM, WeddingCake newWeddingCake)
         {
-            WeddingCake newWeddingCake = new WeddingCake()
-            {
-                WeddingCakeId = userWeddingCake.WeddingCakeId,
-                CoverId = userWeddingCake.CoverId,
-                FillingId = userWeddingCake.FillingId,
-                LabelId = userWeddingCake.LabelId,
-                LevelNumber = userWeddingCake.LevelNumber,
-                TotalPrice = userWeddingCake.TotalPrice
-            };
+            // Create a list of the many-to-many bridge table
+            List<WeddingCakeDecoration> newWeddingCakeDecorationList = new List<WeddingCakeDecoration>();
+
+            // Create a new wedding cake
+            newWeddingCake.CoverId = cakeVM.CoverId;
+            newWeddingCake.FillingId = cakeVM.FillingId;
+            newWeddingCake.LabelId = cakeVM.LabelId;
+            newWeddingCake.LevelNumber = cakeVM.LevelId;
+            newWeddingCake.TotalPrice = cakeVM.TotalPrice;
             _context.WeddingCakes.Add(newWeddingCake);
-            //_context.SaveChanges();
+            _context.SaveChanges();
+
+            // Get the auto-generated wedding cake ID 
+            int newWeddingCakeId = newWeddingCake.WeddingCakeId;
+
+            // Find Decoration that has been checked by the user and save it to the List
+            foreach (var singleDecoration in cakeVM.DecorationCheckBoxes)
+            {
+                if (singleDecoration.IsChecked == true)
+                {
+                    newWeddingCakeDecorationList.Add(new WeddingCakeDecoration() { WeddingCakeId = newWeddingCakeId, DecorationId = singleDecoration.DecorationId });
+                }
+            }
+
+            // Go through each WeddingCakeDecoration and save it to the database
+            foreach (var singleWeddingCakeDecoration in newWeddingCakeDecorationList)
+            {
+                _context.WeddingCakeDecorations.Add(singleWeddingCakeDecoration);
+            }
+
+            // Save all changes
+            _context.SaveChanges();
         }
     }
 }
