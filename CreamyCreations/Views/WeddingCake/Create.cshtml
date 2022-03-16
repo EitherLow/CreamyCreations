@@ -14,7 +14,7 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="LevelId" class="control-label">Select level</label>
-                <select asp-for="LevelId" class="form-control" asp-items="@(new SelectList(Model.Levels, nameof(Level.Price), nameof(Level.LevelNumber) ))">
+                <select asp-for="LevelId" class="form-control" asp-items="@(new SelectList(Model.Levels, nameof(Level.LevelNumber), nameof(Level.LevelNumber) ))">
                     <option disabled selected>Please select</option>
                 </select>
             </div>
@@ -33,14 +33,32 @@
             <div class="form-group">
                 <label asp-for="LabelId" class="control-label">Select label</label>
                 <select asp-for="LabelId" class="form-control" asp-items="@(new SelectList(Model.Labels, nameof(Label.LabelId), nameof(Label.LabelName), nameof(Label.Price) ))">
-                    <option disabled>Please select</option>
+                    <option disabled selected>Please select</option>
                 </select>
             </div>
-            
+
             <div class="form-group">
+
+                @for (var i = 0; i < Model.DecorationCheckBoxes.Count(); i++)
+                {
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" asp-for="@Model.DecorationCheckBoxes[i].IsChecked" />
+                        <label class="form-check-label" asp-for="@Model.DecorationCheckBoxes[i].IsChecked">@Model.DecorationCheckBoxes[i].DecorationTitle</label>
+                        <input type="hidden" asp-for="@Model.DecorationCheckBoxes[i].DecorationTitle" />
+                        <input type="hidden" asp-for="@Model.DecorationCheckBoxes[i].DecorationId" />
+                        <input type="hidden" asp-for="@Model.DecorationCheckBoxes[i].Price" />
+                    </div>
+                }
+
+            </div>
+
+            <div class="form-group">
+
                 <label asp-for="TotalPrice" class="control-label">Select total price</label>
                 <input asp-for="TotalPrice" class="form-control" />
                 <span asp-validation-for="TotalPrice" class="text-danger"></span>
+
+                <p id="cakePrice"></p>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
@@ -56,6 +74,5 @@
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
-
 
 

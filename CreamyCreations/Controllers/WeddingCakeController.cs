@@ -41,21 +41,22 @@ namespace CreamyCreations.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create([Bind("LevelId,LabelId,CoverId,FillingId,TotalPrice")] WeddingCake newWeddingCake)
-        {
+        public IActionResult Create(CreateWeddingCakeVM cakeVM, WeddingCake newWeddingCake)
+        {   
             WeddingCakeRepo weddingCakeRepo = new WeddingCakeRepo(_context);
             ViewData["Message"] = "";
 
-            // Ensure data is valid.
+            // Ensure Data Model is valid.
             if (ModelState.IsValid)
             {
-                weddingCakeRepo.CreateWeddingCake(newWeddingCake);
+                weddingCakeRepo.CreateWeddingCake(cakeVM, newWeddingCake);
                 ViewData["Message"] = "New wedding cake has been created";
                 //ViewData["accNumber"] = newBankAccount.accountNum;
                 //ViewData["clientId"] = clientRepo.GetId(User.Identity.Name);
 
                 return RedirectToAction("Index", "Home", new { message = ViewBag.Message });
             }
+            
             return View();
         }
     }

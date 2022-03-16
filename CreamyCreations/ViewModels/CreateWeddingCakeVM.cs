@@ -22,7 +22,7 @@ namespace CreamyCreations.ViewModels
         public List<Label> Labels { get; set; }
         public int LevelId { get; set; }
         public List<Level> Levels { get; set; }
-        public List<Decoration> Decorations { get; set; } 
+        public List<DecorationCheckBoxVM> DecorationCheckBoxes { get; set; }
         public decimal TotalPrice { get; set; }
     }
 }
