@@ -50,10 +50,10 @@ namespace CreamyCreations.Controllers
         }
 
         [HttpPost]
-        public IActionResult Edit(List<DecorationCheckBoxVM> decorationsList, WeddingCakeVM weddingCakeVM)
+        public IActionResult Edit(WeddingCakeVM cake, WeddingCakeVM weddingCakeVM)
         {
             AdminOrdersRepo adminRepo = new AdminOrdersRepo(_context);
-            adminRepo.Edit(decorationsList, weddingCakeVM);
+            adminRepo.Edit(cake.DecorationCheckBoxes, weddingCakeVM);
             return RedirectToAction("Orders", "Admin");
         }
     }
