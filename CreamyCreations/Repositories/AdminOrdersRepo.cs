@@ -86,19 +86,67 @@ namespace CreamyCreations.Repositories
 
         public WeddingCakeVM getEditDetails(int weddingCakeId)
         {
+
             var query = (from w in _context.WeddingCakes
-                        where w.WeddingCakeId == weddingCakeId
-                        select (new WeddingCakeVM(){
-                            LevelNumber = w.LevelNumber,
-                            FillingId = w.FillingId,
-                            CoverId = w.CoverId,
-                            LabelId = w.LabelId,
-                            TotalPrice = w.TotalPrice
-                        })).FirstOrDefault();
+                         where w.WeddingCakeId == weddingCakeId
+                         select (new WeddingCakeVM()
+                         {
+                             LevelNumber = w.LevelNumber,
+                             FillingId = w.FillingId,
+                             CoverId = w.CoverId,
+                             LabelId = w.LabelId,
+                             TotalPrice = w.TotalPrice,
+                             DecorationCheckBoxes = GetDecorationCheckBoxes(weddingCakeId)
+                         })).FirstOrDefault();
             return query;
         }
 
-        public bool Edit(WeddingCakeVM weddingCake)
+        public List<DecorationCheckBoxVM> GetDecorationCheckBoxes(int weddingCakeId)
+        {
+            var decorationIds = (from wcd in _context.WeddingCakeDecorations
+                                 where wcd.WeddingCakeId == weddingCakeId
+                                 select wcd.DecorationId).ToList();
+
+            var allDecorationIds = (from d in _context.Decorations
+                                    select d.DecorationId).ToList();
+
+            List<DecorationCheckBoxVM> decorationsList = new List<DecorationCheckBoxVM>();
+
+            
+            foreach (var decorId in allDecorationIds)
+            {
+                if(decorationIds.Contains(decorId))
+                {
+                    var decorationChecked = (from d in _context.Decorations
+                                             where decorId == d.DecorationId
+                                             select (new DecorationCheckBoxVM()
+                                             {
+                                                 DecorationId = d.DecorationId,
+                                                 Price = d.Price,
+                                                 DecorationTitle = d.Decoration1,
+                                                 IsChecked = true
+                                             })).FirstOrDefault();
+                    decorationsList.Add(decorationChecked);
+                }
+                else
+                {
+                    var decorationUnchecked = (from d in _context.Decorations
+                                             where decorId == d.DecorationId
+                                             select (new DecorationCheckBoxVM()
+                                             {
+                                                 DecorationId = d.DecorationId,
+                                                 Price = d.Price,
+                                                 DecorationTitle = d.Decoration1,
+                                                 IsChecked = false
+                                             })).FirstOrDefault();
+                    decorationsList.Add(decorationUnchecked);
+                }
+            }
+
+            return decorationsList;
+        }
+
+        public bool Edit(List<DecorationCheckBoxVM> decorationsList, WeddingCakeVM weddingCake)
         {
             var query = (from wc in _context.WeddingCakes
                          where wc.WeddingCakeId == weddingCake.WeddingCakeId
@@ -112,6 +160,35 @@ namespace CreamyCreations.Repositories
             _context.SaveChanges();
             query.LevelNumber = weddingCake.LevelNumber;
             _context.Entry(query).State = EntityState.Modified;
+            _context.SaveChanges();
+
+            // Create a list of the many-to-many bridge wedding cake decoration table
+            List<WeddingCakeDecoration> newWeddingCakeDecorationList = new List<WeddingCakeDecoration>();
+
+
+            // Find Decoration that has been checked by the user and save it to the List
+            foreach (var singleDecoration in decorationsList)
+            {
+                if (singleDecoration.IsChecked == true)
+                {
+                    newWeddingCakeDecorationList.Add(new WeddingCakeDecoration() { WeddingCakeId = query.WeddingCakeId, DecorationId = singleDecoration.DecorationId });
+                }
+            }
+
+            var cakes = _context.WeddingCakeDecorations.Where(c => c.WeddingCakeId == query.WeddingCakeId);
+            foreach (var cake in cakes)
+            {
+                _context.WeddingCakeDecorations.Remove(cake);
+            }
+            _context.SaveChanges();
+
+            // Go through each WeddingCakeDecoration and save it to the database
+            foreach (var singleWeddingCakeDecoration in newWeddingCakeDecorationList)
+            {
+                _context.WeddingCakeDecorations.Add(singleWeddingCakeDecoration);
+            }
+
+            // Save all changes
             _context.SaveChanges();
             return true;
         }
