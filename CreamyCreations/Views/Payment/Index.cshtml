@@ -30,3 +30,73 @@
         <li>@decoration.Decoration1</li>
     }
 </ul>
+
+<div id="paypal-button"></div>
+<script src="https://www.paypalobjects.com/api/checkout.js"></script>
+<script>
+    paypal.Button.render({
+        env: 'sandbox', // Or ' production '
+        style: {
+            size: 'small',
+            color: 'gold',
+            shape: 'pill',
+            label: 'checkout'
+        },
+        client: {
+            sandbox: 'ATZD0fV4EGXzHq_c5YokYWv0TICaeDVu5h6-VeI1tBfZjuosmeBK6Es66JLNY91A8in1tRfK6IG5aVrh',
+            // production: 'ATZD0fV4EGXzHq_c5YokYWv0TICaeDVu5h6-VeI1tBfZjuosmeBK6Es66JLNY91A8in1tRfK6IG5aVrh'  // Switch to ‘production’ when live.
+        },
+
+        commit: true, // Show a 'Pay Now' button
+
+        payment: function (data, actions) {
+            return actions.payment.create({
+                payment: {
+                    transactions: [{ amount: { total: @Model.TotalPrice, currency: 'CAD' }}]
+                }
+            });
+        },
+
+        onAuthorize: function (data, actions) {
+            return actions.payment.execute().then(function (payment) {
+                console.log("This is what comes back from Paypal: ")
+                console.log(payment);
+                alert("This JSON is from Paypal: " + JSON.stringify(payment));
+                console.log("-------------------------------------")
+                var dataObject = {
+                    "cart":             payment.cart,
+                    "intent":           payment.intent,
+                    "paymentID":        payment.id,
+                    "create_time":      payment.create_time,
+                    "paymentState":     payment.state,
+                    "payerEmail":       payment.payer.payer_info.email,
+                    "payerID":          payment.payer.payer_info.payer_id,
+                    "payerFirstName":   payment.payer.payer_info.first_name,
+                    "payerLastName":    payment.payer.payer_info.last_name,
+                    "payerMiddleName":  payment.payer.payer_info.middle_name,
+                    "payerCountryCode": payment.payer.payer_info.country_code,
+                    "paymentMethod":    payment.payer.payment_method,
+                    "payerStatus":      payment.payer.status,
+                    "amount":           payment.transactions[0].amount.total,
+                    "currency":         payment.transactions[0].amount.currency,
+                    "custom":           payment.transactions[0].custom
+                }
+                fetch("/payment/index",
+                    {
+                        method: "POST",
+                        body: {
+                            test: "test"
+                        },
+                        headers: {
+                            'Content-Type': 'application/json'
+                        }
+                    }
+                ).then(()=> console.log("test"))
+            })
+        },
+
+        onCancel: function (data, actions) {
+            alert("canceled")
+        },
+    }, '#paypal-button');
+</script>
