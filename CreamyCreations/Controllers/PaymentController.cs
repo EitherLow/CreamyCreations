@@ -20,7 +20,7 @@ namespace CreamyCreations.Controllers
         }
 
         // assume that the wedding cake id is passed in.
-        public IActionResult Index(int? id = 0)
+        public IActionResult Index(int? id = 1)
         {
             // Only send the request if we actually do have and id
             //Assume that the user may go back to the payment page without going

@@ -15,6 +15,7 @@ namespace CreamyCreations.Repositories
         public PaymentRepo(ApplicationDbContext context)
         {
             _context = context;
+            
         }
 
         public PaymentVM GetCakeDetails(int weddingCakeId)
@@ -33,29 +34,71 @@ namespace CreamyCreations.Repositories
 
         private WeddingCake GetWeddingCake(int weddingCakeId)
         {
-            var weddingCake = _context.WeddingCakes.FirstOrDefault(wc => wc.WeddingCakeId == weddingCakeId);
-            return weddingCake;
+            //var weddingCake = _context.WeddingCakes.FirstOrDefault(wc => wc.WeddingCakeId == weddingCakeId);
+            var weddingCake2 =
+                (from wc in _context.WeddingCakes
+                    where wc.WeddingCakeId == weddingCakeId
+                    select (new WeddingCake()
+                    {
+                        WeddingCakeId = wc.WeddingCakeId,
+                        CoverId = wc.CoverId,
+                        FillingId = wc.FillingId,
+                        LabelId = wc.LabelId,
+                        LevelNumber = wc.LevelNumber,
+                        TotalPrice = wc.TotalPrice,
+                    })).FirstOrDefault();
+            return weddingCake2;
         }
 
         private List<Filling> GetAllFillings(int weddingCakeId)
         {
             var weddingCake = GetWeddingCake(weddingCakeId);
-            var fillings = _context.Fillings.Where(f => Equals(f.WeddingCakes, weddingCake)).ToList();
-            return fillings;
+            //var fillings = _context.Fillings.Where(f => Equals(f.WeddingCakes, weddingCake)).ToList();
+
+            var fillings2 = (from f in _context.Fillings
+                from wc in _context.WeddingCakes
+                where wc.WeddingCakeId == weddingCakeId
+                select (new Filling()
+                {
+                    FillingId = f.FillingId,
+                    Price = f.Price,
+                    Flavor = f.Flavor
+                })).ToList();
+            return fillings2;
         }
 
         private List<Cover> GetAllCovers(int weddingCakeId)
         {
             var weddingCake = GetWeddingCake(weddingCakeId);
-            var covers = _context.Covers.Where(c => Equals(c.WeddingCakes, weddingCake)).ToList();
-            return covers;
+           // var covers = _context.Covers.Where(c => Equals(c.WeddingCakes, weddingCake)).ToList();
+
+            var covers2 = (from c in _context.Covers
+                from wc in _context.WeddingCakes
+                where wc.WeddingCakeId == weddingCakeId
+                select (new Cover()
+                {
+                    CoverId = c.CoverId,
+                    Price = c.Price,
+                    Flavor = c.Flavor
+                })).ToList();
+            return covers2;
         }
 
         private List<Decoration> GetAllDecorations(int weddingCakeId)
         {
             var weddingCake = GetWeddingCake(weddingCakeId);
-            var decorations = _context.Decorations.Where(d => Equals(d.WeddingCakeDecorations, weddingCake)).ToList();
-            return decorations;
+            //var decorations = _context.Decorations.Where(d => Equals(d.WeddingCakeDecorations, weddingCake)).ToList();
+
+            var decorations2 = (from d in _context.Decorations
+                from wc in _context.WeddingCakes
+                where wc.WeddingCakeId == weddingCakeId
+                select (new Decoration()
+                {
+                    DecorationId = d.DecorationId,
+                    Price = d.Price,
+                    Decoration1 = d.Decoration1
+                })).ToList();
+            return decorations2;
         }
     }
 }
