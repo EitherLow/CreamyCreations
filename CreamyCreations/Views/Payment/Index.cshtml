@@ -4,15 +4,29 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Your epic cake</h1>
 
-<div>
-    <h4>PaymentVM</h4>
-    <hr />
-    <dl class="row">
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.WeddingCakeId">Edit</a> |
-    <a asp-action="Index">Back to List</a>
-</div>
+<h2>Total Price: $@Model.TotalPrice</h2>
+<h2>Fillings:</h2>
+<ul>
+    @foreach (var filling in Model.Fillings)
+    {
+        <li>@filling.Flavor</li>
+    }
+</ul>
+
+<h2>Cover:</h2>
+<ul>
+    @foreach (var cover in Model.Covers)
+    {
+        <li>@cover.Flavor</li>
+    }
+</ul>
+
+<h2>Decorations:</h2>
+<ul>
+    @foreach (var decoration in Model.Decorations)
+    {
+        <li>@decoration.Decoration1</li>
+    }
+</ul>

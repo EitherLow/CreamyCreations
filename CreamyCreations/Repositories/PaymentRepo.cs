@@ -22,13 +22,11 @@ namespace CreamyCreations.Repositories
         {
             var paymentSummary = new PaymentVM();
 
-            var fillings = GetAllFillings(weddingCakeId);
-            var covers = GetAllCovers(weddingCakeId);
-            var decorations = GetAllDecorations(weddingCakeId);
             paymentSummary.WeddingCakeId = weddingCakeId;
-            paymentSummary.Fillings = fillings;
-            paymentSummary.Covers = covers;
-            paymentSummary.Decorations = decorations;
+            paymentSummary.Fillings = GetAllFillings(weddingCakeId);
+            paymentSummary.Covers = GetAllCovers(weddingCakeId);
+            paymentSummary.Decorations = GetAllDecorations(weddingCakeId);
+            paymentSummary.TotalPrice = GetTotalPrice(weddingCakeId);
             return paymentSummary;
         }
 
@@ -52,7 +50,7 @@ namespace CreamyCreations.Repositories
 
         private List<Filling> GetAllFillings(int weddingCakeId)
         {
-            var weddingCake = GetWeddingCake(weddingCakeId);
+            //var weddingCake = GetWeddingCake(weddingCakeId);
             //var fillings = _context.Fillings.Where(f => Equals(f.WeddingCakes, weddingCake)).ToList();
 
             var fillings2 = (from f in _context.Fillings
@@ -69,8 +67,8 @@ namespace CreamyCreations.Repositories
 
         private List<Cover> GetAllCovers(int weddingCakeId)
         {
-            var weddingCake = GetWeddingCake(weddingCakeId);
-           // var covers = _context.Covers.Where(c => Equals(c.WeddingCakes, weddingCake)).ToList();
+            //var weddingCake = GetWeddingCake(weddingCakeId);
+            //var covers = _context.Covers.Where(c => Equals(c.WeddingCakes, weddingCake)).ToList();
 
             var covers2 = (from c in _context.Covers
                 from wc in _context.WeddingCakes
@@ -86,7 +84,7 @@ namespace CreamyCreations.Repositories
 
         private List<Decoration> GetAllDecorations(int weddingCakeId)
         {
-            var weddingCake = GetWeddingCake(weddingCakeId);
+            //var weddingCake = GetWeddingCake(weddingCakeId);
             //var decorations = _context.Decorations.Where(d => Equals(d.WeddingCakeDecorations, weddingCake)).ToList();
 
             var decorations2 = (from d in _context.Decorations
@@ -99,6 +97,12 @@ namespace CreamyCreations.Repositories
                     Decoration1 = d.Decoration1
                 })).ToList();
             return decorations2;
+        }
+
+        private decimal GetTotalPrice(int weddingCakeId)
+        {
+            var weddingCake = GetWeddingCake(weddingCakeId);
+            return weddingCake.TotalPrice;
         }
     }
 }

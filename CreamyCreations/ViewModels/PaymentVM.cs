@@ -14,5 +14,6 @@ namespace CreamyCreations.ViewModels
         public List<Filling> Fillings { get; set; }
         public List<Cover>  Covers { get; set; }
         public List<Decoration> Decorations { get; set; }
+        public decimal TotalPrice { get; set; }
     }
 }
