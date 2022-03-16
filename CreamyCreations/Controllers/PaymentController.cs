@@ -28,7 +28,7 @@ namespace CreamyCreations.Controllers
             if (id != null)
             {
                 var thing = paymentRepo.GetCakeDetails(id.Value);
-                @ViewBag.userId = userId;
+                ViewBag.userId = userId;
                 return View(thing);
 
             }
