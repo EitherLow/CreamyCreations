@@ -25,7 +25,7 @@ $(document).ready(function () {
     function calculatePrice() {
         $totalPrice = Number($levelPrice + $coverPrice + $fillingPrice + $labelPrice + $decorationPrice).toFixed(2);
         //console.log("Total price", $totalPrice);
-        $("#cakePrice").text($totalPrice);
+        $("#cakePrice").text("$" + $totalPrice);
     }
 
     $level.change(function () {
@@ -69,5 +69,5 @@ $(document).ready(function () {
 
 
 
-    $("#cakePrice").text($totalPrice);
+    $("#cakePrice").text("$" + $totalPrice);
 });
