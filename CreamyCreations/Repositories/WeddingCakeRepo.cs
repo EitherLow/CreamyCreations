@@ -122,7 +122,6 @@ namespace CreamyCreations.Repositories
             var getCover = _context.Covers.Where(c => c.CoverId == cakeVM.CoverId).Select(p => p.Price).FirstOrDefault();
             //decimal totalPrice = coverPrice + 2;
 
-
             // Create a new wedding cake
             newWeddingCake.CoverId = cakeVM.CoverId;
             newWeddingCake.FillingId = cakeVM.FillingId;
