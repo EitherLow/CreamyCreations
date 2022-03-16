@@ -84,9 +84,7 @@
                 fetch("/payment/index",
                     {
                         method: "POST",
-                        body: {
-                            test: "test"
-                        },
+                        body: JSON.stringify({test: "test"}),
                         headers: {
                             'Content-Type': 'application/json'
                         }
