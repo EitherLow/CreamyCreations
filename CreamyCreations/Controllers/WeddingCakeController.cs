@@ -2,6 +2,7 @@
 using CreamyCreations.Models;
 using CreamyCreations.Repositories;
 using CreamyCreations.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -30,7 +31,7 @@ namespace CreamyCreations.Controllers
         /*************************************************
         * CREATE
         ************************************************/
-
+        [Authorize]
         [HttpGet]
         public IActionResult Create()
         {
