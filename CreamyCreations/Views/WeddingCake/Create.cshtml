@@ -18,7 +18,7 @@
                     <option disabled selected>Please select</option>
                     @foreach (var level in Model.Levels)
                     {
-                <option value="@level.LevelNumber" data-price="@level.Price">@level.LevelNumber - $@level.Price</option>
+                        <option value="@level.LevelNumber" data-price="@level.Price">@level.LevelNumber - $@level.Price</option>
                     }
                 </select>
             </div>
@@ -58,19 +58,16 @@
                 @for (var i = 0; i < Model.DecorationCheckBoxes.Count(); i++)
                 {
                     <div class="form-check">
-                        <input class="form-check-input decoration" type="checkbox" asp-for="@Model.DecorationCheckBoxes[i].IsChecked" data-price="@Model.DecorationCheckBoxes[i].Price"/>
+                        <input class="form-check-input decoration" type="checkbox" asp-for="@Model.DecorationCheckBoxes[i].IsChecked" data-price="@Model.DecorationCheckBoxes[i].Price" />
                         <label class="form-check-label" asp-for="@Model.DecorationCheckBoxes[i].IsChecked">@Model.DecorationCheckBoxes[i].DecorationTitle - $@Model.DecorationCheckBoxes[i].Price</label>
-                        <input type="hidden" asp-for="@Model.DecorationCheckBoxes[i].DecorationTitle" />
                         <input type="hidden" asp-for="@Model.DecorationCheckBoxes[i].DecorationId" />
-                        <input type="hidden" asp-for="@Model.DecorationCheckBoxes[i].Price" />
                     </div>
                 }
-
             </div>
 
             <div class="form-group">
+                <input asp-for="TotalPrice" type="hidden" id="cakePriceInput" />
                 <p class="h5 my-5">Total Price: <span id="cakePrice"></span> </p>
-                <input type="hidden" />
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
@@ -85,6 +82,7 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script src="@Url.Content("~/js/createCake.js")" defer></script>
 }
 
 
