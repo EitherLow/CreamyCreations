@@ -36,10 +36,8 @@
 <input type="date" name="date" id="date" />
 
 <div id="paypal-button"></div>
-<button id="send">E</button>
 <script src="https://www.paypalobjects.com/api/checkout.js"></script>
 <script>
-	const date = document.getElementById('date');
 	const paypalButton = document.getElementById('paypal-button');
     paypalButton.style.display = 'none';
 	// make sure that the user has chosen a date before proceeding
@@ -50,27 +48,45 @@
 			paypalButton.style.display = 'none';
         }
     }
-	
     paypal.Button.render({
         env: 'sandbox', // Or ' production '
-        style: {
+        style: { // You can customize your button here.
             size: 'small',
             color: 'gold',
             shape: 'pill',
             label: 'checkout'
         },
         client: {
+            // You need to change this to your client ID
             sandbox: 'ATZD0fV4EGXzHq_c5YokYWv0TICaeDVu5h6-VeI1tBfZjuosmeBK6Es66JLNY91A8in1tRfK6IG5aVrh',
-            // production: 'ATZD0fV4EGXzHq_c5YokYWv0TICaeDVu5h6-VeI1tBfZjuosmeBK6Es66JLNY91A8in1tRfK6IG5aVrh'  // Switch to ‘production’ when live.
+            // production: '3W8F5EEJKUJP4KSY'  // Switch to ‘production’ when live.
         },
 
         commit: true, // Show a 'Pay Now' button
 
         payment: function (data, actions) {
-			if(date.value === "") return
             return actions.payment.create({
                 payment: {
-                    transactions: [{ amount: { total: @Model.TotalPrice, currency: 'CAD' }}]
+                    transactions: [{
+                        // The 'custom' field helps you to link the paypal request
+                        // with paypal's response which is important.
+
+                        // You may want use a 'custom' field to send an accountID from
+                        // your site so you can uniquely identify the person making the
+                        // payment when Paypal notifies you.
+
+                        // Sometimes a person at your site will pay at Paypal with
+                        // an entirely different set of credentials. They may pay with
+                        // a credit card or account which belongs to their spouse or
+                        // another family member. In situations like these, relating
+                        // payments to accounts on your site can be difficult.
+
+                        // The custom property value that you send to Paypal for a
+                        // payment request is returned in Paypal's reponse.
+                        custom: 'Custom data goes here!',
+                        amount: { total: @ViewBag.totalPrice, currency: 'USD' }
+                    }
+                    ]
                 }
             });
         },
@@ -79,7 +95,7 @@
             return actions.payment.execute().then(function (payment) {
                 console.log("This is what comes back from Paypal: ")
                 console.log(payment);
-                alert("This JSON is from Paypal: " + JSON.stringify(payment));
+                //alert("This JSON is from Paypal: " + JSON.stringify(payment));
                 console.log("-------------------------------------")
                 var dataObject = {
                     "cart":             payment.cart,
@@ -99,17 +115,33 @@
                     "currency":         payment.transactions[0].amount.currency,
                     "custom":           payment.transactions[0].custom
                 }
+
+                // The payment is complete!
+                // You can now show a confirmation message to the customer
 				const {line1: address, city, state: province, postal_code} = payment.payer.payer_info.shipping_address
-				const userId = @ViewBag.userId
-				const weddingCakeId = @Model.WeddingCakeId
-				const deliveryDate = date.value
+				const userId = 1
+				const weddingCakeId = 1
+                const deliveryDate = document.getElementById('date').value;
 				console.log("-------------------------------------")
-				const request = {address, city, province, userId, weddingCakeId, deliveryDate, postal_code}
-            }
+				const request = {address, city, province, userId: userId.toString(), weddingCakeId: weddingCakeId.toString(), deliveryDate, postal_code}
+				fetch("/payment/index",{
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json"
+						},
+					body: JSON.stringify(request)
+                }).then(res => {
+					const url = res.url
+					window.location.href = url
+                })
+            })
         },
 
         onCancel: function (data, actions) {
-            alert("canceled")
+            /*
+            * Buyer cancelled the payment
+            */
         },
     }, '#paypal-button');
+
 </script>
