@@ -34,7 +34,7 @@ namespace CreamyCreations.Repositories
                             userID = o.UserId,
                             deliveryDate = o.DeliveryDate.ToString("dd/MM/yyyy"),
                             email = u.Email,
-                            price = "$" + wc.TotalPrice
+                            price = "$" + wc.TotalPrice.ToString("0.00")
 
                         });
             return adminOrders;
@@ -53,6 +53,16 @@ namespace CreamyCreations.Repositories
             var order = (from o in _context.Orders
                         where o.OrderId == orderID
                         select o).FirstOrDefault();
+
+            var decorations = (from wcd in _context.WeddingCakeDecorations
+                                 from d in _context.Decorations
+                                 where wcd.WeddingCakeId == weddingCakeID
+                                 where wcd.DecorationId == d.DecorationId
+                                 select new Decoration { 
+                                     DecorationId = d.DecorationId,
+                                     Decoration1 = d.Decoration1,
+                                     Price = d.Price
+                                 }).ToList();
 
             var query =  (from f in _context.Fillings
                          from la in _context.Labels
@@ -77,9 +87,9 @@ namespace CreamyCreations.Repositories
                              cover = c.Flavor,
                              filling = f.Flavor,
                              label = la.LabelName,
-                             decoration = d.Decoration1,
+                             decorations = decorations,
                              deliveryDate = order.DeliveryDate.ToString("dd/MM/yyyy"),
-                             price = "$" + weddingCake.TotalPrice,
+                             price = "$" + weddingCake.TotalPrice.ToString("0.00")
                          })).FirstOrDefault();
             return query;
         }
@@ -159,6 +169,7 @@ namespace CreamyCreations.Repositories
             query.LabelId = weddingCake.LabelId;
             _context.SaveChanges();
             query.LevelNumber = weddingCake.LevelNumber;
+            query.TotalPrice = weddingCake.TotalPrice;
             _context.Entry(query).State = EntityState.Modified;
             _context.SaveChanges();
 
@@ -189,6 +200,9 @@ namespace CreamyCreations.Repositories
             }
 
             // Save all changes
+            _context.SaveChanges();
+
+            query.TotalPrice = Math.Round(weddingCake.TotalPrice, 2);
             _context.SaveChanges();
             return true;
         }
