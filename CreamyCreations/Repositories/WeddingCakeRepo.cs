@@ -118,7 +118,7 @@ namespace CreamyCreations.Repositories
 
 
             // Calculate Total Price
-            // Create huge select to the DB and get prices of all
+            // Create a huge select to the DB and get prices of all
             // var getCover = _context.Covers.Where(c => c.CoverId == cakeVM.CoverId).Select(p => p.Price).FirstOrDefault();
 
             // Create a new wedding cake
