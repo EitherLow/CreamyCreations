@@ -31,9 +31,26 @@
     }
 </ul>
 
+<!-- input that accepts a type date-->
+<label for="date">Delivery Date:</label>
+<input type="date" name="date" id="date" />
+
 <div id="paypal-button"></div>
+<button id="send">E</button>
 <script src="https://www.paypalobjects.com/api/checkout.js"></script>
 <script>
+	const date = document.getElementById('date');
+	const paypalButton = document.getElementById('paypal-button');
+    paypalButton.style.display = 'none';
+	// make sure that the user has chosen a date before proceeding
+	date.onchange = function() {
+		if(date.value) {
+			paypalButton.style.display = 'block';
+        } else{
+			paypalButton.style.display = 'none';
+        }
+    }
+	
     paypal.Button.render({
         env: 'sandbox', // Or ' production '
         style: {
@@ -50,6 +67,7 @@
         commit: true, // Show a 'Pay Now' button
 
         payment: function (data, actions) {
+			if(date.value === "") return
             return actions.payment.create({
                 payment: {
                     transactions: [{ amount: { total: @Model.TotalPrice, currency: 'CAD' }}]
@@ -81,16 +99,13 @@
                     "currency":         payment.transactions[0].amount.currency,
                     "custom":           payment.transactions[0].custom
                 }
-                fetch("/payment/index",
-                    {
-                        method: "POST",
-                        body: JSON.stringify({test: "test"}),
-                        headers: {
-                            'Content-Type': 'application/json'
-                        }
-                    }
-                ).then(()=> console.log("test"))
-            })
+				const {line1: address, city, state: province, postal_code} = payment.payer.payer_info.shipping_address
+				const userId = @ViewBag.userId
+				const weddingCakeId = @Model.WeddingCakeId
+				const deliveryDate = date.value
+				console.log("-------------------------------------")
+				const request = {address, city, province, userId, weddingCakeId, deliveryDate, postal_code}
+            }
         },
 
         onCancel: function (data, actions) {
