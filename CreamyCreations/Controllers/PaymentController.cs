@@ -31,6 +31,7 @@ namespace CreamyCreations.Controllers
             {
                 var thing = paymentRepo.GetCakeDetails(int.Parse(id));
                 ViewBag.userId = userId;
+                ViewBag.totalPrice = thing.TotalPrice;
                 return View(thing);
 
             }
