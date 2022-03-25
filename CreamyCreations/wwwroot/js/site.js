@@ -3,6 +3,3 @@
 
 // Write your JavaScript code.
 
-$(document).ready(function () {
-    $("#cakePrice").text("Hey Total price Here");
-});
