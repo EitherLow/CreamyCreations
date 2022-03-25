@@ -45,17 +45,16 @@ namespace CreamyCreations.Controllers
         public IActionResult Create(CreateWeddingCakeVM cakeVM, WeddingCake newWeddingCake)
         {   
             WeddingCakeRepo weddingCakeRepo = new WeddingCakeRepo(_context);
-            ViewData["Message"] = "";
+            UserRepo userRepo = new UserRepo(_context);
 
             // Ensure Data Model is valid.
             if (ModelState.IsValid)
             {
                 weddingCakeRepo.CreateWeddingCake(cakeVM, newWeddingCake);
-                ViewData["Message"] = "New wedding cake has been created";
-                //ViewData["accNumber"] = newBankAccount.accountNum;
-                //ViewData["clientId"] = clientRepo.GetId(User.Identity.Name);
+                ViewData["CakeID"] = newWeddingCake.WeddingCakeId;
+                ViewData["UserID"] = userRepo.GetId(User.Identity.Name);
 
-                return RedirectToAction("Index", "Home", new { message = ViewBag.Message });
+                return RedirectToAction("Index", "Home", new { cake = ViewBag.CakeID, user = ViewBag.UserID});
             }
             
             return View();
