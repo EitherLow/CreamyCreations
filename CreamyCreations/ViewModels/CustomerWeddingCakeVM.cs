@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
+using CreamyCreations.Models;
 
 namespace CreamyCreations.ViewModels
 {
@@ -39,7 +40,7 @@ namespace CreamyCreations.ViewModels
         public string filling { get; set; }
 
         [Display(Name = "Decoration")]
-        public string decoration { get; set; }
+        public List<Decoration> decorations { get; set; }
 
         [Display(Name = "Delivery Date")]
         public string deliveryDate { get; set; }

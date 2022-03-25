@@ -5,8 +5,6 @@
     var $filling = $("#selectFilling");
     var $label = $("#selectLabel");
     var $decorations = $(".decoration");
-    var decorations = document.getElementsByClassName("decoration");
-    console.log($decorations);
     var $decorationArray = [];
 
     var $totalPrice = Number(0);
@@ -25,15 +23,14 @@
     var $labelPrice = Number($label.find("option:selected").attr("data-price"));
     var $decorationPrice = Number(0);
 
-    console.log("checked decoration", $decorations.prop("checked"))
-    if ($decorations.prop("checked")) {
-        $decorationArray.push($(this).attr("data-price"));
-        console.log($decorationArray)
-        //console.log("checked");
-        $decorationPrice = Number($decorationArray.reduce((a, b) => Number(a) + Number(b), 0));
-    }
+    $.each($decorations, function (index, value) {
+        if (value.checked === true) {
+            $decorationArray.push(value.getAttribute("data-price"));
+            $decorationPrice = Number($decorationArray.reduce((a, b) => Number(a) + Number(b), 0));
+        }
+    });
 
-
+    // TOTAL PRICE
     calculatePrice()
 
     $level.change(function () {
