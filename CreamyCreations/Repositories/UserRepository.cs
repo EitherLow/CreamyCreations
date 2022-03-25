@@ -27,6 +27,7 @@ namespace CreamyCreations.Repositories
             return users;
         }
 
+        // Getting User ID for payment
         public int GetId(string email)
         {
             User user = _context.Users.Where(u => u.Email == email).FirstOrDefault();
