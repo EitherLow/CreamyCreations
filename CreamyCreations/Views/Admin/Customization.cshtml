@@ -1,9 +1,4 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
-
+﻿
 <h1>Admin Customization</h1>
 <table class="table">
     <thead>
@@ -11,6 +6,7 @@
             <th>
                 Ingredient
             </th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -19,7 +15,7 @@
                 Cover
             </td>
             <td>
-                <button>Edit</button>
+                @Html.ActionLink("Edit/Add", "EditCovers", "Admin", new { @class = "btn btn-success" })
             </td>
         </tr>
         <tr>
