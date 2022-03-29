@@ -134,5 +134,43 @@ namespace CreamyCreations.Repositories
             }
             return true;
         }
+
+        // levels
+        public LevelsVM getLevels()
+        {
+            LevelsVM vm = new LevelsVM();
+            vm.Levels = (from c in _context.Levels
+                         select new Level
+                         {
+                             Price = c.Price,
+                             LevelNumber = c.LevelNumber
+                         }).ToList();
+            return vm;
+        }
+
+        public bool EditLevels(LevelsVM levelsVM)
+        {
+
+            foreach (var level in levelsVM.Levels)
+            {
+                var lab = (from c in _context.Levels
+                           where c.LevelNumber == level.LevelNumber
+                           select c).FirstOrDefault();
+                decimal previousLevelPrice = lab.Price;
+                lab.Price = level.Price;
+                lab.LevelNumber = level.LevelNumber;
+
+                var weddingCakes = (from wc in _context.WeddingCakes
+                                    where wc.LevelNumber == level.LevelNumber
+                                    select wc).ToList();
+
+                foreach (var wc in weddingCakes)
+                {
+                    wc.TotalPrice = wc.TotalPrice - previousLevelPrice + lab.Price;
+                }
+                _context.SaveChanges();
+            }
+            return true;
+        }
     }
 }
