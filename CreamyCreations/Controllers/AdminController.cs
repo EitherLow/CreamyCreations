@@ -75,6 +75,21 @@ namespace CreamyCreations.Controllers
             repo.EditLabels(labelsVM);
             return RedirectToAction("Customization", "Admin");
         }
+
+        public IActionResult EditLevels()
+        {
+            AdminCustomizationRepo repo = new AdminCustomizationRepo(_context);
+            var levels = repo.getLevels();
+            return View(levels);
+        }
+
+        [HttpPost]
+        public IActionResult EditLevels(LevelsVM levelsVM)
+        {
+            AdminCustomizationRepo repo = new AdminCustomizationRepo(_context);
+            repo.EditLevels(levelsVM);
+            return RedirectToAction("Customization", "Admin");
+        }
         // orders 
         [Authorize]
         public IActionResult Orders()
