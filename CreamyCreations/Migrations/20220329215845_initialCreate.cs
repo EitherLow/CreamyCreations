@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace CreamyCreations.Migrations
 {
-    public partial class initialcreate : Migration
+    public partial class initialCreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -95,13 +95,24 @@ namespace CreamyCreations.Migrations
                     level = table.Column<int>(type: "INTEGER", nullable: false),
                     label = table.Column<string>(type: "TEXT", nullable: true),
                     filling = table.Column<string>(type: "TEXT", nullable: true),
-                    decoration = table.Column<string>(type: "TEXT", nullable: true),
                     deliveryDate = table.Column<string>(type: "TEXT", nullable: true),
                     price = table.Column<string>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_CustomerWeddingCakeVM", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "LabelsVM",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_LabelsVM", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -117,6 +128,21 @@ namespace CreamyCreations.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_User", x => x.userID);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "UserProfileVM",
+                columns: table => new
+                {
+                    UserId = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Email = table.Column<string>(type: "TEXT", nullable: true),
+                    FirstName = table.Column<string>(type: "TEXT", nullable: true),
+                    LastName = table.Column<string>(type: "TEXT", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UserProfileVM", x => x.UserId);
                 });
 
             migrationBuilder.CreateTable(
@@ -260,6 +286,27 @@ namespace CreamyCreations.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Decoration",
+                columns: table => new
+                {
+                    decorationID = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    price = table.Column<decimal>(type: "money", nullable: false),
+                    decoration = table.Column<string>(type: "TEXT", maxLength: 50, nullable: false),
+                    CustomerWeddingCakeVMId = table.Column<int>(type: "INTEGER", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Decoration", x => x.decorationID);
+                    table.ForeignKey(
+                        name: "FK_Decoration_CustomerWeddingCakeVM_CustomerWeddingCakeVMId",
+                        column: x => x.CustomerWeddingCakeVMId,
+                        principalTable: "CustomerWeddingCakeVM",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Cover",
                 columns: table => new
                 {
@@ -274,27 +321,6 @@ namespace CreamyCreations.Migrations
                     table.PrimaryKey("PK_Cover", x => x.coverID);
                     table.ForeignKey(
                         name: "FK_Cover_WeddingCakeVM_CreateWeddingCakeVMWeddingCakeId",
-                        column: x => x.CreateWeddingCakeVMWeddingCakeId,
-                        principalTable: "WeddingCakeVM",
-                        principalColumn: "WeddingCakeId",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Decoration",
-                columns: table => new
-                {
-                    decorationID = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    price = table.Column<decimal>(type: "money", nullable: false),
-                    decoration = table.Column<string>(type: "TEXT", maxLength: 50, nullable: false),
-                    CreateWeddingCakeVMWeddingCakeId = table.Column<int>(type: "INTEGER", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Decoration", x => x.decorationID);
-                    table.ForeignKey(
-                        name: "FK_Decoration_WeddingCakeVM_CreateWeddingCakeVMWeddingCakeId",
                         column: x => x.CreateWeddingCakeVMWeddingCakeId,
                         principalTable: "WeddingCakeVM",
                         principalColumn: "WeddingCakeId",
@@ -330,11 +356,18 @@ namespace CreamyCreations.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     labelName = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false),
                     price = table.Column<decimal>(type: "money", nullable: false),
-                    CreateWeddingCakeVMWeddingCakeId = table.Column<int>(type: "INTEGER", nullable: true)
+                    CreateWeddingCakeVMWeddingCakeId = table.Column<int>(type: "INTEGER", nullable: true),
+                    LabelsVMId = table.Column<int>(type: "INTEGER", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Label", x => x.labelID);
+                    table.ForeignKey(
+                        name: "FK_Label_LabelsVM_LabelsVMId",
+                        column: x => x.LabelsVMId,
+                        principalTable: "LabelsVM",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Label_WeddingCakeVM_CreateWeddingCakeVMWeddingCakeId",
                         column: x => x.CreateWeddingCakeVMWeddingCakeId,
@@ -356,6 +389,35 @@ namespace CreamyCreations.Migrations
                     table.PrimaryKey("PK__Level__8AB0A30A55D0C97C", x => x.levelNumber);
                     table.ForeignKey(
                         name: "FK_Level_WeddingCakeVM_CreateWeddingCakeVMWeddingCakeId",
+                        column: x => x.CreateWeddingCakeVMWeddingCakeId,
+                        principalTable: "WeddingCakeVM",
+                        principalColumn: "WeddingCakeId",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "DecorationCheckBoxVM",
+                columns: table => new
+                {
+                    DecorationId = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Price = table.Column<decimal>(type: "TEXT", nullable: false),
+                    DecorationTitle = table.Column<string>(type: "TEXT", nullable: true),
+                    IsChecked = table.Column<bool>(type: "INTEGER", nullable: false),
+                    CreateWeddingCakeVMWeddingCakeId = table.Column<int>(type: "INTEGER", nullable: true),
+                    WeddingCakeVMWeddingCakeId = table.Column<int>(type: "INTEGER", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_DecorationCheckBoxVM", x => x.DecorationId);
+                    table.ForeignKey(
+                        name: "FK_DecorationCheckBoxVM_WeddingCakeVM_1_WeddingCakeVMWeddingCakeId",
+                        column: x => x.WeddingCakeVMWeddingCakeId,
+                        principalTable: "WeddingCakeVM_1",
+                        principalColumn: "WeddingCakeId",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_DecorationCheckBoxVM_WeddingCakeVM_CreateWeddingCakeVMWeddingCakeId",
                         column: x => x.CreateWeddingCakeVMWeddingCakeId,
                         principalTable: "WeddingCakeVM",
                         principalColumn: "WeddingCakeId",
@@ -494,17 +556,17 @@ namespace CreamyCreations.Migrations
 
             migrationBuilder.InsertData(
                 table: "Decoration",
-                columns: new[] { "decorationID", "CreateWeddingCakeVMWeddingCakeId", "decoration", "price" },
+                columns: new[] { "decorationID", "CustomerWeddingCakeVMId", "decoration", "price" },
                 values: new object[] { 1, null, "Chocolate hearts", 34.35m });
 
             migrationBuilder.InsertData(
                 table: "Decoration",
-                columns: new[] { "decorationID", "CreateWeddingCakeVMWeddingCakeId", "decoration", "price" },
+                columns: new[] { "decorationID", "CustomerWeddingCakeVMId", "decoration", "price" },
                 values: new object[] { 2, null, "Butter roses", 22.15m });
 
             migrationBuilder.InsertData(
                 table: "Decoration",
-                columns: new[] { "decorationID", "CreateWeddingCakeVMWeddingCakeId", "decoration", "price" },
+                columns: new[] { "decorationID", "CustomerWeddingCakeVMId", "decoration", "price" },
                 values: new object[] { 3, null, "Angles", 12.15m });
 
             migrationBuilder.InsertData(
@@ -524,18 +586,18 @@ namespace CreamyCreations.Migrations
 
             migrationBuilder.InsertData(
                 table: "Label",
-                columns: new[] { "labelID", "CreateWeddingCakeVMWeddingCakeId", "labelName", "price" },
-                values: new object[] { 1, null, "Dark chocolate  label of last name", 10.25m });
+                columns: new[] { "labelID", "CreateWeddingCakeVMWeddingCakeId", "labelName", "LabelsVMId", "price" },
+                values: new object[] { 1, null, "Dark chocolate  label of last name", null, 10.25m });
 
             migrationBuilder.InsertData(
                 table: "Label",
-                columns: new[] { "labelID", "CreateWeddingCakeVMWeddingCakeId", "labelName", "price" },
-                values: new object[] { 2, null, "White almond label of last name at the top", 20.25m });
+                columns: new[] { "labelID", "CreateWeddingCakeVMWeddingCakeId", "labelName", "LabelsVMId", "price" },
+                values: new object[] { 2, null, "White almond label of last name at the top", null, 20.25m });
 
             migrationBuilder.InsertData(
                 table: "Label",
-                columns: new[] { "labelID", "CreateWeddingCakeVMWeddingCakeId", "labelName", "price" },
-                values: new object[] { 3, null, "Red strawberry label of last name in the middle", 30.25m });
+                columns: new[] { "labelID", "CreateWeddingCakeVMWeddingCakeId", "labelName", "LabelsVMId", "price" },
+                values: new object[] { 3, null, "Red strawberry label of last name in the middle", null, 30.25m });
 
             migrationBuilder.InsertData(
                 table: "Level",
@@ -661,15 +723,25 @@ namespace CreamyCreations.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Decoration_CreateWeddingCakeVMWeddingCakeId",
+                name: "IX_Decoration_CustomerWeddingCakeVMId",
                 table: "Decoration",
-                column: "CreateWeddingCakeVMWeddingCakeId");
+                column: "CustomerWeddingCakeVMId");
 
             migrationBuilder.CreateIndex(
                 name: "UQ__Decorati__129665722C1950E6",
                 table: "Decoration",
                 column: "decoration",
                 unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_DecorationCheckBoxVM_CreateWeddingCakeVMWeddingCakeId",
+                table: "DecorationCheckBoxVM",
+                column: "CreateWeddingCakeVMWeddingCakeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_DecorationCheckBoxVM_WeddingCakeVMWeddingCakeId",
+                table: "DecorationCheckBoxVM",
+                column: "WeddingCakeVMWeddingCakeId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Filling_CreateWeddingCakeVMWeddingCakeId",
@@ -686,6 +758,11 @@ namespace CreamyCreations.Migrations
                 name: "IX_Label_CreateWeddingCakeVMWeddingCakeId",
                 table: "Label",
                 column: "CreateWeddingCakeVMWeddingCakeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Label_LabelsVMId",
+                table: "Label",
+                column: "LabelsVMId");
 
             migrationBuilder.CreateIndex(
                 name: "UQ__Label__FB497B2DA698282A",
@@ -760,22 +837,25 @@ namespace CreamyCreations.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "CustomerWeddingCakeVM");
+                name: "DecorationCheckBoxVM");
 
             migrationBuilder.DropTable(
                 name: "Order");
 
             migrationBuilder.DropTable(
-                name: "WeddingCakeDecoration");
+                name: "UserProfileVM");
 
             migrationBuilder.DropTable(
-                name: "WeddingCakeVM_1");
+                name: "WeddingCakeDecoration");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "WeddingCakeVM_1");
 
             migrationBuilder.DropTable(
                 name: "Address");
@@ -790,6 +870,9 @@ namespace CreamyCreations.Migrations
                 name: "WeddingCake");
 
             migrationBuilder.DropTable(
+                name: "CustomerWeddingCakeVM");
+
+            migrationBuilder.DropTable(
                 name: "Cover");
 
             migrationBuilder.DropTable(
@@ -800,6 +883,9 @@ namespace CreamyCreations.Migrations
 
             migrationBuilder.DropTable(
                 name: "Level");
+
+            migrationBuilder.DropTable(
+                name: "LabelsVM");
 
             migrationBuilder.DropTable(
                 name: "WeddingCakeVM");

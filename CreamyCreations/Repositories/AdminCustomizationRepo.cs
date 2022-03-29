@@ -74,7 +74,7 @@ namespace CreamyCreations.Repositories
         public bool EditFillings(FillingsVM fillingsVM)
         {
 
-            foreach (Filling filling in fillingsVM.Fillings)
+            foreach (var filling in fillingsVM.Fillings)
             {
                 var fil = (from c in _context.Fillings
                            where c.FillingId == filling.FillingId
@@ -90,6 +90,45 @@ namespace CreamyCreations.Repositories
                 foreach (var wc in weddingCakes)
                 {
                     wc.TotalPrice = wc.TotalPrice - previousFillingPrice + fil.Price;
+                }
+                _context.SaveChanges();
+            }
+            return true;
+        }
+
+        // filling
+        public LabelsVM getLabels()
+        {
+            LabelsVM vm = new LabelsVM();
+            vm.Labels = (from c in _context.Labels
+                           select new Label
+                           {
+                               Price = c.Price,
+                               LabelId = c.LabelId,
+                               LabelName = c.LabelName
+                           }).ToList();
+            return vm;
+        }
+
+        public bool EditLabels(LabelsVM labelsVM)
+        {
+
+            foreach (var label in labelsVM.Labels)
+            {
+                var lab = (from c in _context.Labels
+                           where c.LabelId == label.LabelId
+                           select c).FirstOrDefault();
+                decimal previousLabelPrice = lab.Price;
+                lab.Price = label.Price;
+                lab.LabelName = label.LabelName;
+
+                var weddingCakes = (from wc in _context.WeddingCakes
+                                    where wc.LabelId == label.LabelId
+                                    select wc).ToList();
+
+                foreach (var wc in weddingCakes)
+                {
+                    wc.TotalPrice = wc.TotalPrice - previousLabelPrice + lab.Price;
                 }
                 _context.SaveChanges();
             }
