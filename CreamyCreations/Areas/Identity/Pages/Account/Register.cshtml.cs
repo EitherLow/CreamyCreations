@@ -27,11 +27,13 @@ namespace CreamyCreations.Areas.Identity.Pages.Account
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
         private readonly ApplicationDbContext _context;
+        private readonly RoleManager<IdentityRole> _roleManager; // handling user roles during the registration
 
         public RegisterModel(
             UserManager<IdentityUser> userManager,
             SignInManager<IdentityUser> signInManager,
             ILogger<RegisterModel> logger,
+            RoleManager<IdentityRole> roleManager, // added for roles
             IEmailSender emailSender,
             ApplicationDbContext context
         )
@@ -40,6 +42,7 @@ namespace CreamyCreations.Areas.Identity.Pages.Account
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
+            _roleManager = roleManager; // added for roles
             _emailSender = emailSender;
         }
 
@@ -96,9 +99,38 @@ namespace CreamyCreations.Areas.Identity.Pages.Account
                 {
                     user.EmailConfirmed = true;
                 }
+
+                // Check if the roles already exists
+                string roleUser = "User";
+                string roleAdmin = "Admin";
+                bool defaultRoleUser = await _roleManager.RoleExistsAsync(roleUser);
+                bool defaultRoleAdmin = await _roleManager.RoleExistsAsync(roleAdmin);
+
+                // If the default role User doesn't exist, create a new one
+                if (!defaultRoleUser)
+                {
+                    var newDefaultRole = new IdentityRole();
+                    newDefaultRole.Name = roleUser;
+                    await _roleManager.CreateAsync(newDefaultRole);
+                }
+
+                // If the default role Admin doesn't exist, create a new one
+                if (!defaultRoleAdmin)
+                {
+                    var newDefaultRole = new IdentityRole();
+                    newDefaultRole.Name = roleAdmin;
+                    await _roleManager.CreateAsync(newDefaultRole);
+                }
+
+                // Create a new user with the password
                 var result = await _userManager.CreateAsync(user, Input.Password);
+
                 if (result.Succeeded)
                 {
+                    // Assign the default role to the new user
+                    await _userManager.AddToRoleAsync(user, roleUser);
+
+                    // Register new user to the User table
                     // Normally this code would be placed in a repository.
                     User registerUser = new User()
                     {
@@ -109,7 +141,7 @@ namespace CreamyCreations.Areas.Identity.Pages.Account
                     _context.Users.Add(registerUser);
                     _context.SaveChanges();
 
-                    _logger.LogInformation("User created a new account with password.");
+                    _logger.LogInformation("New user has been created.");
 
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                     code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
