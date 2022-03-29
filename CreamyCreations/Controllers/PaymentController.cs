@@ -22,7 +22,7 @@ namespace CreamyCreations.Controllers
         }
 
         // assume that the wedding cake id is passed in.
-        public IActionResult Index(string id = "1", int? userId = 1)
+        public IActionResult Index(string id = "1", int? userId = 3)
         {
             // Only send the request if we actually do have and id
             //Assume that the user may go back to the payment page without going
@@ -31,6 +31,7 @@ namespace CreamyCreations.Controllers
             {
                 var thing = paymentRepo.GetCakeDetails(int.Parse(id));
                 ViewBag.userId = userId;
+                ViewBag.cakeId = id;
                 ViewBag.totalPrice = thing.TotalPrice;
                 return View(thing);
 
@@ -73,6 +74,15 @@ namespace CreamyCreations.Controllers
         {
             // get the total price of the order
             var order = _context.Orders.Where(o => o.OrderId == id).FirstOrDefault();
+
+            // get the user id
+            var userRepo = new UserRepo(_context);
+            var userId = userRepo.GetId(User.Identity.Name);
+            if (order.UserId != userId)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            
             // get the cake details using the order
             var cake = _context.WeddingCakes.Where(c => c.WeddingCakeId == order.WeddingCakeId).FirstOrDefault();
             var price = cake.TotalPrice;
