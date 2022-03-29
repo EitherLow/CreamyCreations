@@ -6,6 +6,7 @@ using System.Text;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 using CreamyCreations.Data;
+using CreamyCreations.Data.Services;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -15,6 +16,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
 using CreamyCreations.Models;
+using EllipticCurve;
 using Microsoft.AspNetCore.Http.Extensions;
 
 namespace CreamyCreations.Areas.Identity.Pages.Account
@@ -28,6 +30,7 @@ namespace CreamyCreations.Areas.Identity.Pages.Account
         private readonly IEmailSender _emailSender;
         private readonly ApplicationDbContext _context;
         private readonly RoleManager<IdentityRole> _roleManager; // handling user roles during the registration
+        private readonly IEmailService _emailService;
 
         public RegisterModel(
             UserManager<IdentityUser> userManager,
@@ -35,7 +38,8 @@ namespace CreamyCreations.Areas.Identity.Pages.Account
             ILogger<RegisterModel> logger,
             RoleManager<IdentityRole> roleManager, // added for roles
             IEmailSender emailSender,
-            ApplicationDbContext context
+            ApplicationDbContext context,
+            IEmailService emailService
         )
         {
             _context = context;
@@ -44,6 +48,7 @@ namespace CreamyCreations.Areas.Identity.Pages.Account
             _logger = logger;
             _roleManager = roleManager; // added for roles
             _emailSender = emailSender;
+            _emailService = emailService;
         }
 
         [BindProperty]
@@ -95,10 +100,11 @@ namespace CreamyCreations.Areas.Identity.Pages.Account
             {
                 var url = Request.GetEncodedUrl();
                 var user = new IdentityUser { UserName = Input.Email, Email = Input.Email };
-                if (url.Contains("localhost"))
+                /*if (url.Contains("localhost"))
                 {
                     user.EmailConfirmed = true;
                 }
+                */
 
                 // Check if the roles already exists
                 string roleUser = "User";
@@ -151,12 +157,25 @@ namespace CreamyCreations.Areas.Identity.Pages.Account
                         values: new { area = "Identity", userId = user.Id, code = code, returnUrl = returnUrl },
                         protocol: Request.Scheme);
 
-                    await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
-                        $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+                    var response = await _emailService.SendSingleEmail(new Models.ComposeEmailModel
+                    {
+                        FirstName = "Creamy",
+                        LastName = "Creations",
+                        Subject = "Confirm your email",
+                        Email = Input.Email,
+                        Body = $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>."
+                    });
+
 
                     if (_userManager.Options.SignIn.RequireConfirmedAccount)
                     {
-                        return RedirectToPage("RegisterConfirmation", new { email = Input.Email, returnUrl = returnUrl });
+                        return RedirectToPage("RegisterConfirmation", new
+                        {
+                            email = Input.Email,
+                            returnUrl = returnUrl,
+                            DisplayConfirmAccountLink = false
+                        });
+
                     }
                     else
                     {
