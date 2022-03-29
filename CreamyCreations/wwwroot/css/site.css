@@ -1,38 +1,150 @@
 ﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
 for details on configuring this project to bundle and minify static web assets. */
 
-a.navbar-brand {
-  white-space: normal;
-  text-align: center;
-  word-break: break-all;
+/*************************
+    BASE
+**************************/
+
+:root {
+    --color-text: #4d3f2d;
+    --color-vanilla: #FCFBE3;
+    --color-milkChocolate: #A37E58;
+    --color-darkChocolate: #755C3B;
+    --color-lightPink: #FBCFCF;
+    --color-strawberry: #E08E79;
+    --color-strawberryHover: #e85531;
+    --color-lightGreen: #C5E0DC;
+    --color-white: #FFF;
+    --btn-border-radius: 2rem;
 }
 
-/* Provide sufficient contrast against white background */
+html {
+    box-sizing: border-box;
+}
+
+*, *::before, *::after {
+    box-sizing: inherit;
+}
+
+body {
+    height: 100%;
+    width: 100%;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 400;
+    font-size: 100%;
+    color: var(--color-text);
+    line-height: 1.65;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5 {
+    font-weight: 900;
+    filter: drop-shadow(0 1px 1px rgb(0 0 0 / 0.05));
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 1rem;
+    box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+}
+
 a {
-  color: #0366d6;
+    cursor: pointer;
+    color: var(--color-text);
+}
+
+a:hover {
+    color: var(--color-text);
+}
+
+/*************************
+    FOOTER
+**************************/
+footer {
+    color: var(--color-white);
+    background-color: var(--color-text);
+}
+
+footer a {
+    color: var(--color-white);
+}
+
+footer a:hover,
+footer a:focus {
+    color: var(--color-white);
+    text-decoration: underline;
+}
+
+footer p {
+    color: var(--color-white);
+    margin: 0;
+}
+
+
+/***************************************************************************
+    REWRITING BOOTSTRAP
+****************************************************************************/
+
+/*************************
+    NAVBAR
+**************************/
+
+.navbar-brand {
+    font-weight: 700;
+}
+
+/*************************
+    BUTTONS
+**************************/
+
+.btn {
+    border-radius: 2rem;
+    padding: 0.35rem 1.65rem;
 }
 
 .btn-primary {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
+    color: var(--color-white);
+    background-color: var(--color-strawberry);
+    border-color: var(--color-strawberry);
+    box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
 }
 
+    .btn-primary:hover,
+    .btn-primary:active,
+    .btn-primary:not(:disabled):not(.disabled):active,
+    .btn-primary:focus {
+        background-color: var(--color-strawberryHover);
+        border-color: var(--color-strawberryHover);
+    }
+
+        .btn-primary:focus,
+        .btn-primary:not(:disabled):not(.disabled):active:focus {
+            box-shadow: 0 0 0 0.2rem rgb(232 86 49 / 50%);
+        }
+
+/*************************
+    FORM
+**************************/
+.form-control {
+    color: var(--color-text);
+}
+
+    .form-control:focus {
+        border-color: var(--color-darkChocolate);
+        box-shadow: 0 0 0 0.2rem rgb(117 92 59 / 25%);
+    }
+
+
+/*************************
+    CHANGE THIS CODE
+**************************/
 .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
-}
-
-/* Sticky footer styles
--------------------------------------------------- */
-html {
-  font-size: 14px;
-}
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+    color: #fff;
+    background-color: #1b6ec2;
+    border-color: #1861ac;
 }
 
 .border-top {
@@ -51,21 +163,3 @@ button.accept-policy {
   line-height: inherit;
 }
 
-/* Sticky footer styles
--------------------------------------------------- */
-html {
-  position: relative;
-  min-height: 100%;
-}
-
-body {
-  /* Margin bottom by footer height */
-  margin-bottom: 60px;
-}
-.footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  white-space: nowrap;
-  line-height: 60px; /* Vertically center the text there */
-}
