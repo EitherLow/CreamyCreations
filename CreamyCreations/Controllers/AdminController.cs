@@ -39,13 +39,27 @@ namespace CreamyCreations.Controllers
         }
 
         [HttpPost]
-        public IActionResult EditCovers(IEnumerable<Cover> covers)
+        public IActionResult EditCovers(CoversVM coversVM)
         {
             AdminCustomizationRepo repo = new AdminCustomizationRepo(_context);
-            repo.EditCovers(covers);
+            repo.EditCovers(coversVM);
             return RedirectToAction("Customization", "Admin");
         }
 
+        public IActionResult EditFillings()
+        {
+            AdminCustomizationRepo repo = new AdminCustomizationRepo(_context);
+            var fillings = repo.getFillings();
+            return View(fillings);
+        }
+
+        [HttpPost]
+        public IActionResult EditFillings(FillingsVM fillingsVM)
+        {
+            AdminCustomizationRepo repo = new AdminCustomizationRepo(_context);
+            repo.EditFillings(fillingsVM);
+            return RedirectToAction("Customization", "Admin");
+        }
         // orders 
         [Authorize]
         public IActionResult Orders()

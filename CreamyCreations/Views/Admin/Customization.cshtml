@@ -15,7 +15,7 @@
                 Cover
             </td>
             <td>
-                @Html.ActionLink("Edit/Add", "EditCovers", "Admin", new { @class = "btn btn-success" })
+                @Html.ActionLink("Edit", "EditCovers", new { @class = "btn btn-success" })
             </td>
         </tr>
         <tr>
@@ -23,7 +23,7 @@
                 Filling
             </td>
             <td>
-                <button>Edit</button>
+                @Html.ActionLink("Edit", "EditFillings", new { @class = "btn btn-success" })
             </td>
         </tr>
         <tr>
