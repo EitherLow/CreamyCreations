@@ -1,6 +1,7 @@
 ﻿using CreamyCreations.Data;
 using CreamyCreations.Models;
 using CreamyCreations.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -37,6 +38,7 @@ namespace CreamyCreations.Repositories
                            select c).FirstOrDefault();
                 cov.Price = cover.Price;
                 cov.Flavor = cover.Flavor;
+                _context.Entry(cov).State = EntityState.Modified;
                 _context.SaveChanges();
             }
             return true;
