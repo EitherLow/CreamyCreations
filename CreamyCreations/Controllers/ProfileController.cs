@@ -42,6 +42,9 @@ namespace CreamyCreations.Controllers
         {
             if (User.Identity != null && User.Identity.Name != null)
             {
+                var userRepo = new UserRepo(_context);
+                var userId = userRepo.GetId(User.Identity.Name);
+                ViewBag.userId = userId;
                 string getUserName = User.Identity.Name;
                 var userData = _context.Users.FirstOrDefault(user => user.Email == getUserName);
                 return View(userData);
@@ -52,14 +55,13 @@ namespace CreamyCreations.Controllers
         }
 
         [HttpPost]
-        public IActionResult Edit(int id,User user)
+        public IActionResult Edit(UserProfileVM user)
         {
-            Console.WriteLine("ProfileController: Line 54 -> {0}",id);
+            Console.WriteLine("ProfileController: Line 54 -> {0}",user.UserId);
             if (ModelState.IsValid)
             {
                 var repo = new ProfileRepo(_context);
-                var userEmail = User.Identity.Name;
-                var status = repo.UpdateProfile(user, id);
+                var status = repo.UpdateProfile(user);
                 if (!status)
                 {
                     ViewBag.Error = "Something went wrong. Try again later";
@@ -70,7 +72,7 @@ namespace CreamyCreations.Controllers
             }
 
             ViewBag.statusMessage = "Something went wrong!";
-            return View();
+            return View("Index", user);
         }
     }
 }
