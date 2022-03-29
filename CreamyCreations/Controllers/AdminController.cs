@@ -24,6 +24,29 @@ namespace CreamyCreations.Controllers
 
         }
 
+        // customization 
+        [Authorize]
+        public IActionResult Customization()
+        {
+            return View();
+        }
+
+        public IActionResult EditCovers()
+        {
+            AdminCustomizationRepo repo = new AdminCustomizationRepo(_context);
+            var covers = repo.getCovers();
+            return View(covers);
+        }
+
+        [HttpPost]
+        public IActionResult EditCovers(IEnumerable<Cover> covers)
+        {
+            AdminCustomizationRepo repo = new AdminCustomizationRepo(_context);
+            repo.EditCovers(covers);
+            return RedirectToAction("Customization", "Admin");
+        }
+
+        // orders 
         [Authorize]
         public IActionResult Orders()
         {
