@@ -119,8 +119,8 @@
                 // The payment is complete!
                 // You can now show a confirmation message to the customer
 				const {line1: address, city, state: province, postal_code} = payment.payer.payer_info.shipping_address
-				const userId = 1
-				const weddingCakeId = 1
+				const userId = @ViewBag.userId;
+				const weddingCakeId = @ViewBag.cakeId
                 const deliveryDate = document.getElementById('date').value;
 				console.log("-------------------------------------")
 				const request = {address, city, province, userId: userId.toString(), weddingCakeId: weddingCakeId.toString(), deliveryDate, postal_code}
