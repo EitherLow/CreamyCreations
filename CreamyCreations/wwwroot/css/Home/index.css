@@ -4,7 +4,7 @@ header.home {
 
 .hero-image {
     position: relative;
-    background-color: var(--color-vanilla);
+    background-color: var(--color-white);
 }
 
     .hero-image::before {
@@ -17,9 +17,9 @@ header.home {
         background-image: url("../../assets/homepage/header-image-pexels-cup-of-couple.jpg");
         background-position: 50% 0%;
         background-repeat: no-repeat;
-        background-color: var(--color-vanilla);
+        background-color: var(--color-white);
         background-size: cover;
-        filter: blur(2px) opacity(60%);
+        filter: blur(2px) opacity(40%);
     }
 
 .home__image {

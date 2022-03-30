@@ -19,7 +19,7 @@
     <header>
         @if (SignInManager.IsSignedIn(User))
         {
-            <nav class="navbar navbar-light bg-white border-bottom box-shadow">
+            <nav class="navbar navbar-expand-sm navbar-light bg-white">
                 <div class="container">
                     <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">🍰 Creamy Creations</a>
 
@@ -27,38 +27,42 @@
                             aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
-                    <div class="navbar-collapse collapse justify-content-end">
 
-                        @if (User.IsInRole("Admin"))
-                        {
-                            <ul class="navbar-nav ms-right">
-                                <li>
-                                    <a asp-area="" class="nav-link text-dark" asp-controller="UserRole" asp-action="Index">
-                                        User Roles
-                                    </a>
-                                </li>
+                    <div class="collapse navbar-collapse justify-content-end" id="navbarMenu">
+      
 
-                            </ul>
-                        }
-                        <partial name="_LoginPartial" />
+                            @if (User.IsInRole("User"))
+                            {
+                                <ul class="navbar-nav ms-right">
+                                    <li>
+                                        <a asp-area="" class="nav-link text-dark" asp-controller="UserRole" asp-action="Index">
+                                            User Roles
+                                        </a>
+                                    </li>
+
+                                </ul>
+                            }
+                            <partial name="_LoginPartial" />
+
                     </div>
                 </div>
             </nav>
         }
         else
         {
-            <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow">
+            <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white">
                 <div class="container">
                     
-                    <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"><!--<img src="/assets/layout/logo.png" class="nav_logo" />-->🍰 Creamy Creations</a>
+                    <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">🍰 Creamy Creations</a>
 
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                             aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
+
                     <div class="navbar-collapse collapse justify-content-end">
 
-                        @if (User.IsInRole("Admin"))
+                        @if (User.IsInRole("User"))
                         {
                             <ul class="navbar-nav ms-right">
                                 <li>
