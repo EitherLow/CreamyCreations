@@ -15,6 +15,7 @@ for details on configuring this project to bundle and minify static web assets. 
     --color-strawberryHover: #e85531;
     --color-lightGreen: #C5E0DC;
     --color-white: #FFF;
+    --color-gray: #e5e5e5;
     --btn-border-radius: 2rem;
 }
 
@@ -92,8 +93,30 @@ footer p {
     NAVBAR
 **************************/
 
+.navbar {
+    z-index: 2;
+    border-bottom: 1px solid var(--color-gray);
+    box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+}
+
 .navbar-brand {
     font-weight: 700;
+}
+
+.navbar-nav {
+    align-items: center;
+}
+
+.nav-item a {
+    padding: 0.5rem;
+}
+
+.navbar-toggler {
+    border: 0;
+}
+
+button.navbar-toggler:focus {
+    outline: none;
 }
 
 /*************************
@@ -102,7 +125,7 @@ footer p {
 
 .btn {
     border-radius: 2rem;
-    padding: 0.35rem 1.65rem;
+    padding: 0.45rem 1.95rem;
 }
 
 .btn-primary {
@@ -132,10 +155,10 @@ footer p {
     color: var(--color-text);
 }
 
-    .form-control:focus {
-        border-color: var(--color-darkChocolate);
-        box-shadow: 0 0 0 0.2rem rgb(117 92 59 / 25%);
-    }
+.form-control:focus {
+    border-color: var(--color-darkChocolate);
+    box-shadow: 0 0 0 0.2rem rgb(117 92 59 / 25%);
+}
 
 
 /*************************
@@ -147,19 +170,7 @@ footer p {
     border-color: #1861ac;
 }
 
-.border-top {
-  border-top: 1px solid #e5e5e5;
-}
-.border-bottom {
-  border-bottom: 1px solid #e5e5e5;
-}
-
 .box-shadow {
   box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
-}
-
-button.accept-policy {
-  font-size: 1rem;
-  line-height: inherit;
 }
 
