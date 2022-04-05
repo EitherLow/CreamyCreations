@@ -208,6 +208,20 @@ button.navbar-toggler:focus {
     border-color: var(--color-text);
 }
 
+
+/*************************
+    TABLE
+**************************/
+
+.table__simple tbody tr {
+    border-top: 1px solid var(--color-grayLight);
+}
+
+.table__simple thead th {
+    color: var(--color-text);
+    font-weight: 700;
+}
+
 /*************************
     FORM
 **************************/
