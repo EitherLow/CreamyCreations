@@ -104,6 +104,18 @@ namespace CreamyCreations.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "DecorationsVM",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_DecorationsVM", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "LevelsVM",
                 columns: table => new
                 {
@@ -293,7 +305,8 @@ namespace CreamyCreations.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     price = table.Column<decimal>(type: "money", nullable: false),
                     decoration = table.Column<string>(type: "TEXT", maxLength: 50, nullable: false),
-                    CustomerWeddingCakeVMId = table.Column<int>(type: "INTEGER", nullable: true)
+                    CustomerWeddingCakeVMId = table.Column<int>(type: "INTEGER", nullable: true),
+                    DecorationsVMId = table.Column<int>(type: "INTEGER", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -302,6 +315,12 @@ namespace CreamyCreations.Migrations
                         name: "FK_Decoration_CustomerWeddingCakeVM_CustomerWeddingCakeVMId",
                         column: x => x.CustomerWeddingCakeVMId,
                         principalTable: "CustomerWeddingCakeVM",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Decoration_DecorationsVM_DecorationsVMId",
+                        column: x => x.DecorationsVMId,
+                        principalTable: "DecorationsVM",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -556,18 +575,18 @@ namespace CreamyCreations.Migrations
 
             migrationBuilder.InsertData(
                 table: "Decoration",
-                columns: new[] { "decorationID", "CustomerWeddingCakeVMId", "decoration", "price" },
-                values: new object[] { 1, null, "Chocolate hearts", 34.35m });
+                columns: new[] { "decorationID", "CustomerWeddingCakeVMId", "decoration", "DecorationsVMId", "price" },
+                values: new object[] { 1, null, "Chocolate hearts", null, 34.35m });
 
             migrationBuilder.InsertData(
                 table: "Decoration",
-                columns: new[] { "decorationID", "CustomerWeddingCakeVMId", "decoration", "price" },
-                values: new object[] { 2, null, "Butter roses", 22.15m });
+                columns: new[] { "decorationID", "CustomerWeddingCakeVMId", "decoration", "DecorationsVMId", "price" },
+                values: new object[] { 2, null, "Butter roses", null, 22.15m });
 
             migrationBuilder.InsertData(
                 table: "Decoration",
-                columns: new[] { "decorationID", "CustomerWeddingCakeVMId", "decoration", "price" },
-                values: new object[] { 3, null, "Angles", 12.15m });
+                columns: new[] { "decorationID", "CustomerWeddingCakeVMId", "decoration", "DecorationsVMId", "price" },
+                values: new object[] { 3, null, "Angles", null, 12.15m });
 
             migrationBuilder.InsertData(
                 table: "Filling",
@@ -728,6 +747,11 @@ namespace CreamyCreations.Migrations
                 column: "CustomerWeddingCakeVMId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Decoration_DecorationsVMId",
+                table: "Decoration",
+                column: "DecorationsVMId");
+
+            migrationBuilder.CreateIndex(
                 name: "UQ__Decorati__129665722C1950E6",
                 table: "Decoration",
                 column: "decoration",
@@ -871,6 +895,9 @@ namespace CreamyCreations.Migrations
 
             migrationBuilder.DropTable(
                 name: "CustomerWeddingCakeVM");
+
+            migrationBuilder.DropTable(
+                name: "DecorationsVM");
 
             migrationBuilder.DropTable(
                 name: "Cover");
