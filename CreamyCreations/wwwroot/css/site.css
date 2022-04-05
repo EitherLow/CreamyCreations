@@ -15,6 +15,7 @@ for details on configuring this project to bundle and minify static web assets. 
     --color-lightGreen: #C5E0DC;
     --color-white: #FFF;
     --color-gray: #adadad;
+    --color-grayLight: #e0e0e0;
     --btn-border-radius: 2rem;
 }
 
@@ -94,7 +95,7 @@ footer p {
 
 .navbar {
     z-index: 2;
-    border-bottom: 1px solid var(--color-gray);
+    border-bottom: 1px solid var(--color-grayLight);
     box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
 }
 
