@@ -1,0 +1,86 @@
+﻿@model CreamyCreations.ViewModels.WeddingCakeVM
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>WeddingCakeVM</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="WeddingCakeId" />
+            <div class="form-group">
+                <label asp-for="CoverId" class="control-label"></label>
+                <select asp-for="CoverId" name="CoverId" id="selectCover">
+                    @foreach (var cover in ViewBag.Covers)
+                    {
+                        <option value=@cover.CoverId data-price="@cover.Price">@cover.Flavor - $@cover.Price</option>
+
+                    }
+                </select>
+                <span asp-validation-for="CoverId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FillingId" class="control-label"></label>
+                <select asp-for="FillingId" name="FillingId" id="selectFilling">
+                    @foreach (var filling in ViewBag.Fillings)
+                    {
+                    <option value=@filling.FillingId data-price="@filling.Price">@filling.Flavor - $@filling.Price</option>
+
+                    }
+                </select>
+                <span asp-validation-for="FillingId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LabelId" class="control-label"></label>
+                <select asp-for="LabelId" name="LabelId" id="selectLabel">
+                    @foreach (var label in ViewBag.Labels)
+                    {
+                    <option value=@label.LabelId data-price="@label.Price">@label.LabelName - $@label.Price</option>
+                    }
+                </select>
+                <span asp-validation-for="LabelId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LevelNumber" class="control-label"></label>
+                <select asp-for="LevelNumber" name="LevelNumber" id="selectLevel">
+                    @foreach (var level in ViewBag.Levels)
+                    {
+                    <option value=@level.LevelNumber data-price="@level.Price">@level.LevelNumber - $@level.Price</option>
+                    }
+                </select>
+                <span asp-validation-for="LevelNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                @for (var i = 0; i < Model.DecorationCheckBoxes.Count(); i++)
+                {
+                    <div class="form-check">
+                        <input class="form-check-input decoration" type="checkbox" asp-for="@Model.DecorationCheckBoxes[i].IsChecked" data-price="@Model.DecorationCheckBoxes[i].Price"/>
+                        <label class="form-check-label" asp-for="@Model.DecorationCheckBoxes[i].IsChecked">@Model.DecorationCheckBoxes[i].DecorationTitle</label>
+                        <input type="hidden" asp-for="@Model.DecorationCheckBoxes[i].DecorationId" />
+                    </div>
+                }
+            </div>
+            <div class="form-group">
+                <input asp-for="TotalPrice" type="hidden" id="cakePriceInput" />
+                <p class="h5 my-5">Total Price: <span id="cakePrice"></span> </p>
+            </div>
+            <div class"form-group">
+                <input type="submit" value="Assign" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Orders">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script src="@Url.Content("~/js/editCake.js")" defer></script>
+}

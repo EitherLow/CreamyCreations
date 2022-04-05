@@ -6,6 +6,7 @@ using System.Text;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 using CreamyCreations.Data;
+using CreamyCreations.Data.Services;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -15,6 +16,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
 using CreamyCreations.Models;
+using EllipticCurve;
 using Microsoft.AspNetCore.Http.Extensions;
 
 namespace CreamyCreations.Areas.Identity.Pages.Account
@@ -27,20 +29,26 @@ namespace CreamyCreations.Areas.Identity.Pages.Account
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
         private readonly ApplicationDbContext _context;
+        private readonly RoleManager<IdentityRole> _roleManager; // handling user roles during the registration
+        private readonly IEmailService _emailService;
 
         public RegisterModel(
             UserManager<IdentityUser> userManager,
             SignInManager<IdentityUser> signInManager,
             ILogger<RegisterModel> logger,
+            RoleManager<IdentityRole> roleManager, // added for roles
             IEmailSender emailSender,
-            ApplicationDbContext context
+            ApplicationDbContext context,
+            IEmailService emailService
         )
         {
             _context = context;
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
+            _roleManager = roleManager; // added for roles
             _emailSender = emailSender;
+            _emailService = emailService;
         }
 
         [BindProperty]
@@ -92,13 +100,43 @@ namespace CreamyCreations.Areas.Identity.Pages.Account
             {
                 var url = Request.GetEncodedUrl();
                 var user = new IdentityUser { UserName = Input.Email, Email = Input.Email };
-                if (url.Contains("localhost"))
+                /*if (url.Contains("localhost"))
                 {
                     user.EmailConfirmed = true;
                 }
+                */
+
+                // Check if the roles already exists
+                string roleUser = "User";
+                string roleAdmin = "Admin";
+                bool defaultRoleUser = await _roleManager.RoleExistsAsync(roleUser);
+                bool defaultRoleAdmin = await _roleManager.RoleExistsAsync(roleAdmin);
+
+                // If the default role User doesn't exist, create a new one
+                if (!defaultRoleUser)
+                {
+                    var newDefaultRole = new IdentityRole();
+                    newDefaultRole.Name = roleUser;
+                    await _roleManager.CreateAsync(newDefaultRole);
+                }
+
+                // If the default role Admin doesn't exist, create a new one
+                if (!defaultRoleAdmin)
+                {
+                    var newDefaultRole = new IdentityRole();
+                    newDefaultRole.Name = roleAdmin;
+                    await _roleManager.CreateAsync(newDefaultRole);
+                }
+
+                // Create a new user with the password
                 var result = await _userManager.CreateAsync(user, Input.Password);
+
                 if (result.Succeeded)
                 {
+                    // Assign the default role to the new user
+                    await _userManager.AddToRoleAsync(user, roleUser);
+
+                    // Register new user to the User table
                     // Normally this code would be placed in a repository.
                     User registerUser = new User()
                     {
@@ -109,7 +147,7 @@ namespace CreamyCreations.Areas.Identity.Pages.Account
                     _context.Users.Add(registerUser);
                     _context.SaveChanges();
 
-                    _logger.LogInformation("User created a new account with password.");
+                    _logger.LogInformation("New user has been created.");
 
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                     code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
@@ -119,12 +157,25 @@ namespace CreamyCreations.Areas.Identity.Pages.Account
                         values: new { area = "Identity", userId = user.Id, code = code, returnUrl = returnUrl },
                         protocol: Request.Scheme);
 
-                    await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
-                        $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+                    var response = await _emailService.SendSingleEmail(new Models.ComposeEmailModel
+                    {
+                        FirstName = "Creamy",
+                        LastName = "Creations",
+                        Subject = "Confirm your email",
+                        Email = Input.Email,
+                        Body = $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>."
+                    });
+
 
                     if (_userManager.Options.SignIn.RequireConfirmedAccount)
                     {
-                        return RedirectToPage("RegisterConfirmation", new { email = Input.Email, returnUrl = returnUrl });
+                        return RedirectToPage("RegisterConfirmation", new
+                        {
+                            email = Input.Email,
+                            returnUrl = returnUrl,
+                            DisplayConfirmAccountLink = false
+                        });
+
                     }
                     else
                     {

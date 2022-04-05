@@ -2,6 +2,7 @@
 using CreamyCreations.Models;
 using CreamyCreations.Repositories;
 using CreamyCreations.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -30,7 +31,7 @@ namespace CreamyCreations.Controllers
         /*************************************************
         * CREATE
         ************************************************/
-
+        [Authorize]
         [HttpGet]
         public IActionResult Create()
         {
@@ -41,21 +42,21 @@ namespace CreamyCreations.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create([Bind("LevelId,LabelId,CoverId,FillingId,TotalPrice")] WeddingCake newWeddingCake)
-        {
+        public IActionResult Create(CreateWeddingCakeVM cakeVM, WeddingCake newWeddingCake)
+        {   
             WeddingCakeRepo weddingCakeRepo = new WeddingCakeRepo(_context);
-            ViewData["Message"] = "";
+            UserRepo userRepo = new UserRepo(_context);
 
-            // Ensure data is valid.
+            // Ensure Data Model is valid.
             if (ModelState.IsValid)
             {
-                weddingCakeRepo.CreateWeddingCake(newWeddingCake);
-                ViewData["Message"] = "New wedding cake has been created";
-                //ViewData["accNumber"] = newBankAccount.accountNum;
-                //ViewData["clientId"] = clientRepo.GetId(User.Identity.Name);
+                weddingCakeRepo.CreateWeddingCake(cakeVM, newWeddingCake);
+                ViewData["CakeID"] = newWeddingCake.WeddingCakeId;
+                ViewData["UserID"] = userRepo.GetId(User.Identity.Name);
 
-                return RedirectToAction("Index", "Home", new { message = ViewBag.Message });
+                return RedirectToAction("Index", "Payment", new { cake = ViewBag.CakeID, user = ViewBag.UserID});
             }
+            
             return View();
         }
     }
