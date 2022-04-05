@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using CreamyCreations.Data;
+using CreamyCreations.Models;
 using CreamyCreations.ViewModels;
 
 namespace CreamyCreations.Repositories
@@ -24,6 +25,14 @@ namespace CreamyCreations.Repositories
                 Email = u.Email
             });
             return users;
+        }
+
+        // Getting User ID for payment
+        public int GetId(string email)
+        {
+            User user = _context.Users.Where(u => u.Email == email).FirstOrDefault();
+            int userId = user.UserId;
+            return userId;
         }
 
     }
