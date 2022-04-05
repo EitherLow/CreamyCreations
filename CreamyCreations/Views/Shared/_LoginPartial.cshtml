@@ -3,27 +3,48 @@
 @inject UserManager<IdentityUser> UserManager
 
 <ul class="navbar-nav">
-@if (SignInManager.IsSignedIn(User))
-{
-    <li class="nav-item">
-        <a asp-controller="Profile" asp-action="Index">Account</a>
-    </li>
-    <li class="nav-item">
-        <a href="/fixme">Orders</a>
-    </li>
-    <li class="nav-item">
-        <form  class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-            <button  type="submit" class="nav-link btn btn-link text-dark">Logout</button>
-        </form>
-    </li>
-}
-else
-{
-    <li class="nav-item">
-        <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Register">Register</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Login">Login</a>
-    </li>
-}
+    @if (SignInManager.IsSignedIn(User))
+    {
+        @if (User.IsInRole("Admin"))
+        {
+            <li>
+                <a asp-area="" class="nav-link text-dark text-nowrap" asp-controller="UserRole" asp-action="Index">
+                    User Roles
+                </a>
+            </li>
+            <li>
+                <a asp-area="" class="nav-link text-dark text-nowrap" asp-controller="Admin" asp-action="Orders">
+                    All Orders
+                </a>
+            </li>
+            <li>
+                <a asp-area="" class="nav-link text-dark text-nowrap" asp-controller="Admin" asp-action="Customization">
+                    Customization
+                </a>
+            </li>
+        }
+        //else if (User.IsInRole("User"))
+        //{
+        <li class="nav-item">
+            <a asp-controller="Profile" asp-action="Index">Account</a>
+        </li>
+        <li class="nav-item">
+            <a asp-controller="Orders" asp-action="Index">Orders</a>
+        </li>
+        //}
+        <li class="nav-item">
+            <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                <button type="submit" class="nav-link btn btn-link text-dark">Logout</button>
+            </form>
+        </li>
+    }
+    else
+    {
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Register">Register</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Login">Login</a>
+        </li>
+    }
 </ul>
