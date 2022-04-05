@@ -19,9 +19,10 @@ namespace CreamyCreations.Controllers
 
         public IActionResult Index(int id)
         {
+            var repo = new UserRepo(_context);
             var user = (from u in _context.Users
-                where u.UserId == 1
-                select u).FirstOrDefault();
+                        where u.UserId == repo.GetId(User.Identity.Name)
+                        select u).FirstOrDefault();
 
             ViewBag.firstName = user?.FirstName;
             ViewBag.lastName = user?.LastName;
