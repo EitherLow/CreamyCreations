@@ -12,26 +12,27 @@
     </header>
 
     <section class="row justify-content-center">
-        <div class="col-12 col-md-10">
+        <div class="col-12 col-sm-12 col-lg-10">
             <hr />
 
-            <div class="table-responsive-sm my-4">
+            <div class="table-responsive my-4">
                 <table class="table table-borderless table__simple">
                     <thead>
                         <tr>
-                            <th>
+                            <th scope="col">
                                 @Html.DisplayNameFor(model => model.orderID)
                             </th>
-                            <th>
+                            <th scope="col">
                                 @Html.DisplayNameFor(model => model.email)
                             </th>
-                            <th>
+                            <th scope="col">
                                 @Html.DisplayNameFor(model => model.deliveryDate)
                             </th>
-                            <th>
+                            <th scope="col">
                                 @Html.DisplayNameFor(model => model.price)
                             </th>
-                            <th></th>
+                            <th scope="col"></th>
+                            <th scope="col"></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -52,7 +53,8 @@
                                 </td>
                                 <td>
                                     @Html.ActionLink("Edit", "Edit", new { weddingCakeId = item.weddingCakeID }, new { @class = "btn btn-edit" })
-
+                                </td>
+                                <td>
                                     @Html.ActionLink("Details", "Details", new { orderID = item.orderID, userID = item.userID, weddingCakeID = item.weddingCakeID }, new { @class = "btn btn-detail" })
                                 </td>
                             </tr>
