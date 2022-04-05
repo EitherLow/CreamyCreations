@@ -172,5 +172,49 @@ namespace CreamyCreations.Repositories
             }
             return true;
         }
+
+        // decorations
+        public DecorationsVM getDecorations()
+        {
+            DecorationsVM vm = new DecorationsVM();
+            vm.Decorations = (from c in _context.Decorations
+                              select new Decoration
+                              {
+                             Price = c.Price,
+                             Decoration1 = c.Decoration1,
+                             DecorationId = c.DecorationId
+                         }).ToList();
+            return vm;
+        }
+
+        public bool EditDecorations(DecorationsVM decorationsVM)
+        {
+
+            foreach (var decoration in decorationsVM.Decorations)
+            {
+                var lab = (from c in _context.Decorations
+                           where c.DecorationId == decoration.DecorationId
+                           select c).FirstOrDefault();
+                decimal previousDecorationPrice = lab.Price;
+                lab.Price = decoration.Price;
+
+                var weddingCakeIds = (from wcd in _context.WeddingCakeDecorations
+                                    where wcd.DecorationId == decoration.DecorationId
+                                    select wcd.WeddingCakeId).Distinct().ToList();
+
+                foreach (var wcId in weddingCakeIds)
+                {
+                    var weddingCake = (from wc in _context.WeddingCakes
+                                       where wc.WeddingCakeId == wcId
+                                       select wc).FirstOrDefault();
+                    if(weddingCake != null)
+                    {
+                        weddingCake.TotalPrice = weddingCake.TotalPrice - previousDecorationPrice + lab.Price;
+                    }
+                }
+                _context.SaveChanges();
+            }
+            return true;
+        }
     }
 }

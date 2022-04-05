@@ -90,6 +90,20 @@ namespace CreamyCreations.Controllers
             repo.EditLevels(levelsVM);
             return RedirectToAction("Customization", "Admin");
         }
+        public IActionResult EditDecorations()
+        {
+            AdminCustomizationRepo repo = new AdminCustomizationRepo(_context);
+            var decorations = repo.getDecorations();
+            return View(decorations);
+        }
+
+        [HttpPost]
+        public IActionResult EditDecorations(DecorationsVM decorationsVM)
+        {
+            AdminCustomizationRepo repo = new AdminCustomizationRepo(_context);
+            repo.EditDecorations(decorationsVM);
+            return RedirectToAction("Customization", "Admin");
+        }
         // orders 
         [Authorize]
         public IActionResult Orders()
