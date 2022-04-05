@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using CreamyCreations.Data;
 using CreamyCreations.Models;
 using Microsoft.AspNetCore.Mvc;
+using CreamyCreations.ViewModels;
 
 namespace CreamyCreations.Repositories
 {
@@ -17,12 +18,12 @@ namespace CreamyCreations.Repositories
             _context = context;
         }
 
-        public bool UpdateProfile(User user, int userId)
+        public bool UpdateProfile(UserProfileVM currtUser)
         {
-            var currentUser = _context.Users.FirstOrDefault(user => user.UserId == userId);
-            currentUser.Email = user.Email;
-            currentUser.FirstName = user.FirstName;
-            currentUser.LastName = user.LastName;
+            var currentUser = _context.Users.FirstOrDefault(user => user.UserId == currtUser.UserId);
+            currentUser.Email = currtUser.Email;
+            currentUser.FirstName = currtUser.FirstName;
+            currentUser.LastName = currtUser.LastName;
             _context.SaveChanges();
             return true;
         }

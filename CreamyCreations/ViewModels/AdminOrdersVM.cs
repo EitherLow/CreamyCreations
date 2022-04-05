@@ -24,6 +24,10 @@ namespace CreamyCreations.ViewModels
         [Display(Name = "Delivery Date")]
         public string deliveryDate { get; set; }
 
+        [Display(Name = "Email")]
+        public string email { get; set; }
+
+
         [Display(Name = "Price")]
         public string price { get; set; }
     }
