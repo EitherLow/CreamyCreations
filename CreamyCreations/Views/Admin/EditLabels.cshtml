@@ -16,7 +16,7 @@
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <input type="hidden" asp-for="@Model.Labels[i].LabelId" />
                 <div class="form-group">
-                    <label asp-for="@Model.Labels[i].LabelName" class="control-label"></label>
+                    <label asp-for="@Model.Labels[i].LabelName" class="control-label">Label Name</label>
                     <input asp-for="@Model.Labels[i].LabelName" class="form-control" />
                     <span asp-validation-for="@Model.Labels[i].LabelName" class="text-danger"></span>
                 </div>
@@ -35,7 +35,7 @@
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Customization">Back to List</a>
 </div>
 
 @section Scripts {

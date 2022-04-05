@@ -19,6 +19,12 @@ namespace CreamyCreations.Repositories
 
 
         // cover
+        public bool AddCover(Cover cover)
+        {
+            _context.Covers.Add(cover);
+            _context.SaveChanges();
+            return true;
+        }
         public CoversVM getCovers()
         {
             CoversVM vm = new CoversVM();
