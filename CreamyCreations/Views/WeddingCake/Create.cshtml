@@ -1,84 +1,95 @@
 ﻿@model CreamyCreations.ViewModels.CreateWeddingCakeVM
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Create Cake";
 }
+<div class="container pb-5">
 
-<h1>Create</h1>
-
-<h4>WeddingCake</h4>
-<hr />
-<div class="row">
-    <div class="col-12 col-md-6">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="LevelId" class="control-label">Select level</label>
-                <select asp-for="LevelId" class="form-control" id="selectLevel">
-                    <option disabled selected>Please select</option>
-                    @foreach (var level in Model.Levels)
-                    {
-                        <option value="@level.LevelNumber" data-price="@level.Price">@level.LevelNumber - $@level.Price</option>
-                    }
-                </select>
-            </div>
-            <div class="form-group">
-                <label asp-for="CoverId" class="control-label">Select cover</label>
-                <select asp-for="CoverId" class="form-control" id="selectCover">
-                    <option disabled selected>Please select</option>
-                    @foreach (var cover in Model.Covers)
-                    {
-                        <option value="@cover.CoverId" data-price="@cover.Price">@cover.Flavor - $@cover.Price</option>
-                    }
-                </select>
-            </div>
-            <div class="form-group">
-                <label asp-for="FillingId" class="control-label">Select filling</label>
-                <select asp-for="FillingId" class="form-control" id="selectFilling">
-                    <option disabled selected>Please select</option>
-                    @foreach (var filling in Model.Fillings)
-                    {
-                        <option value="@filling.FillingId" data-price="@filling.Price">@filling.Flavor - $@filling.Price</option>
-                    }
-                </select>
-            </div>
-            <div class="form-group">
-                <label asp-for="LabelId" class="control-label">Select label</label>
-                <select asp-for="LabelId" class="form-control" id="selectLabel">
-                    <option disabled selected>Please select</option>
-                    @foreach (var label in Model.Labels)
-                    {
-                        <option value="@label.LabelId" data-price="@label.Price">@label.LabelName - $@label.Price</option>
-                    }
-                </select>
-            </div>
-
-            <div class="form-group">
-                <label class="control-label">Select decorations</label>
-                @for (var i = 0; i < Model.DecorationCheckBoxes.Count(); i++)
-                {
-                    <div class="form-check">
-                        <input class="form-check-input decoration" type="checkbox" asp-for="@Model.DecorationCheckBoxes[i].IsChecked" data-price="@Model.DecorationCheckBoxes[i].Price" />
-                        <label class="form-check-label" asp-for="@Model.DecorationCheckBoxes[i].IsChecked">@Model.DecorationCheckBoxes[i].DecorationTitle - $@Model.DecorationCheckBoxes[i].Price</label>
-                        <input type="hidden" asp-for="@Model.DecorationCheckBoxes[i].DecorationId" />
-                    </div>
-                }
-            </div>
-
-            <div class="form-group">
-                <input asp-for="TotalPrice" type="hidden" id="cakePriceInput" />
-                <p class="h5 my-5">Total Price: <span id="cakePrice"></span> </p>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+    <div class="row justify-content-center pt-5">
+        <div class="col-12 col-md-7">
+            <h1 class="text-center">Create a new cake</h1>
+        </div>
     </div>
+
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-7 col-lg-6">
+            <hr />
+            <form asp-action="Create">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="LevelId" class="control-label">Select level</label>
+                    <select asp-for="LevelId" class="form-control" id="selectLevel">
+                        <option disabled selected>Please select</option>
+                        @foreach (var level in Model.Levels)
+                        {
+                            <option value="@level.LevelNumber" data-price="@level.Price">@level.LevelNumber - $@level.Price</option>
+                        }
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label asp-for="CoverId" class="control-label">Select cover</label>
+                    <select asp-for="CoverId" class="form-control" id="selectCover">
+                        <option disabled selected>Please select</option>
+                        @foreach (var cover in Model.Covers)
+                        {
+                            <option value="@cover.CoverId" data-price="@cover.Price">@cover.Flavor - $@cover.Price</option>
+                        }
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label asp-for="FillingId" class="control-label">Select filling</label>
+                    <select asp-for="FillingId" class="form-control" id="selectFilling">
+                        <option disabled selected>Please select</option>
+                        @foreach (var filling in Model.Fillings)
+                        {
+                            <option value="@filling.FillingId" data-price="@filling.Price">@filling.Flavor - $@filling.Price</option>
+                        }
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label asp-for="LabelId" class="control-label">Select label</label>
+                    <select asp-for="LabelId" class="form-control" id="selectLabel">
+                        <option disabled selected>Please select</option>
+                        @foreach (var label in Model.Labels)
+                        {
+                            <option value="@label.LabelId" data-price="@label.Price">@label.LabelName - $@label.Price</option>
+                        }
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label">Select decorations</label>
+                    @for (var i = 0; i < Model.DecorationCheckBoxes.Count(); i++)
+                    {
+                        <div class="form-check">
+                            <input class="form-check-input decoration" type="checkbox" asp-for="@Model.DecorationCheckBoxes[i].IsChecked" data-price="@Model.DecorationCheckBoxes[i].Price" />
+                            <label class="form-check-label" asp-for="@Model.DecorationCheckBoxes[i].IsChecked">@Model.DecorationCheckBoxes[i].DecorationTitle - $@Model.DecorationCheckBoxes[i].Price</label>
+                            <input type="hidden" asp-for="@Model.DecorationCheckBoxes[i].DecorationId" />
+                        </div>
+                    }
+                </div>
+
+                <div class="form-group">
+                    <input asp-for="TotalPrice" type="hidden" id="cakePriceInput" />
+                    <p class="h5 my-4 font-weight-bold">Total Price: <span id="cakePrice"></span> </p>
+                </div>
+                <div class="form-group text-center">
+                    <input type="submit" value="Create" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-7 col-lg-5 text-center">
+            <a asp-controller="Home" asp-action="Index" class="btn btn-back mt-3">Back to home</a>
+        </div>
+    </div>
+
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+
+
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
