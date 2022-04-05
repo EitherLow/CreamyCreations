@@ -6,6 +6,8 @@ using CreamyCreations.Data;
 using CreamyCreations.Models;
 using Microsoft.AspNetCore.Mvc;
 using CreamyCreations.ViewModels;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace CreamyCreations.Repositories
 {
@@ -25,6 +27,7 @@ namespace CreamyCreations.Repositories
             currentUser.FirstName = currtUser.FirstName;
             currentUser.LastName = currtUser.LastName;
             _context.SaveChanges();
+
             return true;
         }
     }
