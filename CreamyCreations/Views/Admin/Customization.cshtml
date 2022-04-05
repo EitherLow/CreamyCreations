@@ -1,0 +1,59 @@
+﻿
+<h1>Admin Customization</h1>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Ingredient
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+                Cover
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "EditCovers", new { @class = "btn btn-success" })
+                @Html.ActionLink("Create", "AddCover", new { @class = "btn btn-success" })
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Filling
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "EditFillings", new { @class = "btn btn-success" })
+                @Html.ActionLink("Create", "AddFilling", new { @class = "btn btn-success" })
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Label
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "EditLabels", new { @class = "btn btn-success" })
+                @Html.ActionLink("Create", "AddLabel", new { @class = "btn btn-success" })
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Level
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "EditLevels", new { @class = "btn btn-success" })
+                @Html.ActionLink("Create", "AddLevel", new { @class = "btn btn-success" })
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Decorations
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "EditDecorations", new { @class = "btn btn-success" })
+                @Html.ActionLink("Create", "AddDecoration", new { @class = "btn btn-success" })
+            </td>
+        </tr>
+    </tbody>
+</table>

@@ -105,7 +105,7 @@ namespace CreamyCreations.Repositories
                              FillingId = w.FillingId,
                              CoverId = w.CoverId,
                              LabelId = w.LabelId,
-                             TotalPrice = w.TotalPrice,
+                             TotalPrice = Math.Round(w.TotalPrice),
                              DecorationCheckBoxes = GetDecorationCheckBoxes(weddingCakeId)
                          })).FirstOrDefault();
             return query;
