@@ -60,7 +60,7 @@
                 {
                     <div class="form-check">
                         <input class="form-check-input decoration" type="checkbox" asp-for="@Model.DecorationCheckBoxes[i].IsChecked" data-price="@Model.DecorationCheckBoxes[i].Price"/>
-                        <label class="form-check-label" asp-for="@Model.DecorationCheckBoxes[i].IsChecked">@Model.DecorationCheckBoxes[i].DecorationTitle</label>
+                        <label class="form-check-label" asp-for="@Model.DecorationCheckBoxes[i].IsChecked">@Model.DecorationCheckBoxes[i].DecorationTitle - $@Model.DecorationCheckBoxes[i].Price</label>
                         <input type="hidden" asp-for="@Model.DecorationCheckBoxes[i].DecorationId" />
                     </div>
                 }
