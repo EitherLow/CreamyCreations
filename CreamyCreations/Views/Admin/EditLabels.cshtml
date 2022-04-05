@@ -1,0 +1,43 @@
+﻿@model CreamyCreations.ViewModels.LabelsVM
+
+@{
+    ViewData["Title"] = "EditLabels";
+}
+
+<h1>EditLabels</h1>
+
+<h4>LabelsVM</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="EditLabels">
+            @for (var i = 0; i < Model.Labels.Count(); i++)
+            {
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="@Model.Labels[i].LabelId" />
+                <div class="form-group">
+                    <label asp-for="@Model.Labels[i].LabelName" class="control-label">Label Name</label>
+                    <input asp-for="@Model.Labels[i].LabelName" class="form-control" />
+                    <span asp-validation-for="@Model.Labels[i].LabelName" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="@Model.Labels[i].Price" class="control-label"></label>
+                    <input asp-for="@Model.Labels[i].Price" class="form-control" />
+                    <span asp-validation-for="@Model.Labels[i].Price" class="text-danger"></span>
+                </div>
+                <hr />
+            }
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Customization">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
