@@ -8,14 +8,13 @@ for details on configuring this project to bundle and minify static web assets. 
 :root {
     --color-text: #4d3f2d;
     --color-vanilla: #FCFBE3;
-    --color-milkChocolate: #A37E58;
     --color-darkChocolate: #755C3B;
     --color-lightPink: #FBCFCF;
     --color-strawberry: #E08E79;
     --color-strawberryHover: #e85531;
     --color-lightGreen: #C5E0DC;
     --color-white: #FFF;
-    --color-gray: #e5e5e5;
+    --color-gray: #adadad;
     --btn-border-radius: 2rem;
 }
 
@@ -104,11 +103,29 @@ footer p {
 }
 
 .navbar-nav {
+    margin-top: 0.5rem;
     align-items: center;
 }
 
-.nav-item a {
+.nav-item {
     padding: 0.5rem;
+}
+
+.nav-item,
+.nav-item a {
+    width: 100%;
+    text-align: center;
+}
+
+.navbar-nav .nav-item .nav-link {
+    padding-right: 0;
+    padding-left: 0;
+    text-align: center;
+    width: 100%;
+}
+
+.navbar-nav .nav-item .nav-link:hover {
+    text-decoration: underline;
 }
 
 .navbar-toggler {
@@ -119,10 +136,14 @@ button.navbar-toggler:focus {
     outline: none;
 }
 
+@media (min-width: 576px) {
+    .navbar-nav {
+        margin: 0;
+    }
+}
 /*************************
     BUTTONS
 **************************/
-
 .btn {
     border-radius: 2rem;
     padding: 0.45rem 1.95rem;
@@ -135,18 +156,36 @@ button.navbar-toggler:focus {
     box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
 }
 
-    .btn-primary:hover,
-    .btn-primary:active,
-    .btn-primary:not(:disabled):not(.disabled):active,
-    .btn-primary:focus {
-        background-color: var(--color-strawberryHover);
-        border-color: var(--color-strawberryHover);
-    }
+.btn-primary:hover,
+.btn-primary:active,
+.btn-primary:not(:disabled):not(.disabled):active,
+.btn-primary:focus {
+    background-color: var(--color-strawberryHover);
+    border-color: var(--color-strawberryHover);
+}
 
-        .btn-primary:focus,
-        .btn-primary:not(:disabled):not(.disabled):active:focus {
-            box-shadow: 0 0 0 0.2rem rgb(232 86 49 / 50%);
-        }
+.btn-primary:focus,
+.btn-primary:not(:disabled):not(.disabled):active:focus {
+    box-shadow: 0 0 0 0.2rem rgb(232 86 49 / 50%);
+}
+
+
+.btn-secondary {
+
+}
+
+.btn-success {
+}
+
+.btn-back {
+    color: var(--color-gray);
+    border: 1px solid var(--color-gray);
+}
+
+.btn-back:hover {
+    color: var(--color-text);
+    border-color: var(--color-text);
+}
 
 /*************************
     FORM
