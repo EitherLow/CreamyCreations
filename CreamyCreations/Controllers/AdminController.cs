@@ -31,6 +31,18 @@ namespace CreamyCreations.Controllers
             return View();
         }
 
+        public IActionResult AddCover()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult AddCover(Cover cover)
+        {
+            AdminCustomizationRepo repo = new AdminCustomizationRepo(_context);
+            repo.AddCover(cover);
+            return RedirectToAction("Customization", "Admin");
+        }
         public IActionResult EditCovers()
         {
             AdminCustomizationRepo repo = new AdminCustomizationRepo(_context);
