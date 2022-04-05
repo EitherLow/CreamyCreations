@@ -25,17 +25,19 @@ namespace CreamyCreations.Controllers
         }
 
         // customization 
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         public IActionResult Customization()
         {
             return View();
         }
 
+        [Authorize(Roles = "Admin")]
         public IActionResult AddCover()
         {
             return View();
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public IActionResult AddCover(Cover cover)
         {
@@ -43,6 +45,8 @@ namespace CreamyCreations.Controllers
             repo.AddCover(cover);
             return RedirectToAction("Customization", "Admin");
         }
+
+        [Authorize(Roles = "Admin")]
         public IActionResult EditCovers()
         {
             AdminCustomizationRepo repo = new AdminCustomizationRepo(_context);
@@ -50,6 +54,7 @@ namespace CreamyCreations.Controllers
             return View(covers);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public IActionResult EditCovers(CoversVM coversVM)
         {
@@ -58,11 +63,13 @@ namespace CreamyCreations.Controllers
             return RedirectToAction("Customization", "Admin");
         }
 
+        [Authorize(Roles = "Admin")]
         public IActionResult AddFilling()
         {
             return View();
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public IActionResult AddFilling(Filling filling)
         {
@@ -70,6 +77,8 @@ namespace CreamyCreations.Controllers
             repo.AddFilling(filling);
             return RedirectToAction("Customization", "Admin");
         }
+
+        [Authorize(Roles = "Admin")]
         public IActionResult EditFillings()
         {
             AdminCustomizationRepo repo = new AdminCustomizationRepo(_context);
@@ -77,6 +86,7 @@ namespace CreamyCreations.Controllers
             return View(fillings);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public IActionResult EditFillings(FillingsVM fillingsVM)
         {
@@ -85,11 +95,13 @@ namespace CreamyCreations.Controllers
             return RedirectToAction("Customization", "Admin");
         }
 
+        [Authorize(Roles = "Admin")]
         public IActionResult AddLabel()
         {
             return View();
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public IActionResult AddLabel(Label label)
         {
@@ -98,6 +110,7 @@ namespace CreamyCreations.Controllers
             return RedirectToAction("Customization", "Admin");
         }
 
+        [Authorize(Roles = "Admin")]
         public IActionResult EditLabels()
         {
             AdminCustomizationRepo repo = new AdminCustomizationRepo(_context);
@@ -105,6 +118,7 @@ namespace CreamyCreations.Controllers
             return View(labels);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public IActionResult EditLabels(LabelsVM labelsVM)
         {
@@ -113,11 +127,13 @@ namespace CreamyCreations.Controllers
             return RedirectToAction("Customization", "Admin");
         }
 
+        [Authorize(Roles = "Admin")]
         public IActionResult AddLevel()
         {
             return View();
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public IActionResult AddLevel(Level level)
         {
@@ -126,6 +142,7 @@ namespace CreamyCreations.Controllers
             return RedirectToAction("Customization", "Admin");
         }
 
+        [Authorize(Roles = "Admin")]
         public IActionResult EditLevels()
         {
             AdminCustomizationRepo repo = new AdminCustomizationRepo(_context);
@@ -133,6 +150,7 @@ namespace CreamyCreations.Controllers
             return View(levels);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public IActionResult EditLevels(LevelsVM levelsVM)
         {
@@ -141,11 +159,13 @@ namespace CreamyCreations.Controllers
             return RedirectToAction("Customization", "Admin");
         }
 
+        [Authorize(Roles = "Admin")]
         public IActionResult AddDecoration()
         {
             return View();
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public IActionResult AddDecoration(Decoration decoration)
         {
@@ -153,6 +173,8 @@ namespace CreamyCreations.Controllers
             repo.AddDecoration(decoration);
             return RedirectToAction("Customization", "Admin");
         }
+
+        [Authorize(Roles = "Admin")]
         public IActionResult EditDecorations()
         {
             AdminCustomizationRepo repo = new AdminCustomizationRepo(_context);
@@ -160,6 +182,7 @@ namespace CreamyCreations.Controllers
             return View(decorations);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public IActionResult EditDecorations(DecorationsVM decorationsVM)
         {
@@ -167,7 +190,9 @@ namespace CreamyCreations.Controllers
             repo.EditDecorations(decorationsVM);
             return RedirectToAction("Customization", "Admin");
         }
+
         // orders 
+        [Authorize(Roles = "Admin")]
         [Authorize]
         public IActionResult Orders()
         {
@@ -176,12 +201,15 @@ namespace CreamyCreations.Controllers
             return View(orders);
         }
 
+        [Authorize(Roles = "Admin")]
         public IActionResult Details(int orderID, int userID, int weddingCakeID)
         {
             AdminOrdersRepo adminOrders = new AdminOrdersRepo(_context);
             var details = adminOrders.getDetails(orderID, userID, weddingCakeID);
             return View(details);
         }
+
+        [Authorize(Roles = "Admin")]
         public IActionResult Edit(int weddingCakeID)
         {
             AdminOrdersRepo adminRepo = new AdminOrdersRepo(_context);
@@ -193,6 +221,7 @@ namespace CreamyCreations.Controllers
             return View(details);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public IActionResult Edit(WeddingCakeVM cake, WeddingCakeVM weddingCakeVM)
         {
