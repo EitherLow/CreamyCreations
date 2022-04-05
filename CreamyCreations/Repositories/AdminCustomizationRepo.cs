@@ -64,6 +64,12 @@ namespace CreamyCreations.Repositories
         }
 
         // filling
+        public bool AddFilling(Filling filling)
+        {
+            _context.Fillings.Add(filling);
+            _context.SaveChanges();
+            return true;
+        }
         public FillingsVM getFillings()
         {
             FillingsVM vm = new FillingsVM();
@@ -102,7 +108,13 @@ namespace CreamyCreations.Repositories
             return true;
         }
 
-        // filling
+        // labels
+        public bool AddLabel(Label label)
+        {
+            _context.Labels.Add(label);
+            _context.SaveChanges();
+            return true;
+        }
         public LabelsVM getLabels()
         {
             LabelsVM vm = new LabelsVM();
@@ -142,6 +154,12 @@ namespace CreamyCreations.Repositories
         }
 
         // levels
+        public bool AddLevel(Level level)
+        {
+            _context.Levels.Add(level);
+            _context.SaveChanges();
+            return true;
+        }
         public LevelsVM getLevels()
         {
             LevelsVM vm = new LevelsVM();
@@ -180,6 +198,12 @@ namespace CreamyCreations.Repositories
         }
 
         // decorations
+        public bool AddDecoration(Decoration decoration)
+        {
+            _context.Decorations.Add(decoration);
+            _context.SaveChanges();
+            return true;
+        }
         public DecorationsVM getDecorations()
         {
             DecorationsVM vm = new DecorationsVM();

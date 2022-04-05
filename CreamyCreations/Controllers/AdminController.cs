@@ -58,6 +58,18 @@ namespace CreamyCreations.Controllers
             return RedirectToAction("Customization", "Admin");
         }
 
+        public IActionResult AddFilling()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult AddFilling(Filling filling)
+        {
+            AdminCustomizationRepo repo = new AdminCustomizationRepo(_context);
+            repo.AddFilling(filling);
+            return RedirectToAction("Customization", "Admin");
+        }
         public IActionResult EditFillings()
         {
             AdminCustomizationRepo repo = new AdminCustomizationRepo(_context);
@@ -70,6 +82,19 @@ namespace CreamyCreations.Controllers
         {
             AdminCustomizationRepo repo = new AdminCustomizationRepo(_context);
             repo.EditFillings(fillingsVM);
+            return RedirectToAction("Customization", "Admin");
+        }
+
+        public IActionResult AddLabel()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult AddLabel(Label label)
+        {
+            AdminCustomizationRepo repo = new AdminCustomizationRepo(_context);
+            repo.AddLabel(label);
             return RedirectToAction("Customization", "Admin");
         }
 
@@ -88,6 +113,19 @@ namespace CreamyCreations.Controllers
             return RedirectToAction("Customization", "Admin");
         }
 
+        public IActionResult AddLevel()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult AddLevel(Level level)
+        {
+            AdminCustomizationRepo repo = new AdminCustomizationRepo(_context);
+            repo.AddLevel(level);
+            return RedirectToAction("Customization", "Admin");
+        }
+
         public IActionResult EditLevels()
         {
             AdminCustomizationRepo repo = new AdminCustomizationRepo(_context);
@@ -100,6 +138,19 @@ namespace CreamyCreations.Controllers
         {
             AdminCustomizationRepo repo = new AdminCustomizationRepo(_context);
             repo.EditLevels(levelsVM);
+            return RedirectToAction("Customization", "Admin");
+        }
+
+        public IActionResult AddDecoration()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult AddDecoration(Decoration decoration)
+        {
+            AdminCustomizationRepo repo = new AdminCustomizationRepo(_context);
+            repo.AddDecoration(decoration);
             return RedirectToAction("Customization", "Admin");
         }
         public IActionResult EditDecorations()
