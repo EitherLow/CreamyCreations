@@ -9,18 +9,18 @@
 <article class="container vh-100 pb-5">
 
     <header class="row justify-content-center pt-5">
-        <div class="col-12 col-md-7">
+        <div class="col-12 col-md-12">
             <h1 class="text-center">@ViewData["Title"]</h1>
             <h2 class="text-center profile__account-name">@Model.FirstName @Model.LastName</h2>
         </div>
     </header>
 
     <section class="row justify-content-center">
-        <div class="col-12 col-md-7 col-lg-6">
+        <div class="col-12 col-sm-12 col-lg-10">
             <hr />
 
-            <div class="table-responsive-sm my-3">
-                <table class="table table-borderless">
+            <div class="table-responsive my-4">
+                <table class="table table-borderless table__simple">
                     <thead>
                         <tr>
                             <th scope="col">@Html.DisplayNameFor(model => model.Email)</th>
