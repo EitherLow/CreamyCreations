@@ -92,8 +92,9 @@
 
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-    <script src="@Url.Content("~/js/createCake.js")" defer></script>
+	@{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+	<script src="@Url.Content("~/js/create_cake_localstorage.js")" defer></script>	
+	<script src="@Url.Content("~/js/createCake.js")" defer></script>
 }
 
 

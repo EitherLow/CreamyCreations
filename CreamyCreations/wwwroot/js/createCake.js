@@ -64,4 +64,31 @@
 
     $("#cakePrice").text("$" + $totalPrice);
     $("#cakePriceInput").val();
+
+    if (parseFloat($level[0].options[$level[0].options["selectedIndex"]].dataset.price)) {
+        $levelPrice = parseFloat($level[0].options[$level[0].options["selectedIndex"]].dataset.price)
+    }
+
+    if (parseFloat($cover[0].options[$cover[0].options["selectedIndex"]].dataset.price)) {
+        $coverPrice = parseFloat($cover[0].options[$cover[0].options["selectedIndex"]].dataset.price)
+    }
+
+    if (parseFloat($filling[0].options[$filling[0].options["selectedIndex"]].dataset.price)) {
+        $fillingPrice = parseFloat($filling[0].options[$filling[0].options["selectedIndex"]].dataset.price)
+    }
+
+    if (parseFloat($label[0].options[$label[0].options["selectedIndex"]].dataset.price)) {
+        $labelPrice = parseFloat($label[0].options[$label[0].options["selectedIndex"]].dataset.price)
+    }
+
+    var decorations = document.querySelectorAll('.form-check');
+    decorations.forEach(function(decoration, index) {
+        if (decoration.children[0].checked) {
+            $decorationArray.push(parseFloat(decoration.children[0].dataset.price))
+            $decorationPrice += parseFloat(decoration.children[0].dataset.price)
+        }
+    });
+
+    calculatePrice();
+
 });
