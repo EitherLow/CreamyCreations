@@ -7,11 +7,13 @@
     {
         @if (User.IsInRole("Admin"))
         {
+            <!--
             <li>
                 <a asp-area="" class="nav-link text-dark text-nowrap" asp-controller="UserRole" asp-action="Index">
                     User Roles
                 </a>
             </li>
+            -->
             <li>
                 <a asp-area="" class="nav-link text-dark text-nowrap" asp-controller="Admin" asp-action="Orders">
                     All Orders
