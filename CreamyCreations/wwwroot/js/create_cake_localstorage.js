@@ -46,12 +46,20 @@ $(document).ready(function () {
     decorations.forEach(function(decoration, index) {
             decoration.addEventListener("change",
                 function(e) {
-                    console.log(e.target.checked);
+                    //console.log(e.target.checked);
                     cakeData.selectDecoration[index] = e.target.checked;
                     localStorage.setItem('cakeData', JSON.stringify(cakeData));
 
                 }
             );
+        }
+    );
+
+    // Remove cake on submit
+    var cakeForm = document.getElementById("createCakeForm");
+    cakeForm.addEventListener("submit",
+        function (e) {
+            localStorage.removeItem("cakeData");
         }
     );
 

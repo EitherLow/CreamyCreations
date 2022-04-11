@@ -24,6 +24,7 @@
         $("#cakePriceInput").val($totalPrice);
     }
 
+    // ON CHANGE CALCULATE PRICE
     $level.change(function () {
         var $price = $(this).find("option:selected").attr("data-price");
         $levelPrice = Number($price);
@@ -62,8 +63,7 @@
         }
     });
 
-    $("#cakePrice").text("$" + $totalPrice);
-    $("#cakePriceInput").val();
+
 
     if (parseFloat($level[0].options[$level[0].options["selectedIndex"]].dataset.price)) {
         $levelPrice = parseFloat($level[0].options[$level[0].options["selectedIndex"]].dataset.price)
@@ -88,6 +88,10 @@
             $decorationPrice += parseFloat(decoration.children[0].dataset.price)
         }
     });
+
+
+    $("#cakePrice").text("$" + $totalPrice);
+    $("#cakePriceInput").val();
 
     calculatePrice();
 
