@@ -4,10 +4,10 @@
     ViewData["Title"] = "All Orders";
 }
 
-<article class="container vh-100 pb-5">
+<article class="container pb-5">
     <header class="row justify-content-center pt-5">
         <div class="col-12 col-md-7">
-            <h1 class="text-center">@ViewData["Title"]</h1>
+            <h1 class="text-center">@ViewData["Title"] </h1>
         </div>
     </header>
 
@@ -52,7 +52,7 @@
                                     @Html.DisplayFor(modelItem => item.price)
                                 </td>
                                 <td>
-                                    @Html.ActionLink("Edit", "Edit", new { weddingCakeId = item.weddingCakeID }, new { @class = "btn btn-edit" })
+                                    @Html.ActionLink("Edit", "Edit", new { weddingCakeId = item.weddingCakeID, orderId = item.orderID }, new { @class = "btn btn-edit" })
                                 </td>
                                 <td>
                                     @Html.ActionLink("Details", "Details", new { orderID = item.orderID, userID = item.userID, weddingCakeID = item.weddingCakeID }, new { @class = "btn btn-detail" })
@@ -66,6 +66,7 @@
 
         </div>
     </section>
+
     <section class="row justify-content-center">
         <div class="col-12 d-flex justify-content-center">
             <a asp-controller="Home" asp-action="Index" class="btn btn-back mt-3">Back to home</a>
