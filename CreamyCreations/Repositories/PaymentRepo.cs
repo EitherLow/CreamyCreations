@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using CreamyCreations.Data;
+﻿using CreamyCreations.Data;
 using CreamyCreations.Models;
 using CreamyCreations.ViewModels;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace CreamyCreations.Repositories
 {
@@ -21,7 +19,8 @@ namespace CreamyCreations.Repositories
         public PaymentVM GetCakeDetails(int weddingCakeId)
         {
             var paymentSummary = new PaymentVM();
-
+            
+            
             paymentSummary.WeddingCakeId = weddingCakeId;
             paymentSummary.Fillings = GetAllFillings(weddingCakeId);
             paymentSummary.Covers = GetAllCovers(weddingCakeId);
@@ -56,6 +55,7 @@ namespace CreamyCreations.Repositories
             var fillings2 = (from f in _context.Fillings
                 from wc in _context.WeddingCakes
                 where wc.WeddingCakeId == weddingCakeId
+                where f.FillingId == wc.FillingId
                 select (new Filling()
                 {
                     FillingId = f.FillingId,
@@ -73,6 +73,7 @@ namespace CreamyCreations.Repositories
             var covers2 = (from c in _context.Covers
                 from wc in _context.WeddingCakes
                 where wc.WeddingCakeId == weddingCakeId
+                where c.CoverId == wc.CoverId
                 select (new Cover()
                 {
                     CoverId = c.CoverId,
@@ -88,8 +89,11 @@ namespace CreamyCreations.Repositories
             //var decorations = _context.Decorations.Where(d => Equals(d.WeddingCakeDecorations, weddingCake)).ToList();
 
             var decorations2 = (from d in _context.Decorations
+                from dd in  _context.WeddingCakeDecorations
                 from wc in _context.WeddingCakes
                 where wc.WeddingCakeId == weddingCakeId
+                where dd.WeddingCakeId == wc.WeddingCakeId
+                where d.DecorationId == dd.DecorationId
                 select (new Decoration()
                 {
                     DecorationId = d.DecorationId,
