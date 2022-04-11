@@ -54,7 +54,7 @@ namespace CreamyCreations.Controllers
                 ViewData["CakeID"] = newWeddingCake.WeddingCakeId;
                 ViewData["UserID"] = userRepo.GetId(User.Identity.Name);
 
-                return RedirectToAction("Index", "Payment", new { cake = ViewBag.CakeID, user = ViewBag.UserID});
+                return RedirectToAction("Index", "Payment", new { id = (Int32)ViewBag.CakeID, userId = (Int32)ViewBag.UserID});
             }
             
             return View();

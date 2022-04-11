@@ -22,14 +22,14 @@ namespace CreamyCreations.Controllers
         }
 
         // assume that the wedding cake id is passed in.
-        public IActionResult Index(string id = "1", int? userId = 3)
+        public IActionResult Index(int id = 1, int? userId = 3)
         {
             // Only send the request if we actually do have and id
             //Assume that the user may go back to the payment page without going
             // through the creation page. Redirect if the id is not set
             if (id != null)
             {
-                var thing = paymentRepo.GetCakeDetails(int.Parse(id));
+                var thing = paymentRepo.GetCakeDetails(id);
                 ViewBag.userId = userId;
                 ViewBag.cakeId = id;
                 ViewBag.totalPrice = thing.TotalPrice;
@@ -45,8 +45,10 @@ namespace CreamyCreations.Controllers
         [HttpPost]
         public IActionResult Index([FromBody] PaymentFormVM payment)
         {
-            Console.Write(payment);
-            
+            var repo = new UserRepo(_context);
+
+            var userId = repo.GetId(User.Identity.Name);
+
             var address = new Address()
             {
                 City = payment.City,
@@ -60,7 +62,7 @@ namespace CreamyCreations.Controllers
             {
                 AddressId = address.AddressId,
                 WeddingCakeId = int.Parse(payment.WeddingCakeId),
-                UserId = int.Parse(payment.UserId),
+                UserId = userId,
                 DeliveryDate = DateTime.Parse(payment.DeliveryDate),
             };
 
