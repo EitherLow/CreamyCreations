@@ -7,16 +7,20 @@ using CreamyCreations.Data;
 using CreamyCreations.Models;
 using CreamyCreations.Repositories;
 using CreamyCreations.ViewModels;
+using Microsoft.AspNetCore.Identity;
 
 namespace CreamyCreations.Controllers
 {
     public class ProfileController : Controller
     {
         private readonly ApplicationDbContext _context;
-
-        public ProfileController(ApplicationDbContext context)
+        private readonly UserManager<IdentityUser> _userManager;
+        private readonly SignInManager<IdentityUser> _signInManager;
+        public ProfileController(ApplicationDbContext context, UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager)
         {
             _context = context;
+            _userManager = userManager;
+            _signInManager = signInManager;
         }
         public IActionResult Index()
         {
@@ -73,6 +77,48 @@ namespace CreamyCreations.Controllers
 
             ViewBag.statusMessage = "Something went wrong!";
             return View("Index", user);
+        }
+
+        [HttpGet]
+        public IActionResult ChangePassword()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ChangePassword(ChangePasswordVM model)
+        {
+
+            if (ModelState.IsValid)
+            {
+                var user = await _userManager.GetUserAsync(User);
+                if (user == null)
+                {
+                    return RedirectToAction("Login");
+                }
+
+                // ChangePasswordAsync changes the user password
+                var result = await _userManager.ChangePasswordAsync(user,
+                    model.CurrentPassword, model.NewPassword);
+
+                // The new password did not meet the complexity rules or
+                // the current password is incorrect. Add these errors to
+                // the ModelState and rerender ChangePassword view
+                if (!result.Succeeded)
+                {
+                    foreach (var error in result.Errors)
+                    {
+                        ModelState.AddModelError(string.Empty, error.Description);
+                    }
+                    return View();
+                }
+
+                // Upon successfully changing the password refresh sign-in cookie
+                await _signInManager.RefreshSignInAsync(user);
+                return RedirectToAction("Index", "Profile");
+            }
+
+            return View(model);
         }
     }
 }
