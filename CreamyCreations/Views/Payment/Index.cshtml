@@ -1,115 +1,75 @@
 ﻿@model CreamyCreations.ViewModels.PaymentVM
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Cake Summary";
 }
 
-<h1>Index</h1>
 
-<div>
-    <h4>Payment</h4>
-	<hr />
-	<dl>
-		<dt>Total Price</dt>
-		<dt>@Html.DisplayFor(model => model.TotalPrice)</dt>
-		<dt>@Html.DisplayNameFor(model => model.Fillings)</dt>
-		@foreach (var filling in Model.Fillings)
-		{
-			<dd>@Html.DisplayFor(model => filling.Flavor)</dd>
-		}
+<article class="container vh-100 pb-5">
+    <header class="row justify-content-center pt-5">
+        <div class="col-12 d-flex flex-row justify-content-between mb-4">
+            <span class="customer-journey-step customer-journey-step__muted step-1">1</span>
+            <span class="customer-journey-step">2</span>
+            <span class="customer-journey-step customer-journey-step__muted">3</span>
+        </div>
+        <div class="col-12 col-md-7">
+            <h1 class="text-center">@ViewData["Title"] </h1>
+        </div>
+    </header>
 
-		<dt>@Html.DisplayNameFor(model => model.Covers)</dt>
-		@foreach (var cover in Model.Covers)
-		{
-			<dd>@Html.DisplayFor(model => cover.Flavor)</dd>
-		}
-		<dt>@Html.DisplayNameFor(model => model.Decorations)</dt>
-		@foreach (var decoration in Model.Decorations)
-		{
-			<dd>@Html.DisplayFor(model => decoration.Decoration1)</dd>
-		}
+    <section class="row justify-content-center">
+        <div class="col-12 col-sm-12 col-lg-10">
+            <hr />
+            <dl class="row">
+                <dt class="col-sm-3">Total Price (CAD)</dt>
+                <dd class="col-sm-9">$@Html.DisplayFor(model => model.TotalPrice)</dd>
 
-	</dl>
-    
-</div>
 
-<!-- input that accepts a type date-->
-<label for="date">Delivery Date:</label>
-<input type="date" name="date" id="date" />
-
-<div id="paypal-button"></div>
-<script src="https://www.paypalobjects.com/api/checkout.js"></script>
-<script>
-	const paypalButton = document.getElementById('paypal-button');
-    paypalButton.style.display = 'none';
-	// make sure that the user has chosen a date before proceeding
-	date.onchange = function() {
-		if(date.value) {
-			paypalButton.style.display = 'block';
-        } else{
-			paypalButton.style.display = 'none';
-        }
-    }
-    paypal.Button.render({
-        env: 'sandbox', // Or ' production '
-        style: { // You can customize your button here.
-            size: 'small',
-            color: 'gold',
-            shape: 'pill',
-            label: 'checkout'
-        },
-        client: {
-            // You need to change this to your client ID
-            sandbox: 'ATZD0fV4EGXzHq_c5YokYWv0TICaeDVu5h6-VeI1tBfZjuosmeBK6Es66JLNY91A8in1tRfK6IG5aVrh',
-            // production: '3W8F5EEJKUJP4KSY'  // Switch to ‘production’ when live.
-        },
-        commit: true, // Show a 'Pay Now' button
-        payment: function (data, actions) {
-            return actions.payment.create({
-                payment: {
-                    transactions: [{
-                        // The 'custom' field helps you to link the paypal request
-                        // with paypal's response which is important.
-                        // You may want use a 'custom' field to send an accountID from
-                        // your site so you can uniquely identify the person making the
-                        // payment when Paypal notifies you.
-                        // Sometimes a person at your site will pay at Paypal with
-                        // an entirely different set of credentials. They may pay with
-                        // a credit card or account which belongs to their spouse or
-                        // another family member. In situations like these, relating
-                        // payments to accounts on your site can be difficult.
-                        // The custom property value that you send to Paypal for a
-                        // payment request is returned in Paypal's reponse.
-                        custom: 'Custom data goes here!',
-                        amount: { total: @ViewBag.totalPrice, currency: 'USD' }
-                    }
-                    ]
+                <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Fillings)</dt>
+                @foreach (var filling in Model.Fillings)
+                {
+                    <dd class="col-sm-9">@Html.DisplayFor(model => filling.Flavor)</dd>
                 }
-            });
-        },
-        onAuthorize: function (data, actions) {
-            return actions.payment.execute().then(function (payment) {
-                console.log("This is what comes back from Paypal: ")
-                console.log(payment);
-                //alert("This JSON is from Paypal: " + JSON.stringify(payment));
-                console.log("-------------------------------------")
-                var dataObject = {
-                    "cart":             payment.cart,
-                    "intent":           payment.intent,
-                    "paymentID":        payment.id,
-                    "create_time":      payment.create_time,
-                    "paymentState":     payment.state,
-                    "payerEmail":       payment.payer.payer_info.email,
-                    "payerID":          payment.payer.payer_info.payer_id,
-                    "payerFirstName":   payment.payer.payer_info.first_name,
-                    "payerLastName":    payment.payer.payer_info.last_name,
-                    "payerMiddleName":  payment.payer.payer_info.middle_name,
-                    "payerCountryCode": payment.payer.payer_info.country_code,
-                    "paymentMethod":    payment.payer.payment_method,
-                    "payerStatus":      payment.payer.status,
-                    "amount":           payment.transactions[0].amount.total,
-                    "currency":         payment.transactions[0].amount.currency,
-                    "custom":           payment.transactions[0].custom
+
+
+                <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Covers)</dt>
+                @foreach (var cover in Model.Covers)
+                {
+                    <dd class="col-sm-9">@Html.DisplayFor(model => cover.Flavor)</dd>
+                }
+
+
+                <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Decorations)</dt>
+                <dd class="col-sm-9">
+                    <ul class="row">
+                        @foreach (var decoration in Model.Decorations)
+                        {
+                            <li class="col-12">@Html.DisplayFor(model => decoration.Decoration1)</li>
+                        }
+                    </ul>
+                </dd>
+
+                <dt class="col-sm-3">Delivery Address</dt>
+                <dd class="col-sm-9">Address will be taken from your PayPal account</dd>
+
+            </dl>
+
+            <!-- input that accepts a type date-->
+            <label for="date" class="font-weight-bold">Delivery Date:</label>
+            <input type="date" name="date" id="date" />
+
+            <div id="paypal-button"></div>
+            <script src="https://www.paypalobjects.com/api/checkout.js"></script>
+            <script>
+	            const paypalButton = document.getElementById('paypal-button');
+                paypalButton.style.display = 'none';
+	            // make sure that the user has chosen a date before proceeding
+	            date.onchange = function() {
+		            if(date.value) {
+			            paypalButton.style.display = 'block';
+                    } else{
+			            paypalButton.style.display = 'none';
+                    }
                 }
                 // The payment is complete!
                 // You can now show a confirmation message to the customer
@@ -139,4 +99,96 @@
             */
         },
     }, '#paypal-button');
-</script>
+                paypal.Button.render({
+                    env: 'sandbox', // Or ' production '
+                    style: { // You can customize your button here.
+                        size: 'small',
+                        color: 'gold',
+                        shape: 'pill',
+                        label: 'checkout'
+                    },
+                    client: {
+                        // You need to change this to your client ID
+                        sandbox: 'ATZD0fV4EGXzHq_c5YokYWv0TICaeDVu5h6-VeI1tBfZjuosmeBK6Es66JLNY91A8in1tRfK6IG5aVrh',
+                        // production: '3W8F5EEJKUJP4KSY'  // Switch to ‘production’ when live.
+                    },
+                    commit: true, // Show a 'Pay Now' button
+                    payment: function (data, actions) {
+                        return actions.payment.create({
+                            payment: {
+                                transactions: [{
+                                    // The 'custom' field helps you to link the paypal request
+                                    // with paypal's response which is important.
+                                    // You may want use a 'custom' field to send an accountID from
+                                    // your site so you can uniquely identify the person making the
+                                    // payment when Paypal notifies you.
+                                    // Sometimes a person at your site will pay at Paypal with
+                                    // an entirely different set of credentials. They may pay with
+                                    // a credit card or account which belongs to their spouse or
+                                    // another family member. In situations like these, relating
+                                    // payments to accounts on your site can be difficult.
+                                    // The custom property value that you send to Paypal for a
+                                    // payment request is returned in Paypal's reponse.
+                                    custom: 'Custom data goes here!',
+                                    amount: { total: @ViewBag.totalPrice, currency: 'USD' }
+                                }
+                                ]
+                            }
+                        });
+                    },
+                    onAuthorize: function (data, actions) {
+                        return actions.payment.execute().then(function (payment) {
+                            console.log("This is what comes back from Paypal: ")
+                            console.log(payment);
+                            //alert("This JSON is from Paypal: " + JSON.stringify(payment));
+                            console.log("-------------------------------------")
+                            var dataObject = {
+                                "cart":             payment.cart,
+                                "intent":           payment.intent,
+                                "paymentID":        payment.id,
+                                "create_time":      payment.create_time,
+                                "paymentState":     payment.state,
+                                "payerEmail":       payment.payer.payer_info.email,
+                                "payerID":          payment.payer.payer_info.payer_id,
+                                "payerFirstName":   payment.payer.payer_info.first_name,
+                                "payerLastName":    payment.payer.payer_info.last_name,
+                                "payerMiddleName":  payment.payer.payer_info.middle_name,
+                                "payerCountryCode": payment.payer.payer_info.country_code,
+                                "paymentMethod":    payment.payer.payment_method,
+                                "payerStatus":      payment.payer.status,
+                                "amount":           payment.transactions[0].amount.total,
+                                "currency":         payment.transactions[0].amount.currency,
+                                "custom":           payment.transactions[0].custom
+                            }
+                            // The payment is complete!
+                            // You can now show a confirmation message to the customer
+				            const {line1: address, city, state: province, postal_code} = payment.payer.payer_info.shipping_address
+				            const userId = @ViewBag.userId;
+				            const weddingCakeId = @ViewBag.cakeId
+                            const deliveryDate = document.getElementById('date').value;
+				            console.log("-------------------------------------")
+				            const request = {address, city, province, userId: userId.toString(), weddingCakeId: weddingCakeId.toString(), deliveryDate, postal_code}
+				            fetch("/payment/index",{
+					            method: "POST",
+					            headers: {
+						            "Content-Type": "application/json"
+						            },
+					            body: JSON.stringify(request)
+                            }).then(res => {
+					            const url = res.url
+					            window.location.href = url
+                            })
+                        })
+                    },
+                    onCancel: function (data, actions) {
+                        /*
+                        * Buyer cancelled the payment
+                        */
+                    },
+                }, '#paypal-button');
+                        </script>
+
+        </div>
+    </section>
+
+</article>

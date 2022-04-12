@@ -113,13 +113,14 @@ footer p {
 }
 
 .nav-item {
-    padding: 0.5rem;
+    padding: 0.25rem 1rem;
 }
 
 .nav-item,
 .nav-item a {
     width: 100%;
     text-align: center;
+    border-radius: var(--btn-border-radius);
 }
 
 .navbar-nav .nav-item .nav-link {
@@ -128,6 +129,10 @@ footer p {
     width: 100%;
     box-shadow: none;
     font-weight: 400;
+}
+
+.navbar-nav .nav-item.active {
+    background-color: var(--color-vanilla);
 }
 
 .navbar-nav .nav-item .nav-link:hover {
@@ -208,6 +213,20 @@ button.navbar-toggler:focus {
     border-color: var(--color-text);
 }
 
+
+/*************************
+    TABLE
+**************************/
+
+.table__simple tbody tr {
+    border-top: 1px solid var(--color-grayLight);
+}
+
+.table__simple thead th {
+    color: var(--color-text);
+    font-weight: 700;
+}
+
 /*************************
     FORM
 **************************/
@@ -220,17 +239,88 @@ button.navbar-toggler:focus {
     box-shadow: 0 0 0 0.2rem rgb(117 92 59 / 25%);
 }
 
-
 /*************************
-    CHANGE THIS CODE
+    CAKE CUSTOMER JOURNEY
 **************************/
-.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
-    color: #fff;
-    background-color: #1b6ec2;
-    border-color: #1861ac;
+.customer-journey-step {
+    position: relative;
+    cursor: pointer;
+    color: var(--color-white);
+    box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+    font-weight: 700;
+    background-color: var(--color-strawberry);
+    border-radius: var(--btn-border-radius);
+    padding: 0.25rem 1rem;
 }
 
-.box-shadow {
-  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+.customer-journey-step__muted {
+    background-color: var(--color-grayLight);
+    color: var(--color-gray);
+    box-shadow: none;
+}
+
+.step-1::after,
+.step-2::after {
+    content: '';
+    height: 5px;
+    top: 45%;
+    left: 40px;
+    position: absolute;
+    width: 120px;
+    display: block;
+    background: var(--color-grayLight);
+}
+
+@media only screen and (min-width: 400px) {
+    .step-1::after,
+    .step-2::after {
+        width: 150px;
+    }
+}
+
+@media only screen and (min-width: 476px) {
+    .step-1::after,
+    .step-2::after {
+        width: 200px;
+    }
+}
+
+@media only screen and (min-width: 576px) {
+    .step-1::after,
+    .step-2::after {
+        width: 220px;
+    }
+}
+
+@media only screen and (min-width: 768px) {
+    .step-1::after,
+    .step-2::after {
+        width: 300px;
+    }
+}
+
+@media only screen and (min-width: 992px) {
+    .step-1::after,
+    .step-2::after {
+        width: 430px;
+    }
+}
+
+@media only screen and (min-width: 1200px) {
+    .step-1::after,
+    .step-2::after {
+        width: 500px;
+    }
+}
+
+
+
+
+/*************************
+    ADMIN EDIT
+**************************/
+.admin-division {
+    padding: 1rem 0;
+    margin: 0 2rem;
 }
 
