@@ -1,7 +1,10 @@
-﻿@{
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@{
     ViewData["Title"] = "Welcome";
 }
-<link rel="stylesheet" href="css/Home/home.css"/>
+
+<link rel="stylesheet" href="css/Home/home.css" />
 <article>
     <header class="home container-fluid hero-image d-flex align-items-center">
 
@@ -100,7 +103,14 @@
             <div class="row">
                 <div class="col-12 text-center py-5">
                     <h2>Create your own cake now</h2>
-                    <a class="btn btn-primary mb-3 mt-4" href="/Identity/Account/Register">Signup</a>
+                    @if (!SignInManager.IsSignedIn(User))
+                    {
+                        <a class="btn btn-primary mb-3 mt-4" href="/Identity/Account/Register">Signup</a>
+                    }
+                    else
+                    {
+	                    <a class="btn btn-primary mb-3 mt-4" asp-controller="WeddingCake" asp-action="Create">Create</a>
+                    }
                 </div>
             </div>
         </div>
