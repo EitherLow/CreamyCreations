@@ -14,12 +14,12 @@
                 </a>
             </li>
             -->
-            <li>
+            <li class="nav-item @(ViewContext.RouteData.Values["Action"].ToString()=="Orders" ? "active" : "") ">
                 <a asp-area="" class="nav-link text-dark text-nowrap" asp-controller="Admin" asp-action="Orders">
                     All Orders
                 </a>
             </li>
-            <li>
+            <li class="nav-item @(ViewContext.RouteData.Values["Action"].ToString()=="Customization" ? "active" : "") ">
                 <a asp-area="" class="nav-link text-dark text-nowrap" asp-controller="Admin" asp-action="Customization">
                     Customization
                 </a>
@@ -27,14 +27,15 @@
         }
         else if (User.IsInRole("User"))
         {
-            <li class="nav-item">
+            <li class="nav-item @(ViewContext.RouteData.Values["Controller"].ToString()=="Orders" ? "active" : "") ">
                 <a asp-controller="Orders" asp-action="Index">Orders</a>
             </li>
         }
-        <li class="nav-item">
+        <li class="nav-item @(ViewContext.RouteData.Values["Controller"].ToString()=="Profile" ? "active" : "" ) ">
             <a asp-controller="Profile" asp-action="Index">Account</a>
         </li>
-        <li class="nav-item">
+
+        <li class="nav-item @(ViewContext.RouteData.Values["Controller"].ToString()=="WeddingCake" ? "active" : "") @(ViewContext.RouteData.Values["Controller"].ToString()=="Payment" ? "active" : "") ">
             <a class="text-nowrap" asp-controller="WeddingCake" asp-action="Create">Create a Cake</a>
         </li>
         <li class="nav-item">

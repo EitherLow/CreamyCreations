@@ -1,36 +1,55 @@
 ﻿@model CreamyCreations.ViewModels.PaymentSuccessVM
 
 @{
-    ViewData["Title"] = "PaymentSuccess";
+    ViewData["Title"] = "Thank You";
 }
 
-<h1>PaymentSuccess</h1>
+<article class="container vh-100 pb-5">
+    <header class="row justify-content-center pt-5">
+        <div class="col-12 d-flex flex-row justify-content-between mb-4">
+            <span class="customer-journey-step customer-journey-step__muted step-1">1</span>
+            <span class="customer-journey-step customer-journey-step__muted step-2">2</span>
+            <span class="customer-journey-step">3</span>
+        </div>
+        <div class="col-12 col-md-7">
+            <h1 class="text-center">@ViewData["Title"]</h1>
+            <h2 class="text-center">Your payment has been successful</h2>
+        </div>
+    </header>
 
-<div>
-    <h4>PaymentSuccessVM</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.OrderId)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.OrderId)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Price)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Price)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Address)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Address)
-        </dd>
-    </dl>
-</div>
-<div>
-    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
-    <a asp-action="Index" asp-controller="Home">Home</a>
-</div>
+    <section class="row justify-content-center">
+        <div class="col-12 col-sm-12 col-lg-10">
+            <hr />
+            <dl class="row">
+                <dt class="col-sm-3">
+                    Order #
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.OrderId)
+                </dd>
+                <dt class="col-sm-3">
+                    Total Price (CAD)
+                </dt>
+                <dd class="col-sm-9">
+                    $@Html.DisplayFor(model => model.Price)
+                </dd>
+                <dt class="col-sm-3">
+                    Delivery Address
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.Address)
+                </dd>
+            </dl>
+        </div>
+    </section>
+
+    <section class="row justify-content-center">
+        <div class="col-12 d-flex justify-content-center">
+            <a asp-controller="Home" asp-action="Index" class="btn btn-back mt-3">Back to home</a>
+        </div>
+    </section>
+</article>
+
+
+            
+
