@@ -1,0 +1,55 @@
+﻿@model CreamyCreations.ViewModels.LabelsVM
+
+@{
+    ViewData["Title"] = "Edit Labels";
+}
+
+<article class="container pb-5">
+
+    <header class="row justify-content-center pt-5">
+        <div class="col-12 col-md-7">
+            <h1 class="text-center">@ViewData["Title"] </h1>
+        </div>
+    </header>
+
+    <section class="row justify-content-center">
+        <div class="col-12 col-md-7 col-lg-6">
+            <hr />
+            <form asp-action="EditLabels">
+                @for (var i = 0; i < Model.Labels.Count(); i++)
+                {
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input type="hidden" asp-for="@Model.Labels[i].LabelId" />
+                    <div class="form-group">
+                        <label asp-for="@Model.Labels[i].LabelName" class="control-label">Label Name</label>
+                        <input asp-for="@Model.Labels[i].LabelName" class="form-control" />
+                        <span asp-validation-for="@Model.Labels[i].LabelName" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="@Model.Labels[i].Price" class="control-label"></label>
+                        <input asp-for="@Model.Labels[i].Price" class="form-control" />
+                        <span asp-validation-for="@Model.Labels[i].Price" class="text-danger"></span>
+                    </div>
+
+                    <div class="admin-division">
+                        <hr />
+                    </div>
+                }
+                <div class="form-group text-center">
+                    <input type="submit" value="Save" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <section class="row justify-content-center">
+        <div class="col-12 d-flex justify-content-center ">
+            <a asp-action="Customization" class="btn btn-back mt-1">Back to list</a>
+        </div>
+    </section>
+
+</article>
+
+    @section Scripts {
+        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    }

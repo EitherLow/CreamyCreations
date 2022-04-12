@@ -1,0 +1,55 @@
+﻿@model CreamyCreations.ViewModels.DecorationsVM
+
+@{
+    ViewData["Title"] = "Edit Decorations";
+}
+
+<article class="container pb-5">
+
+    <header class="row justify-content-center pt-5">
+        <div class="col-12 col-md-7">
+            <h1 class="text-center">@ViewData["Title"] </h1>
+        </div>
+    </header>
+
+    <section class="row justify-content-center">
+        <div class="col-12 col-md-7 col-lg-6">
+            <hr />
+            <form asp-action="EditDecorations">
+                @for (var i = 0; i < Model.Decorations.Count(); i++)
+                {
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input type="hidden" asp-for="@Model.Decorations[i].DecorationId" />
+                    <div class="form-group">
+                        <label asp-for="@Model.Decorations[i].Decoration1" class="control-label">Decoration</label>
+                        <input asp-for="@Model.Decorations[i].Decoration1" class="form-control" />
+                        <span asp-validation-for="@Model.Decorations[i].Decoration1" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="@Model.Decorations[i].Price" class="control-label"></label>
+                        <input asp-for="@Model.Decorations[i].Price" class="form-control" />
+                        <span asp-validation-for="@Model.Decorations[i].Price" class="text-danger"></span>
+                    </div>
+
+                    <div class="admin-division">
+                        <hr />
+                    </div>
+                }
+                <div class="form-group text-center">
+                    <input type="submit" value="Save" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <section class="row justify-content-center">
+        <div class="col-12 d-flex justify-content-center ">
+            <a asp-action="Customization" class="btn btn-back mt-1">Back to list</a>
+        </div>
+    </section>
+
+</article>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

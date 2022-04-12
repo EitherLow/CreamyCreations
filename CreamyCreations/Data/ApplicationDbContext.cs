@@ -230,29 +230,29 @@ namespace CreamyCreations.Data
                     .HasColumnType("money")
                     .HasColumnName("totalPrice");
 
-                entity.HasOne(d => d.Cover)
-                    .WithMany(p => p.WeddingCakes)
-                    .HasForeignKey(d => d.CoverId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__WeddingCa__cover__31EC6D26");
+                //entity.HasOne(d => d.Cover)
+                //    .WithMany(p => p.WeddingCakes)
+                //    .HasForeignKey(d => d.CoverId)
+                //    .OnDelete(DeleteBehavior.ClientSetNull)
+                //    .HasConstraintName("FK__WeddingCa__cover__31EC6D26");
 
-                entity.HasOne(d => d.Filling)
-                    .WithMany(p => p.WeddingCakes)
-                    .HasForeignKey(d => d.FillingId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__WeddingCa__filli__32E0915F");
+                //entity.HasOne(d => d.Filling)
+                //    .WithMany(p => p.WeddingCakes)
+                //    .HasForeignKey(d => d.FillingId)
+                //    .OnDelete(DeleteBehavior.ClientSetNull)
+                //    .HasConstraintName("FK__WeddingCa__filli__32E0915F");
 
-                entity.HasOne(d => d.Label)
-                    .WithMany(p => p.WeddingCakes)
-                    .HasForeignKey(d => d.LabelId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__WeddingCa__label__33D4B598");
+                //entity.HasOne(d => d.Label)
+                //    .WithMany(p => p.WeddingCakes)
+                //    .HasForeignKey(d => d.LabelId)
+                //    .OnDelete(DeleteBehavior.ClientSetNull)
+                //    .HasConstraintName("FK__WeddingCa__label__33D4B598");
 
-                entity.HasOne(d => d.LevelNumberNavigation)
-                    .WithMany(p => p.WeddingCakes)
-                    .HasForeignKey(d => d.LevelNumber)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__WeddingCa__level__34C8D9D1");
+                //entity.HasOne(d => d.LevelNumberNavigation)
+                //    .WithMany(p => p.WeddingCakes)
+                //    .HasForeignKey(d => d.LevelNumber)
+                //    .OnDelete(DeleteBehavior.ClientSetNull)
+                //    .HasConstraintName("FK__WeddingCa__level__34C8D9D1");
             });
 
             modelBuilder.Entity<WeddingCakeDecoration>(entity =>
@@ -349,9 +349,17 @@ namespace CreamyCreations.Data
 
         public DbSet<CreamyCreations.ViewModels.AdminOrdersVM> AdminOrdersVM { get; set; }
 
+        public DbSet<CreamyCreations.ViewModels.UserProfileVM> UserProfileVM { get; set; }
+
         public DbSet<CreamyCreations.ViewModels.CreateWeddingCakeVM> WeddingCakeVM { get; set; }
 
 
+        public DbSet<CreamyCreations.ViewModels.OrdersVm> OrdersVm { get; set; }
+        public DbSet<CreamyCreations.ViewModels.CustomerWeddingCakeVM> CustomerWeddingCakeVM { get; set; }
+
+        public DbSet<CreamyCreations.ViewModels.WeddingCakeVM> WeddingCakeVM_1 { get; set; }
+
+        public DbSet<CreamyCreations.ViewModels.PaymentVM> PaymentVM { get; set; }
 
     }
 }

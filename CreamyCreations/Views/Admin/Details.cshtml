@@ -1,0 +1,118 @@
+﻿@model CreamyCreations.ViewModels.CustomerWeddingCakeVM
+
+@{
+    ViewData["Title"] = "Order #";
+}
+
+
+<article class="container pb-5">
+
+    <header class="row justify-content-center pt-5">
+        <div class="col-12 col-md-7">
+            <h1 class="text-center">@ViewData["Title"] @Html.DisplayFor(model => model.orderID)</h1>
+        </div>
+    </header>
+
+    <section class="row justify-content-center">
+        <div class="col-12 col-sm-12 col-lg-10">
+            <hr />
+
+                <dl class="row">
+                    <dt class="col-sm-3">
+                        @Html.DisplayNameFor(model => model.userID)
+                    </dt>
+                    <dd class="col-sm-9">
+                        @Html.DisplayFor(model => model.userID)
+                    </dd>
+
+                    <dt class="col-sm-3">
+                        @Html.DisplayNameFor(model => model.firstName)
+                    </dt>
+                    <dd class="col-sm-9">
+                        @Html.DisplayFor(model => model.firstName)
+                    </dd>
+
+                    <dt class="col-sm-3">
+                        @Html.DisplayNameFor(model => model.lastName)
+                    </dt>
+                    <dd class="col-sm-9">
+                        @Html.DisplayFor(model => model.lastName)
+                    </dd>
+
+                    <dt class="col-sm-3">
+                        @Html.DisplayNameFor(model => model.weddingCakeID)
+                    </dt>
+                    <dd class="col-sm-9">
+                        @Html.DisplayFor(model => model.weddingCakeID)
+                    </dd>
+
+                    <dt class="col-sm-3">
+                        @Html.DisplayNameFor(model => model.cover)
+                    </dt>
+                    <dd class="col-sm-9">
+                        @Html.DisplayFor(model => model.cover)
+                    </dd>
+
+                    <dt class="col-sm-3">
+                        @Html.DisplayNameFor(model => model.level)
+                    </dt>
+                    <dd class="col-sm-9">
+                        @Html.DisplayFor(model => model.level)
+                    </dd>
+
+                    <dt class="col-sm-3">
+                        @Html.DisplayNameFor(model => model.label)
+                    </dt>
+                    <dd class="col-sm-9">
+                        @Html.DisplayFor(model => model.label)
+                    </dd>
+
+                    <dt class="col-sm-3">
+                        @Html.DisplayNameFor(model => model.filling)
+                    </dt>
+                    <dd class="col-sm-9">
+                        @Html.DisplayFor(model => model.filling)
+                    </dd>
+                    <dt class="col-sm-3">Decorations:</dt>
+                    <dd class="col-sm-9">
+                        <ol class="row">
+                            @foreach (var decoration in Model.decorations)
+                            {
+                                <li class="col-sm-12">@decoration.Decoration1</li>
+                            }
+                        </ol>
+                    </dd>
+
+                    <dt class="col-sm-3">
+                        @Html.DisplayNameFor(model => model.deliveryDate)
+                    </dt>
+                    <dd class="col-sm-9">
+                        @Html.DisplayFor(model => model.deliveryDate)
+                    </dd>
+
+                    <dt class="col-sm-3">
+                        @Html.DisplayNameFor(model => model.price)
+                    </dt>
+                    <dd class="col-sm-9">
+                        @Html.DisplayFor(model => model.price)
+                    </dd>
+                </dl>
+
+
+            @Html.ActionLink("Edit", "Edit", new { weddingCakeId = @Model.weddingCakeID }, new { @class = "btn btn-primary" })
+
+        </div>
+    </section>
+
+    <section class="row justify-content-center">
+        <div class="col-12 d-flex justify-content-center">
+            <a asp-action="Orders" class="btn btn-back mt-3">Back to orders</a>
+        </div>
+    </section>
+
+</article>
+
+
+
+
+

@@ -1,23 +1,110 @@
 ﻿@{
-    //ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Welcome";
 }
-<link rel="stylesheet" href="css/Home/index.css"/>
-    <div class="row align-items-center">
-        <div class="col-12 col-lg-8">
-            <img src="assets/homepage/HomePageHeroImage.jpg" class="hero_image"/>
-        </div>
-        <div class="col-12 col-lg-4 d-flex">
-            <div class="align-items-center">
-                <h1>Design the perfect Wedding Cake</h1>
-                @*todo: Please add *@
-                @if (User.Identity.IsAuthenticated)
-                {
-                    <a class="btn btn-primary" href="/">Authenticated button</a>
-                }
-                else
-                {
-                    <a class="btn btn-primary" href="/">Unauthenticated button</a>
-                }
+<link rel="stylesheet" href="css/Home/home.css"/>
+<article>
+    <header class="home container-fluid hero-image d-flex align-items-center">
+
+        <div class="container">
+            <div class="row">
+
+                <div class="col-12 text-center align-middle">
+                    <h1 class="text-center">Design the perfect Wedding Cake</h1>
+                    <p class="h4 mx-auto subtitle">An unforgettable experience in the form of a uniquely customized cake just for your wedding.</p>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <a class="btn btn-primary mt-5" asp-controller="WeddingCake" asp-action="Create">Create Cake</a>
+                    }
+                    else
+                    {
+                        <a class="btn btn-primary mt-5" href="/Identity/Account/Register">Signup</a>
+                    }
+                </div>
             </div>
         </div>
-    </div>
+
+    </header>
+
+    <section class="container mb-4">
+        <div class="row">
+            <div class="col-12 text-center py-5">
+                <h2>Unleash your cake creativity</h2>
+            </div>
+            <div class="col-12 mt-3 mb-5">
+                <div class="row">
+
+                    <div class="col-12 col-md-6">
+                        <h3>Decide the cake height</h3>
+                        <p>
+                            Enim cillum dolor anim cupidatat ea reprehenderit pariatur nulla occaecat. Sint non incididunt et est ea anim culpa consequat sit et. Qui officia minim fugiat minim sunt eu est non ea sint commodo officia voluptate elit. Ipsum ullamco officia nostrud magna amet duis aute. Amet adipisicing proident eiusmod cupidatat qui tempor. Duis enim minim cillum non enim fugiat culpa deserunt est amet ea sunt do.
+                        </p>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <img class="home__image" src="~/assets/homepage/levels-pexels-brent-keane.jpg" alt="Wedding Cake Picture" />
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-12 my-5">
+                <div class="row">
+
+                    <div class="col-12 col-md-6 order-md-last">
+                        <h3>Pick a filling flavor</h3>
+                        <p>
+                            Enim cillum dolor anim cupidatat ea reprehenderit pariatur nulla occaecat. Sint non incididunt et est ea anim culpa consequat sit et. Qui officia minim fugiat minim sunt eu est non ea sint commodo officia voluptate elit. Ipsum ullamco officia nostrud magna amet duis aute. Amet adipisicing proident eiusmod cupidatat qui tempor. Duis enim minim cillum non enim fugiat culpa deserunt est amet ea sunt do.
+                        </p>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <img class="home__image" src="./assets/homepage/filling-pexels-abhinav-goswami.jpg" alt="Wedding Cake Filling Picture" />
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-12 my-5">
+                <div class="row">
+
+                    <div class="col-12 col-md-6">
+                        <h3>Different flavors of your cake frosting</h3>
+                        <p>
+                            Enim cillum dolor anim cupidatat ea reprehenderit pariatur nulla occaecat. Sint non incididunt et est ea anim culpa consequat sit et. Qui officia minim fugiat minim sunt eu est non ea sint commodo officia voluptate elit. Ipsum ullamco officia nostrud magna amet duis aute. Amet adipisicing proident eiusmod cupidatat qui tempor. Duis enim minim cillum non enim fugiat culpa deserunt est amet ea sunt do.
+                        </p>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <img class="home__image" src="./assets/homepage/frosting-pexels-cottonbro.jpg" alt="Wedding Cake frosting" />
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-12 my-5">
+                <div class="row">
+
+                    <div class="col-12 col-md-6 order-md-last">
+                        <h3>Multiple decorations for your cake</h3>
+                        <p>
+                            Enim cillum dolor anim cupidatat ea reprehenderit pariatur nulla occaecat. Sint non incididunt et est ea anim culpa consequat sit et. Qui officia minim fugiat minim sunt eu est non ea sint commodo officia voluptate elit. Ipsum ullamco officia nostrud magna amet duis aute. Amet adipisicing proident eiusmod cupidatat qui tempor. Duis enim minim cillum non enim fugiat culpa deserunt est amet ea sunt do.
+                        </p>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <img class="home__image" src="./assets/homepage/decorations-pexels-rodnae-productions.jpg" alt="Wedding Cake Decorations Picture" />
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section class="container-fluid home__section">
+
+        <div class="container">
+            <div class="row">
+                <div class="col-12 text-center py-5">
+                    <h2>Create your own cake now</h2>
+                    <a class="btn btn-primary mb-3 mt-4" href="/Identity/Account/Register">Signup</a>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+</article>

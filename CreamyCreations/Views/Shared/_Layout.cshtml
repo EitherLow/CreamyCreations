@@ -1,61 +1,55 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - CreamyCreations</title>
+    <title>@ViewData["Title"] | Creamy Creations</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="~/css/site.css" />
-    <link rel="stylesheet" href="/css/Shared/_layout.css"/>
+    <link rel="stylesheet" href="/css/Shared/_layout.css?v=1.0" />
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container">
-                <a href="/"><img src="/assets/layout/logo.png" class="nav_logo" /></a>
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">CreamyCreations</a>
-                
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-end">
+            <nav class="navbar navbar-expand-md navbar-light bg-white">
+                <div class="container">
+                    <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">🍰 Creamy Creations</a>
 
-                    @if (User.IsInRole("Admin"))
-                    {
-                        <ul class="navbar-nav">
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                            aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
 
-                            <li>
-                                <a asp-area="" class="nav-link text-dark" asp-controller="Role" asp-action="Index">
-                                    Roles
-                                </a>
-                            </li>
-                            <li>
-                                <a asp-area="" class="nav-link text-dark" asp-controller="UserRole" asp-action="Index">
-                                    User Roles
-                                </a>
-                            </li>
+                    <div class="collapse navbar-collapse justify-content-end" id="navbarMenu">
+      
+                            <partial name="_LoginPartial" />
 
+                    </div>
+                </div>
+            </nav>
+        
 
+    </header>
+    <main role="main">
+        @RenderBody()
+    </main>
 
-                        </ul>
-                    }
-                    <partial name="_LoginPartial" />
+    <footer class="border-top w-100 p-3 text-muted">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 text-center">
+                    <p>&copy; 2022 - Creamy Creations - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a> </p>
                 </div>
             </div>
-        </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
-
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2022 - CreamyCreations - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>

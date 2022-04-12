@@ -368,3 +368,5 @@ CreamyCreations/wwwroot/sql.db-shm
 CreamyCreations/wwwroot/sql.db-wal
 
 CreamyCreations/Properties/ServiceDependencies/
+CreamyCreations/Migrations
+CreamyCreations/Migrations/ApplicationDbContextModelSnapshot.cs

@@ -1,0 +1,80 @@
+﻿
+@{
+    ViewData["Title"] = "Admin Customizations";
+}
+
+
+<article class="container vh-100 pb-5">
+    <header class="row justify-content-center pt-5">
+        <div class="col-12 col-md-7">
+            <h1 class="text-center">@ViewData["Title"] </h1>
+        </div>
+    </header>
+
+    <section class="row justify-content-center">
+        <div class="col-12 col-sm-12 col-lg-10">
+            <hr />
+            <div class="table-responsive my-4">
+                <table class="table table-borderless table__simple">
+                    <thead>
+                        <tr>
+                            <th scope="col">
+                                Ingredients
+                            </th>
+                            <th scope="col"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                Covers
+                            </td>
+                            <td>
+                                <a asp-controller="Admin" asp-action="EditCovers" class="btn btn-edit">Edit</a>
+                                <a asp-controller="Admin" asp-action="AddCover" class="btn btn-primary">Create New</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Fillings
+                            </td>
+                            <td>
+                                <a asp-controller="Admin" asp-action="EditFillings" class="btn btn-edit">Edit</a>
+                                <a asp-controller="Admin" asp-action="AddFilling" class="btn btn-primary">Create New</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Labels
+                            </td>
+                            <td>
+                                <a asp-controller="Admin" asp-action="EditLabels" class="btn btn-edit">Edit</a>
+                                <a asp-controller="Admin" asp-action="AddLabel" class="btn btn-primary">Create New</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Levels
+                            </td>
+                            <td>
+                                <a asp-controller="Admin" asp-action="EditLevels" class="btn btn-edit">Edit</a>
+                                <a asp-controller="Admin" asp-action="AddLevel" class="btn btn-primary">Create New</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Decorations
+                            </td>
+                            <td>
+                                <a asp-controller="Admin" asp-action="EditDecorations" class="btn btn-edit">Edit</a>
+                                <a asp-controller="Admin" asp-action="AddDecoration" class="btn btn-primary">Create New</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+
+</article>

@@ -1,0 +1,58 @@
+﻿@model CreamyCreations.ViewModels.UserProfileVM
+
+<!-- Html.ActionLink("Update password", "ChangePassword", "Profile", new { class = "btn btn-success" }) -->
+
+@{
+    ViewData["Title"] = "Account Settings";
+}
+<link rel="stylesheet" href="css/Profile/profile.css" />
+<article class="container vh-100 pb-5">
+
+    <header class="row justify-content-center pt-5">
+        <div class="col-12 col-md-12">
+            <h1 class="text-center">@ViewData["Title"]</h1>
+            <h2 class="text-center profile__account-name">@Model.FirstName @Model.LastName</h2>
+        </div>
+    </header>
+
+    <section class="row justify-content-center">
+        <div class="col-12 col-sm-12 col-lg-10">
+            <hr />
+
+            <div class="table-responsive my-4">
+                <table class="table table-borderless table__simple">
+                    <thead>
+                        <tr>
+                            <th scope="col">@Html.DisplayNameFor(model => model.Email)</th>
+                            <th scope="col">@Html.DisplayNameFor(model => model.FirstName)</th>
+                            <th scope="col">@Html.DisplayNameFor(model => model.LastName)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>@Html.DisplayFor(model => model.Email)</td>
+                            <td>@Html.DisplayFor(model => model.FirstName)</td>
+                            <td>@Html.DisplayFor(model => model.LastName)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+
+        </div>
+    </section>
+
+    <section class="row justify-content-center">
+        <div class="col-12 d-flex justify-content-center ">
+            <a asp-action="ChangePassword" class="btn btn-edit mt-3 mr-3">Update Password</a>
+            <a asp-action="Edit" class="btn btn-edit mt-3">Edit Account</a>
+        </div>
+        <div class="col-12 d-flex justify-content-center">
+            <a asp-controller="Home" asp-action="Index" class="btn btn-back mt-3">Back to home</a>
+        </div>
+    </section>
+
+</article>
+
+
+

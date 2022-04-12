@@ -15,7 +15,7 @@ namespace CreamyCreations.Repositories
         public RoleRepo(ApplicationDbContext context)
         {
             this._context = context;
-            var rolesCreated = CreateInitialRoles();
+            //var rolesCreated = CreateInitialRoles();
         }
 
         public List<RoleVM> GetAllRoles()
@@ -57,11 +57,12 @@ namespace CreamyCreations.Repositories
             return true;
         }
 
+        /*
         public bool CreateInitialRoles()
         {
             // Create roles if none exist.
             // This is a simple way to do it but it would be better to use a seeder.
-            string[] roleNames = { "Admin", "Manager", "Customer" };
+            string[] roleNames = { "User", "Admin", };
             foreach (var roleName in roleNames)
             {
                 var created = CreateRole(roleName);
@@ -73,6 +74,7 @@ namespace CreamyCreations.Repositories
             }
             return true;
         }
+        */
     }
 
 }

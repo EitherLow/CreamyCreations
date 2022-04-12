@@ -1,0 +1,97 @@
+﻿@model CreamyCreations.ViewModels.WeddingCakeVM
+
+@{
+    ViewData["Title"] = "Edit Order";
+}
+
+<article class="container pb-5">
+
+    <header class="row justify-content-center pt-5">
+        <div class="col-12 col-md-7">
+            <h1 class="text-center">@ViewData["Title"] </h1>
+        </div>
+    </header>
+
+    <section class="row justify-content-center">
+        <div class="col-12 col-md-7 col-lg-6">
+            <hr />
+            <form asp-action="Edit">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="WeddingCakeId" />
+                <div class="form-group">
+                    <label asp-for="CoverId" class="control-label"></label>
+                    <select asp-for="CoverId" name="CoverId" class="form-control" id="selectCover">
+                        @foreach (var cover in ViewBag.Covers)
+                        {
+                            <option value=@cover.CoverId data-price="@cover.Price">@cover.Flavor - $@Math.Round(cover.Price, 2)</option>
+
+                        }
+                    </select>
+                    <span asp-validation-for="CoverId" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="FillingId" class="control-label"></label>
+                    <select asp-for="FillingId" name="FillingId" class="form-control" id="selectFilling">
+                        @foreach (var filling in ViewBag.Fillings)
+                        {
+                            <option value=@filling.FillingId data-price="@filling.Price">@filling.Flavor - $@Math.Round(filling.Price, 2)</option>
+
+                        }
+                    </select>
+                    <span asp-validation-for="FillingId" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="LabelId" class="control-label"></label>
+                    <select asp-for="LabelId" name="LabelId" class="form-control" id="selectLabel">
+                        @foreach (var label in ViewBag.Labels)
+                        {
+                            <option value=@label.LabelId data-price="@label.Price">@label.LabelName - $@Math.Round(label.Price, 2)</option>
+                        }
+                    </select>
+                    <span asp-validation-for="LabelId" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="LevelNumber" class="control-label"></label>
+                    <select asp-for="LevelNumber" name="LevelNumber" class="form-control" id="selectLevel">
+                        @foreach (var level in ViewBag.Levels)
+                        {
+                            <option value=@level.LevelNumber data-price="@level.Price">@level.LevelNumber - $@Math.Round(level.Price, 2)</option>
+                        }
+                    </select>
+                    <span asp-validation-for="LevelNumber" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    @for (var i = 0; i < Model.DecorationCheckBoxes.Count(); i++)
+                    {
+                        <div class="form-check">
+                            <input class="form-check-input decoration" type="checkbox" asp-for="@Model.DecorationCheckBoxes[i].IsChecked" data-price="@Model.DecorationCheckBoxes[i].Price" />
+                            <label class="form-check-label" asp-for="@Model.DecorationCheckBoxes[i].IsChecked">@Model.DecorationCheckBoxes[i].DecorationTitle - @Math.Round(Model.DecorationCheckBoxes[i].Price, 2)</label>
+                            <input type="hidden" asp-for="@Model.DecorationCheckBoxes[i].DecorationId" />
+                        </div>
+                    }
+                </div>
+                <div class="form-group">
+                    <input asp-for="TotalPrice" type="hidden" id="cakePriceInput" />
+                    <p class="h5 my-4 font-weight-bold">Total Price: <span id="cakePrice"></span> </p>
+                </div>
+                <div class="form-group text-center">
+                    <input type="submit" value="Edit Order" class="btn btn-primary" />
+                </div>
+            </form>
+
+        </div>
+    </section>
+
+    <section>
+        <div class="col-12 d-flex justify-content-center">
+            <a asp-controller="Admin" asp-action="Orders" class="btn btn-back mt-3">Back to orders</a>
+        </div>
+    </section>
+
+</article>
+
+
+    @section Scripts {
+        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+        <script src="@Url.Content("~/js/editCake.js")" defer></script>
+    }
