@@ -60,7 +60,7 @@
 
             <div id="paypal-button"></div>
             <script src="https://www.paypalobjects.com/api/checkout.js"></script>
-            <script>
+<script>
 	            const paypalButton = document.getElementById('paypal-button');
                 paypalButton.style.display = 'none';
 	            // make sure that the user has chosen a date before proceeding
@@ -150,6 +150,7 @@
 					            const url = res.url
 					            window.location.href = url
                             })
+							localStorage.removeItem("cakeData");
                         })
                     },
                     onCancel: function (data, actions) {
@@ -160,8 +161,8 @@
                 }, '#paypal-button');
                         </script>
 
+
         </div>
     </section>
 
 </article>
-
