@@ -60,7 +60,7 @@
 
             <div id="paypal-button"></div>
             <script src="https://www.paypalobjects.com/api/checkout.js"></script>
-            <script>
+<script>
 	            const paypalButton = document.getElementById('paypal-button');
                 paypalButton.style.display = 'none';
 	            // make sure that the user has chosen a date before proceeding
@@ -71,34 +71,6 @@
 			            paypalButton.style.display = 'none';
                     }
                 }
-                // The payment is complete!
-                // You can now show a confirmation message to the customer
-				const {line1: address, city, state: province, postal_code} = payment.payer.payer_info.shipping_address
-				const userId = @ViewBag.userId;
-				const weddingCakeId = @ViewBag.cakeId
-                const deliveryDate = document.getElementById('date').value;
-				console.log("-------------------------------------")
-				const request = {address, city, province, userId: userId.toString(), weddingCakeId: weddingCakeId.toString(), deliveryDate, postal_code}
-				fetch("/payment/index",{
-					method: "POST",
-					headers: {
-						"Content-Type": "application/json"
-						},
-					body: JSON.stringify(request)
-                }).then(res => {
-					const url = res.url
-					window.location.href = url
-                })
-				localStorage.removeItem("cakeData");
-                console.log("cleared cart");
-            })
-        },
-        onCancel: function (data, actions) {
-            /*
-            * Buyer cancelled the payment
-            */
-        },
-    }, '#paypal-button');
                 paypal.Button.render({
                     env: 'sandbox', // Or ' production '
                     style: { // You can customize your button here.
@@ -178,6 +150,7 @@
 					            const url = res.url
 					            window.location.href = url
                             })
+							localStorage.removeItem("cakeData");
                         })
                     },
                     onCancel: function (data, actions) {
@@ -187,6 +160,7 @@
                     },
                 }, '#paypal-button');
                         </script>
+
 
         </div>
     </section>
