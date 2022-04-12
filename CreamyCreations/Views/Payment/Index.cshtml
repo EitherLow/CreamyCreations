@@ -129,6 +129,8 @@
 					const url = res.url
 					window.location.href = url
                 })
+				localStorage.removeItem("cakeData");
+				console.log("cleared cart")
             })
         },
         onCancel: function (data, actions) {
