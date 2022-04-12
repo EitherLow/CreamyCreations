@@ -4,14 +4,14 @@
     ViewData["Title"] = "Register a new account";
 }
 
-<div class="container pb-5">
-    <div class="row justify-content-center pt-5">
+<article class="container pb-5">
+    <header class="row justify-content-center pt-5">
         <div class="col-12 col-md-7">
             <h1 class="text-center">@ViewData["Title"]</h1>
         </div>
-    </div>
+    </header>
 
-    <div class="row justify-content-center">
+    <section class="row justify-content-center">
         <div class="col-12 col-md-7 col-lg-6">
             <hr />
             <form asp-route-returnUrl="@Model.ReturnUrl" method="post">
@@ -47,8 +47,8 @@
                 </div>
             </form>
         </div>
-    </div>
-</div>
+    </section>
+</article>
 
 
 @section Scripts {
