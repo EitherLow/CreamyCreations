@@ -1,6 +1,9 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @inject SignInManager<IdentityUser> SignInManager
+<<<<<<< HEAD
+=======
 @inject UserManager<IdentityUser> UserManager
+>>>>>>> f91ddb1bcd35f4d173673395cc2ab1d66227a633
 @{
     ViewData["Title"] = "Welcome";
 }
@@ -108,10 +111,13 @@
                     {
                         <a class="btn btn-primary mb-3 mt-4" href="/Identity/Account/Register">Signup</a>
                     }
+<<<<<<< HEAD
+=======
                     else
                     {
 	                    <a class="btn btn-primary mb-3 mt-4" asp-controller="WeddingCake" asp-action="Create">Create</a>
                     }
+>>>>>>> f91ddb1bcd35f4d173673395cc2ab1d66227a633
                 </div>
             </div>
         </div>
